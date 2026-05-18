@@ -156,7 +156,7 @@ nav a:hover::after{width:100%;left:0;}
 .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--accent));animation:scrollPulse 2.5s ease-in-out infinite;}
 
 /* ── UNLIMITED RICE STRIP ── */
-.rice-strip{background:var(--bg-surface);border-top:1px solid var(--border-fine);border-bottom:1px solid var(--border-fine);padding:16px 20px;text-align:center;font-family:var(--font-sans);font-size:11px;letter-spacing:0.18em;color:var(--text-muted);text-transform:uppercase;}
+.rice-strip{background:var(--bg-surface);border-top:1px solid var(--border-fine);border-bottom:1px solid var(--border-fine);padding:16px 20px;text-align:center;font-family:var(--font-sans);font-size:11px;letter-spacing:0.15em;color:var(--text-muted);text-transform:uppercase;}
 .rice-strip span{color:var(--accent);font-weight:600;}
 
 /* ── EDITORIAL SECTION HEADER ── */
@@ -182,16 +182,16 @@ nav a:hover::after{width:100%;left:0;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:32px;}
 
-.menu-card{background:var(--bg-card);border:1px solid var(--border-fine);overflow:hidden;transition:var(--transition-slow);position:relative;opacity:0;transform:translateY(40px);}
+.menu-card{background:var(--bg-card);border:1px solid var(--border-fine);overflow:hidden;transition:var(--transition-slow);position:relative;opacity:0;transform:translateY(40px);display:flex;flex-direction:column;justify-content:space-between;}
 .menu-card.revealed{opacity:1;transform:translateY(0);}
 .menu-card:hover{border-color:var(--accent);box-shadow:0 24px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(184,115,51,0.1);transform:translateY(-4px);}
-.card-img-wrap{position:relative;height:250px;overflow:hidden;background:#050505;}
+.card-img-wrap{position:relative;height:230px;overflow:hidden;background:#050505;}
 .card-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,var(--bg-card) 100%);z-index:1;}
 .card-img{width:100%;height:100%;object-fit:cover;transition:transform 0.8s var(--ease-editorial);filter:contrast(1.05) brightness(0.95);}
 .menu-card:hover .card-img{transform:scale(0.97);}
 .card-badge{position:absolute;top:20px;right:20px;z-index:2;background:var(--accent-muted);color:var(--text-main);font-family:var(--font-sans);font-size:9px;font-weight:500;letter-spacing:0.18em;padding:6px 14px;text-transform:uppercase;}
-.card-body{padding:28px;position:relative;z-index:2;}
-.card-body h3{font-family:var(--font-serif);font-size:18px;font-weight:400;color:var(--text-main);margin-bottom:20px;letter-spacing:0.04em;transition:color 0.4s;}
+.card-body{padding:28px;position:relative;z-index:2;flex-grow:1;display:flex;flex-direction:column;justify-content:space-between;}
+.card-body h3{font-family:var(--font-serif);font-size:17px;font-weight:400;color:var(--text-main);margin-bottom:18px;letter-spacing:0.04em;transition:color 0.4s;}
 .menu-card:hover .card-body h3{color:var(--accent);}
 
 /* PRICE TABLES */
@@ -255,11 +255,11 @@ nav a:hover::after{width:100%;left:0;}
   text-transform: uppercase;
   color: var(--text-muted);
 }
-/* Stark Clean White Matrix Entry Boxes */
-.white-entry-box {
-  background: #FFFFFF !important;
-  color: #0D0D0D !important;
-  border: 1px solid #FFFFFF;
+/* Premium Velvet Matrix Entry Boxes */
+.premium-entry-box {
+  background: var(--bg-card) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-fine);
   padding: 16px 20px;
   font-family: var(--font-body);
   font-size: 14px;
@@ -268,11 +268,12 @@ nav a:hover::after{width:100%;left:0;}
   border-radius: 0;
   transition: var(--transition-fast);
 }
-.white-entry-box:focus {
+.premium-entry-box:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 15px rgba(184, 115, 51, 0.2);
+  background: var(--bg-surface) !important;
+  box-shadow: 0 0 15px rgba(184, 115, 51, 0.15);
 }
-textarea.white-entry-box {
+textarea.premium-entry-box {
   resize: vertical;
   min-height: 140px;
 }
@@ -316,7 +317,7 @@ textarea.white-entry-box {
 /* ── FOOTER RESCALE ── */
 footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 40px 50px;text-align:center;}
 .footer-logo{font-family:var(--font-serif);font-size:24px;color:var(--text-main);letter-spacing:0.4em;margin-bottom:18px;font-weight:300;}
-.footer-sub{color:var(--text-muted);font-size:12px;letter-spacing:0.15em;margin-bottom:36px;font-family:var(--font-sans);text-transform:uppercase;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.8;}
+.footer-sub{color:var(--text-muted);font-size:12px;letter-spacing:0.15em;margin-bottom:36px;font-family:var(--font-sans);text-transform:uppercase;max-width:700px;margin-left:auto;margin-right:auto;line-height:1.8;}
 .footer-divider{width:60px;height:1px;background:var(--accent);margin:0 auto 32px;}
 .footer-copy{color:#3A3A3A;font-size:11px;font-family:var(--font-sans);letter-spacing:0.12em;text-transform:uppercase;}
 
@@ -350,8 +351,8 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
   
   <nav>
     <a href="#">Home</a>
-    <a href="#menu-anchor">Menu</a>
-    <a href="#journals-anchor">Journals</a>
+    <a href="#menu-anchor">Menu Compendium</a>
+    <a href="#journals-anchor">Chronicles</a>
     <a href="#feedback-anchor">Correspondence</a>
   </nav>
 
@@ -395,10 +396,10 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
   <div class="hub-section">
     <div class="hub-title">Discover Our Menu</div>
     <div class="hub-menu-grid">
-      <a href="#menu-anchor" onclick="closeBrandOverlay(); switchCat('yemeni', document.querySelector('[onclick*=\'yemeni\']'))">Yemeni Mandi</a>
-      <a href="#menu-anchor" onclick="closeBrandOverlay(); switchCat('grilled', document.querySelector('[onclick*=\'grilled\']'))">Grilled Mandi</a>
+      <a href="#menu-anchor" onclick="closeBrandOverlay(); switchCat('yemeni', document.querySelector('[onclick*=\'yemeni\']'))">Yemeni Mandhi</a>
+      <a href="#menu-anchor" onclick="closeBrandOverlay(); switchCat('grilled', document.querySelector('[onclick*=\'grilled\']'))">Grilled Mandhi</a>
       <a href="#menu-anchor" onclick="closeBrandOverlay(); switchCat('pieces', document.querySelector('[onclick*=\'pieces\']'))">Grilled Pieces</a>
-      <a href="#menu-anchor" onclick="closeBrandOverlay(); switchCat('mandi-only', document.querySelector('[onclick*=\'mandi-only\']'))">Mandi Proteins</a>
+      <a href="#menu-anchor" onclick="closeBrandOverlay(); switchCat('mandi-only', document.querySelector('[onclick*=\'mandi-only\']'))">Mandhi Proteins</a>
       <a href="#menu-anchor" onclick="closeBrandOverlay(); switchCat('juices', document.querySelector('[onclick*=\'juices\']'))">Fresh Juices</a>
     </div>
   </div>
@@ -409,7 +410,7 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
   <div class="hero-particles" id="particles"></div>
   <div class="hero-content">
     <div class="hero-badge">✦   An Ancient Mastery   ✦</div>
-    <h1 class="hero-title">The Art of<br><span>Arabian Mandi</span></h1>
+    <h1 class="hero-title">The Art of<br><span>Arabian Mandhi</span></h1>
     <p class="hero-sub">Slow-cooked over traditional charcoal pits. Restrained on raw textures, rich spices, and presented beautifully on fine copper platters.</p>
     <div class="hero-ctas">
       <button class="btn-heritage-solid" onclick="document.getElementById('menu-anchor').scrollIntoView({behavior:'smooth'})">Explore Menu</button>
@@ -420,15 +421,15 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
 </section>
 
 <div class="rice-strip">
-  ✦  <span>Complimentary Unlimited Rice Balance</span>: Full (4 Pax)  |  Half (2 Pax)  |  ¾ (3 Pax)  ✦
+  ✦  <span>Unlimited Rice Profile</span>: Full (4 Pax)  |  Half (2 Pax)  |  ¾ (3 Pax)  |  Qtr (1 Person)  |  *Takeaway excludes unlimited balance* ✦
 </div>
 
 <div class="tabs-wrap" id="menu-anchor">
   <div class="tabs">
-    <button class="tab active" onclick="switchCat('yemeni',this)">Yemeni Mandi</button>
-    <button class="tab" onclick="switchCat('grilled',this)">Grilled Mandi</button>
+    <button class="tab active" onclick="switchCat('yemeni',this)">Yemeni Mandhi</button>
+    <button class="tab" onclick="switchCat('grilled',this)">Grilled Mandhi</button>
     <button class="tab" onclick="switchCat('pieces',this)">Grilled Pieces</button>
-    <button class="tab" onclick="switchCat('mandi-only',this)">Mandi Pieces</button>
+    <button class="tab" onclick="switchCat('mandi-only',this)">Mandhi Pieces</button>
     <button class="tab" onclick="switchCat('juices',this)">Fresh Juices</button>
   </div>
 </div>
@@ -437,34 +438,34 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
 
   <div id="yemeni" class="cat-content active">
     <p class="section-label">✦ Heritage Collection</p>
-    <h2 class="section-title">Yemeni Mandi</h2>
+    <h2 class="section-title">Yemeni Mandhi Elements</h2>
     <div class="section-divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
     <div class="menu-grid">
       <div class="menu-card">
         <div class="card-img-wrap">
           <img class="card-img" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=85" alt="Chicken Yemeni Mandi">
-          <div class="card-badge">Signature Collection</div>
+          <div class="card-badge">Signature</div>
         </div>
         <div class="card-body">
-          <h3>Chicken Yemeni Mandi</h3>
+          <h3>Chicken Yemeni Mandhi</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">Quarter Metric</span><span class="val">₹190</span></div>
-            <div class="price-row"><span class="lbl">Half Metric</span><span class="val">₹370</span></div>
-            <div class="price-row"><span class="lbl">Full Compendium</span><span class="val">₹690</span></div>
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹210</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹400</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹750</span></div>
           </div>
         </div>
       </div>
       <div class="menu-card">
         <div class="card-img-wrap">
           <img class="card-img" src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?auto=format&fit=crop&w=800&q=85" alt="Chicken Spicy Mandi">
-          <div class="card-badge" style="background:var(--accent-muted);">Spiced Ash</div>
+          <div class="card-badge" style="background:var(--accent-muted);">Spiced</div>
         </div>
         <div class="card-body">
-          <h3>Chicken Spicy Mandi</h3>
+          <h3>Chicken Spicy Mandhi</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">Quarter Metric</span><span class="val">₹230</span></div>
-            <div class="price-row"><span class="lbl">Half Metric</span><span class="val">₹440</span></div>
-            <div class="price-row"><span class="lbl">Full Compendium</span><span class="val">₹820</span></div>
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹260</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹480</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹850</span></div>
           </div>
         </div>
       </div>
@@ -473,11 +474,11 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
           <img class="card-img" src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=85" alt="Beef Ran Mandi">
         </div>
         <div class="card-body">
-          <h3>Beef Ran Mandi</h3>
+          <h3>Beef Ran Mandhi</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">Quarter Metric</span><span class="val">₹270</span></div>
-            <div class="price-row"><span class="lbl">Half Metric</span><span class="val">₹490</span></div>
-            <div class="price-row"><span class="lbl">Full Compendium</span><span class="val">₹920</span></div>
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹300</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹520</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹970</span></div>
           </div>
         </div>
       </div>
@@ -487,11 +488,25 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
           <div class="card-badge">Reserve</div>
         </div>
         <div class="card-body">
-          <h3>Mutton Yemeni Mandi</h3>
+          <h3>Mutton Yemeni Mandhi</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">Quarter Metric</span><span class="val">₹420</span></div>
-            <div class="price-row"><span class="lbl">Half Metric</span><span class="val">₹800</span></div>
-            <div class="price-row"><span class="lbl">Full Compendium</span><span class="val">₹1600</span></div>
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹430</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹870</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹1750</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85" alt="Veg Mandi">
+          <div class="card-badge" style="background:#2E5A1C;">Botanical</div>
+        </div>
+        <div class="card-body">
+          <h3>Veg Mandhi</h3>
+          <div class="price-table">
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹120</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹220</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹380</span></div>
           </div>
         </div>
       </div>
@@ -500,11 +515,23 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
           <img class="card-img" src="https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=800&q=85" alt="Mandi Rice">
         </div>
         <div class="card-body">
-          <h3>Mandi Rice (Solo Craft)</h3>
+          <h3>Mandhi Rice (Solo Craft)</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">Quarter Metric</span><span class="val">₹120</span></div>
-            <div class="price-row"><span class="lbl">Half Metric</span><span class="val">₹220</span></div>
-            <div class="price-row"><span class="lbl">Full Compendium</span><span class="val">₹380</span></div>
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹140</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹240</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹400</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=800&q=85" alt="Chicken Madhooth">
+          <div class="card-badge" style="background:#7A1F1D;">1-Hr Advance Order</div>
+        </div>
+        <div class="card-body">
+          <h3>Chicken Madhooth (Mädhgūth)</h3>
+          <div class="price-table">
+            <div class="price-row"><span class="lbl">Full Compendium Only</span><span class="val">₹1010</span></div>
           </div>
         </div>
       </div>
@@ -513,32 +540,31 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
 
   <div id="grilled" class="cat-content">
     <p class="section-label">✦ Fire & Hearth</p>
-    <h2 class="section-title">Grilled Mandi</h2>
+    <h2 class="section-title">Grilled Mandhi Fusions</h2>
     <div class="section-divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
     <div class="menu-grid">
       <div class="menu-card">
         <div class="card-img-wrap">
           <img class="card-img" src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=800&q=85" alt="Alfaham Mandi">
-          <div class="card-badge">Master Choice</div>
         </div>
         <div class="card-body">
-          <h3>Alfaham Mandi</h3>
+          <h3>Alfaham Mandhi</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹210</span></div>
-            <div class="price-row"><span class="lbl">Half</span><span class="val">₹410</span></div>
-            <div class="price-row"><span class="lbl">Full</span><span class="val">₹790</span></div>
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹250</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹440</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹840</span></div>
           </div>
         </div>
       </div>
       <div class="menu-card">
         <div class="card-img-wrap">
-          <img class="card-img" src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=800&q=85" alt="Shezwan Alfaham Mandi">
+          <img class="card-img" src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=800&q=85" alt="Shezwan Mandi">
         </div>
         <div class="card-body">
-          <h3>Shezwan Alfaham Mandi</h3>
+          <h3>Shezwan Mandhi</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹230</span></div>
-            <div class="price-row"><span class="lbl">Half</span><span class="val">₹450</span></div>
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹270</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹490</span></div>
             <div class="price-row"><span class="lbl">Full</span><span class="val">₹850</span></div>
           </div>
         </div>
@@ -548,11 +574,11 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
           <img class="card-img" src="https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=800&q=85" alt="Cheese Alfaham Mandi">
         </div>
         <div class="card-body">
-          <h3>Cheese Alfaham Mandi</h3>
+          <h3>Cheese Alfaham Mandhi</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹250</span></div>
-            <div class="price-row"><span class="lbl">Half</span><span class="val">₹490</span></div>
-            <div class="price-row"><span class="lbl">Full</span><span class="val">₹900</span></div>
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹310</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹540</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹960</span></div>
           </div>
         </div>
       </div>
@@ -561,25 +587,11 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
           <img class="card-img" src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=85" alt="BBQ Alfaham Mandi">
         </div>
         <div class="card-body">
-          <h3>BBQ Alfaham Mandi</h3>
+          <h3>BBQ Alfaham Mandhi</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹240</span></div>
-            <div class="price-row"><span class="lbl">Half</span><span class="val">₹460</span></div>
-            <div class="price-row"><span class="lbl">Full</span><span class="val">₹880</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="menu-card">
-        <div class="card-img-wrap">
-          <img class="card-img" src="https://images.unsplash.com/photo-1585238342024-78d387f4a707?auto=format&fit=crop&w=800&q=85" alt="Kanthari Mandi">
-          <div class="card-badge">Regional Variant</div>
-        </div>
-        <div class="card-body">
-          <h3>Kanthari Mandi</h3>
-          <div class="price-table">
-            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹220</span></div>
-            <div class="price-row"><span class="lbl">Half</span><span class="val">₹430</span></div>
-            <div class="price-row"><span class="lbl">Full</span><span class="val">₹830</span></div>
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹260</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹490</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹870</span></div>
           </div>
         </div>
       </div>
@@ -588,11 +600,76 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
           <img class="card-img" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=85" alt="Honey Chilli Mandi">
         </div>
         <div class="card-body">
-          <h3>Honey Chilli Mandi</h3>
+          <h3>Honey Chilli Mandhi</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹240</span></div>
-            <div class="price-row"><span class="lbl">Half</span><span class="val">₹460</span></div>
-            <div class="price-row"><span class="lbl">Full</span><span class="val">₹880</span></div>
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹270</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹510</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹870</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1585238342024-78d387f4a707?auto=format&fit=crop&w=800&q=85" alt="Kanthari Mandi">
+        </div>
+        <div class="card-body">
+          <h3>Kanthari Mandhi</h3>
+          <div class="price-table">
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹250</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹480</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹870</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1608039829572-78524f79c4c7?auto=format&fit=crop&w=800&q=85" alt="Peri Peri Mandi">
+        </div>
+        <div class="card-body">
+          <h3>Peri Peri Mandhi</h3>
+          <div class="price-table">
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹270</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹510</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹870</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1541518763669-27fef04b14ea?auto=format&fit=crop&w=800&q=85" alt="Pepper Mandi">
+        </div>
+        <div class="card-body">
+          <h3>Pepper Mandhi</h3>
+          <div class="price-table">
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹250</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹480</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹870</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1614268124044-1655df153140?auto=format&fit=crop&w=800&q=85" alt="Arabic Shawaya Mandi">
+        </div>
+        <div class="card-body">
+          <h3>Arabic Shawaya Mandhi</h3>
+          <div class="price-table">
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹270</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹500</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹850</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <img class="card-img" src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=800&q=85" alt="Masala Shawaya Mandi">
+        </div>
+        <div class="card-body">
+          <h3>Masala Shawaya Mandhi</h3>
+          <div class="price-table">
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹300</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹530</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹900</span></div>
           </div>
         </div>
       </div>
@@ -601,36 +678,106 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
 
   <div id="pieces" class="cat-content">
     <p class="section-label">✦ Pit-Charred Elements</p>
-    <h2 class="section-title">Grilled Pieces</h2>
+    <h2 class="section-title">Grilled Charred Pieces</h2>
     <div class="section-divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
     <div class="menu-grid">
       <div class="menu-card">
-        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=800&q=85" alt="Wings"></div>
-        <div class="card-body"><h3>Grilled Chicken Wings</h3>
+        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=800&q=85" alt="Alfaham Chicken"></div>
+        <div class="card-body"><h3>Alfaham Chicken</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">6 Pcs Bundle</span><span class="val">₹180</span></div>
-            <div class="price-row"><span class="lbl">12 Pcs Bundle</span><span class="val">₹340</span></div>
-            <div class="price-row"><span class="lbl">18 Pcs Bundle</span><span class="val">₹480</span></div>
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹180</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹310</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹590</span></div>
           </div>
         </div>
       </div>
       <div class="menu-card">
-        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=800&q=85" alt="Seekh"></div>
-        <div class="card-body"><h3>Grilled Chicken Seekh</h3>
+        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=800&q=85" alt="Shezwan Alfaham"></div>
+        <div class="card-body"><h3>Shezwan Alfaham</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">2 Pcs Bundle</span><span class="val">₹150</span></div>
-            <div class="price-row"><span class="lbl">4 Pcs Bundle</span><span class="val">₹280</span></div>
-            <div class="price-row"><span class="lbl">6 Pcs Bundle</span><span class="val">₹400</span></div>
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹210</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹360</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹630</span></div>
           </div>
         </div>
       </div>
       <div class="menu-card">
-        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?auto=format&fit=crop&w=800&q=85" alt="Lamb Chops"></div>
-        <div class="card-body"><h3>Lamb Chops Grilled</h3>
+        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1527324688151-0e627063f2b1?auto=format&fit=crop&w=800&q=85" alt="Cheese Alfaham"></div>
+        <div class="card-body"><h3>Cheese Alfaham</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">4 Pcs Bundle</span><span class="val">₹320</span></div>
-            <div class="price-row"><span class="lbl">6 Pcs Bundle</span><span class="val">₹470</span></div>
-            <div class="price-row"><span class="lbl">8 Pcs Bundle</span><span class="val">₹600</span></div>
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹220</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹390</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹650</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=800&q=85" alt="BBQ Chicken"></div>
+        <div class="card-body"><h3>BBQ Chicken</h3>
+          <div class="price-table">
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹200</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹350</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹620</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1621972750749-0fbb1abb7736?auto=format&fit=crop&w=800&q=85" alt="Peri Peri Alfaham"></div>
+        <div class="card-body"><h3>Peri Peri Alfaham</h3>
+          <div class="price-table">
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹200</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹350</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹630</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=800&q=85" alt="Honey Chilli"></div>
+        <div class="card-body"><h3>Honey Chilli Chicken</h3>
+          <div class="price-table">
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹210</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹360</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹630</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1585238342024-78d387f4a707?auto=format&fit=crop&w=800&q=85" alt="Kanthari"></div>
+        <div class="card-body"><h3>Kanthari Chicken</h3>
+          <div class="price-table">
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹200</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹350</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹620</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1541518763669-27fef04b14ea?auto=format&fit=crop&w=800&q=85" alt="Pepper Alfaham"></div>
+        <div class="card-body"><h3>Pepper Alfaham</h3>
+          <div class="price-table">
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹200</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹350</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹610</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1614268124044-1655df153140?auto=format&fit=crop&w=800&q=85" alt="Arabic Shawaya"></div>
+        <div class="card-body"><h3>Arabic Shawaya</h3>
+          <div class="price-table">
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹170</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹320</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹600</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=800&q=85" alt="Masala Shawaya"></div>
+        <div class="card-body"><h3>Masala Shawaya</h3>
+          <div class="price-table">
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹210</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹350</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹630</span></div>
           </div>
         </div>
       </div>
@@ -639,36 +786,43 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
 
   <div id="mandi-only" class="cat-content">
     <p class="section-label">✦ Pure Proteins</p>
-    <h2 class="section-title">Mandi Pieces Only</h2>
+    <h2 class="section-title">Mandhi Core Proteins</h2>
     <div class="section-divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
     <div class="menu-grid">
       <div class="menu-card">
         <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=85" alt="Chicken Mandi"></div>
-        <div class="card-body"><h3>Chicken Mandi Pieces</h3>
+        <div class="card-body"><h3>Chicken Mandhi Pieces</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">½ KG Core</span><span class="val">₹280</span></div>
-            <div class="price-row"><span class="lbl">1 KG Core</span><span class="val">₹520</span></div>
-            <div class="price-row"><span class="lbl">2 KG Core</span><span class="val">₹980</span></div>
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹150</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹290</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹550</span></div>
           </div>
         </div>
       </div>
       <div class="menu-card">
         <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=85" alt="Beef Mandi"></div>
-        <div class="card-body"><h3>Beef Mandi Pieces</h3>
+        <div class="card-body"><h3>Beef Mandhi Pieces</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">½ KG Core</span><span class="val">₹350</span></div>
-            <div class="price-row"><span class="lbl">1 KG Core</span><span class="val">₹650</span></div>
-            <div class="price-row"><span class="lbl">2 KG Core</span><span class="val">₹1200</span></div>
+            <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹130</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹260</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹500</span></div>
           </div>
         </div>
       </div>
       <div class="menu-card">
         <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=85" alt="Mutton Mandi"></div>
-        <div class="card-body"><h3>Mutton Mandi Pieces</h3>
+        <div class="card-body"><h3>Mutton Mandhi Pieces</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">½ KG Core</span><span class="val">₹520</span></div>
-            <div class="price-row"><span class="lbl">1 KG Core</span><span class="val">₹950</span></div>
-            <div class="price-row"><span class="lbl">2 KG Core</span><span class="val">₹1800</span></div>
+            <div class="price-row"><span class="lbl">Half</span><span class="val">₹650</span></div>
+            <div class="price-row"><span class="lbl">Full</span><span class="val">₹1350</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=800&q=85" alt="Mayonnaise"></div>
+        <div class="card-body"><h3>Extra Mayonnaise Allocation</h3>
+          <div class="price-table">
+            <div class="price-row"><span class="lbl">Standard Allocation Unit</span><span class="val">₹20</span></div>
           </div>
         </div>
       </div>
@@ -677,46 +831,46 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
 
   <div id="juices" class="cat-content">
     <p class="section-label">✦ Cold Botanicals</p>
-    <h2 class="section-title">Fresh Juices</h2>
+    <h2 class="section-title">Fresh Botanical Juices</h2>
     <div class="section-divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
     <div class="menu-grid">
       <div class="menu-card">
-        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=800&q=85" alt="Orange Juice"></div>
-        <div class="card-body"><h3>Fresh Orange Juice</h3>
+        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=800&q=85" alt="Mint Lime"></div>
+        <div class="card-body"><h3>Mint Lime</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">Standard Allocation</span><span class="val">₹60</span></div>
-            <div class="price-row"><span class="lbl">Reserve Allocation</span><span class="val">₹100</span></div>
-            <div class="price-row"><span class="lbl">Grand Allocation</span><span class="val">₹140</span></div>
+            <div class="price-row"><span class="lbl">Standard Unit</span><span class="val">₹50</span></div>
           </div>
         </div>
       </div>
       <div class="menu-card">
-        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=800&q=85" alt="Mango Juice"></div>
-        <div class="card-body"><h3>Nectar of Mango</h3>
+        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=800&q=85" alt="Lime Juice"></div>
+        <div class="card-body"><h3>Lime Juice</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">Standard Allocation</span><span class="val">₹70</span></div>
-            <div class="price-row"><span class="lbl">Reserve Allocation</span><span class="val">₹110</span></div>
-            <div class="price-row"><span class="lbl">Grand Allocation</span><span class="val">₹150</span></div>
+            <div class="price-row"><span class="lbl">Standard Unit</span><span class="val">₹40</span></div>
           </div>
         </div>
       </div>
       <div class="menu-card">
-        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=800&q=85" alt="Pomegranate Juice"></div>
-        <div class="card-body"><h3>Pressed Pomegranate</h3>
+        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1587049633512-358b2092a222?auto=format&fit=crop&w=800&q=85" alt="Watermelon Juice"></div>
+        <div class="card-body"><h3>Pressed Watermelon</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">Standard Allocation</span><span class="val">₹80</span></div>
-            <div class="price-row"><span class="lbl">Reserve Allocation</span><span class="val">₹130</span></div>
-            <div class="price-row"><span class="lbl">Grand Allocation</span><span class="val">₹180</span></div>
+            <div class="price-row"><span class="lbl">Standard Unit</span><span class="val">₹60</span></div>
           </div>
         </div>
       </div>
       <div class="menu-card">
-        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=800&q=85" alt="Lemon Mint"></div>
-        <div class="card-body"><h3>Lemon Mint Infusion</h3>
+        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=800&q=85" alt="Ginger Lime"></div>
+        <div class="card-body"><h3>Ginger Lime Infusion</h3>
           <div class="price-table">
-            <div class="price-row"><span class="lbl">Standard Allocation</span><span class="val">₹50</span></div>
-            <div class="price-row"><span class="lbl">Reserve Allocation</span><span class="val">₹85</span></div>
-            <div class="price-row"><span class="lbl">Grand Allocation</span><span class="val">₹120</span></div>
+            <div class="price-row"><span class="lbl">Standard Unit</span><span class="val">₹60</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1525385133512-2f3bdd039054?auto=format&fit=crop&w=800&q=85" alt="Pineapple Juice"></div>
+        <div class="card-body"><h3>Crushed Pineapple</h3>
+          <div class="price-table">
+            <div class="price-row"><span class="lbl">Standard Unit</span><span class="val">₹60</span></div>
           </div>
         </div>
       </div>
@@ -765,17 +919,6 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
         <p class="blog-desc">A careful behind-the-scenes breakdown of wood selection layouts and temperature profiling required to dissolve tough tissues into succulent, fall-off-the-bone textures.</p>
       </div>
     </div>
-
-    <div class="blog-card">
-      <div class="blog-img-wrap">
-        <img class="blog-img" src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=85" alt="Traditional Hospitality Platter sharing">
-      </div>
-      <div class="blog-body">
-        <span class="blog-tag">Culture · Genuine Welcome</span>
-        <h3 class="blog-title">Welcoming Guests Like Royalty</h3>
-        <p class="blog-desc">At Al Qaaf, culinary distribution is never treated as a fast transaction. We celebrate deep-rooted tribal hospitality codes where every table is served with total reverence.</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -790,17 +933,17 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
       <div class="form-row-dual">
         <div class="feedback-field-wrap">
           <label class="feedback-label">Your Name / Title</label>
-          <input type="text" class="white-entry-box" placeholder="e.g. Lord Alexander" required>
+          <input type="text" class="premium-entry-box" placeholder="e.g. Guest Title" required>
         </div>
         <div class="feedback-field-wrap">
           <label class="feedback-label">Email Address</label>
-          <input type="email" class="white-entry-box" placeholder="name@domain.com" required>
+          <input type="email" class="premium-entry-box" placeholder="name@domain.com" required>
         </div>
       </div>
       
       <div class="feedback-field-wrap">
         <label class="feedback-label">Review Critique & Feedback Ledger</label>
-        <textarea class="white-entry-box" placeholder="Share your experience or review details meticulously..." required></textarea>
+        <textarea class="premium-entry-box" placeholder="Share your experience or review details meticulously..." required></textarea>
       </div>
       
       <button type="submit" class="btn-submit-ledger">Transmit Ledger ↗</button>
@@ -819,7 +962,7 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
 
 <footer>
   <div class="footer-logo">AL QAAF</div>
-  <p class="footer-sub">Authentic Elite Dining · Mapped via Al Qaaf Pandalam Footprint · Masterfully Crafted Inside the Pits</p>
+  <p class="footer-sub">Authentic Elite Dining · Mapped via Al Qaaf Pandalam Footprint · Masterfully Crafted Inside the Pits <br> <span style="color:var(--accent); font-weight:600; font-size:10px; letter-spacing:0.2em; display:block; margin-top:8px;">NOTE: 5% GST WILL BE ADDED ON ALL CONSOLIDATED FOOD ITEMS</span></p>
   <div class="footer-divider"></div>
   <p class="footer-copy">© 2026 Al Qaaf Restaurant. Process Integrity Preserved.</p>
 </footer>
@@ -851,7 +994,7 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
   }
   requestAnimationFrame(tick);
 
-  const targets = 'a, button, .tab, .menu-card, .blog-card, .modal-close, .white-entry-box, .left-brand-trigger';
+  const targets = 'a, button, .tab, .menu-card, .blog-card, .modal-close, .premium-entry-box, .left-brand-trigger';
   document.addEventListener('mouseover', (e) => {
     if (e.target.closest(targets)) {
       ring.classList.add('expand');
@@ -903,7 +1046,7 @@ const observer = new IntersectionObserver((entries) => {
     if(e.isIntersecting){
       const items = e.target.querySelectorAll('.menu-card, .blog-card');
       items.forEach((c, idx) => {
-        setTimeout(() => c.classList.add('revealed'), idx * 90);
+        setTimeout(() => c.classList.add('revealed'), idx * 70);
       });
       observer.unobserve(e.target);
     }
@@ -928,38 +1071,53 @@ function switchCat(id, btn) {
   setTimeout(runGridObservations, 40);
 }
 
-/* ── CULINARY REGISTRY DATA OBJECT ── */
+/* ── COMPLETE MASTER REAL-TIME CULINARY DATA OBJECT ── */
 const ALL = {
-  'Yemeni Mandi Era':[
-    {n:'Chicken Yemeni Mandi',p:{'Quarter Metric':'₹190','Half Metric':'₹370','Full Compendium':'₹690'}},
-    {n:'Chicken Spicy Mandi',p:{'Quarter Metric':'₹230','Half Metric':'₹440','Full Compendium':'₹820'}},
-    {n:'Beef Ran Mandi',p:{'Quarter Metric':'₹270','Half Metric':'₹490','Full Compendium':'₹920'}},
-    {n:'Mutton Yemeni Mandi',p:{'Quarter Metric':'₹420','Half Metric':'₹800','Full Compendium':'₹1600'}},
-    {n:'Mandi Rice Craft',p:{'Quarter Metric':'₹120','Half Metric':'₹220','Full Compendium':'₹380'}},
+  'Yemeni Mandhi Era':[
+    {n:'Chicken Yemeni Mandhi',p:{Quarter:'₹210',Half:'₹400',Full:'₹750'}},
+    {n:'Chicken Spicy Mandhi',p:{Quarter:'₹260',Half:'₹480',Full:'₹850'}},
+    {n:'Beef Ran Mandhi',p:{Quarter:'₹300',Half:'₹520',Full:'₹970'}},
+    {n:'Mutton Yemeni Mandhi',p:{Quarter:'₹430',Half:'₹870',Full:'₹1750'}},
+    {n:'Veg Mandhi',p:{Quarter:'₹120',Half:'₹220',Full:'₹380'}},
+    {n:'Mandhi Rice Craft',p:{Quarter:'₹140',Half:'₹240',Full:'₹400'}},
+    {n:'Chicken Madhooth (Prebook 1 Hr)',p:{Full:'₹1010'}}
   ],
-  'Grilled Combos':[
-    {n:'Alfaham Mandi Collection',p:{'Quarter':'₹210','Half':'₹410','Full':'₹790'}},
-    {n:'Shezwan Alfaham Blend',p:{'Quarter':'₹230','Half':'₹450','Full':'₹850'}},
-    {n:'Cheese Alfaham Blend',p:{'Quarter':'₹250','Half':'₹490','Full':'₹900'}},
-    {n:'BBQ Alfaham Blend',p:{'Quarter':'₹240','Half':'₹460','Full':'₹880'}},
-    {n:'Honey Chilli Blend',p:{'Quarter':'₹240','Half':'₹460','Full':'₹880'}},
-    {n:'Kanthari Infused Mandi',p:{'Quarter':'₹220','Half':'₹430','Full':'₹830'}},
+  'Grilled Mandhi Combos':[
+    {n:'Alfaham Mandhi',p:{Quarter:'₹250',Half:'₹440',Full:'₹840'}},
+    {n:'Shezwan Mandhi',p:{Quarter:'₹270',Half:'₹490',Full:'₹850'}},
+    {n:'Cheese Alfaham Mandhi',p:{Quarter:'₹310',Half:'₹540',Full:'₹960'}},
+    {n:'BBQ Alfaham Mandhi',p:{Quarter:'₹260',Half:'₹490',Full:'₹870'}},
+    {n:'Honey Chilli Mandhi',p:{Quarter:'₹270',Half:'₹510',Full:'₹870'}},
+    {n:'Kanthari Mandhi',p:{Quarter:'₹250',Half:'₹480',Full:'₹870'}},
+    {n:'Peri Peri Mandhi',p:{Quarter:'₹270',Half:'₹510',Full:'₹870'}},
+    {n:'Pepper Mandhi',p:{Quarter:'₹250',Half:'₹480',Full:'₹870'}},
+    {n:'Arabic Shawaya Mandhi',p:{Quarter:'₹270',Half:'₹500',Full:'₹850'}},
+    {n:'Masala Shawaya Mandhi',p:{Quarter:'₹300',Half:'₹530',Full:'₹900'}}
   ],
-  'Charcoal Appended Pieces':[
-    {n:'Grilled Chicken Wings',p:{'6 Pcs':'₹180','12 Pcs':'₹340','18 Pcs':'₹480'}},
-    {n:'Grilled Chicken Seekh',p:{'2 Pcs':'₹150','4 Pcs':'₹280','6 Pcs':'₹400'}},
-    {n:'Lamb Chops Special',p:{'4 Pcs':'₹320','6 Pcs':'₹470','8 Pcs':'₹600'}},
+  'Charcoal Grilled Pieces':[
+    {n:'Alfaham Chicken',p:{Quarter:'₹180',Half:'₹310',Full:'₹590'}},
+    {n:'Shezwan Alfaham',p:{Quarter:'₹210',Half:'₹360',Full:'₹630'}},
+    {n:'Cheese Alfaham',p:{Quarter:'₹220',Half:'₹390',Full:'₹650'}},
+    {n:'BBQ Chicken',p:{Quarter:'₹200',Half:'₹350',Full:'₹620'}},
+    {n:'Peri Peri Alfaham',p:{Quarter:'₹200',Half:'₹350',Full:'₹630'}},
+    {n:'Honey Chilli Chicken',p:{Quarter:'₹210',Half:'₹360',Full:'₹630'}},
+    {n:'Kanthari Chicken',p:{Quarter:'₹200',Half:'₹350',Full:'₹620'}},
+    {n:'Pepper Alfaham',p:{Quarter:'₹200',Half:'₹350',Full:'₹610'}},
+    {n:'Arabic Shawaya',p:{Quarter:'₹170',Half:'₹320',Full:'₹600'}},
+    {n:'Masala Shawaya',p:{Quarter:'₹210',Half:'₹350',Full:'₹630'}}
   ],
-  'Proteins Only':[
-    {n:'Chicken Mandi Cut',p:{'½ KG':'₹280','1 KG':'₹520','2 KG':'₹980'}},
-    {n:'Beef Mandi Cut',p:{'½ KG':'₹350','1 KG':'₹650','2 KG':'₹1200'}},
-    {n:'Mutton Mandi Cut',p:{'½ KG':'₹520','1 KG':'₹950','2 KG':'₹1800'}},
+  'Mandhi Pure Proteins Only':[
+    {n:'Chicken Mandhi Pieces',p:{Quarter:'₹150',Half:'₹290',Full:'₹550'}},
+    {n:'Beef Mandhi Pieces',p:{Quarter:'₹130',Half:'₹260',Full:'₹500'}},
+    {n:'Mutton Mandhi Pieces',p:{Half:'₹650',Full:'₹1350'}},
+    {n:'Extra Mayonnaise Element',p:{Unit:'₹20'}}
   ],
-  'Cold Botanical Pressed Juices':[
-    {n:'Fresh Orange Juice',p:{Small:'₹60',Medium:'₹100',Large:'₹140'}},
-    {n:'Nectar of Mango',p:{Small:'₹70',Medium:'₹110',Large:'₹150'}},
-    {n:'Pressed Pomegranate',p:{Small:'₹80',Medium:'₹130',Large:'₹180'}},
-    {n:'Lemon Mint Infusion',p:{Small:'₹50',Medium:'₹85',Large:'₹120'}},
+  'Cold Pressed Juices':[
+    {n:'Mint Lime Juice',p:{Unit:'₹50'}},
+    {n:'Fresh Lime Juice',p:{Unit:'₹40'}},
+    {n:'Pressed Watermelon Juice',p:{Unit:'₹60'}},
+    {n:'Ginger Lime Infusion',p:{Unit:'₹60'}},
+    {n:'Crushed Pineapple Juice',p:{Unit:'₹60'}}
   ]
 };
 
