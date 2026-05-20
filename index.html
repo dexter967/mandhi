@@ -900,7 +900,9 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
     <div class="section-divider" style="margin-bottom: 30px;"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
     <p class="hero-sub" style="margin-bottom: 20px; text-align: left;">We value your feedback! Share your experience with us below.</p>
     
- <form class="feedback-form" action="mailto:aaronbennyphilip@gmail.com" method="post" enctype="text/plain">
+<form class="feedback-form" action="https://api.web3forms.com/submit" method="POST">
+  <input type="hidden" name="access_key" value="dcad1e03-4736-4553-87dd-3d527362cc1e">
+
   <div class="form-row-dual">
     <div class="feedback-field-wrap">
       <label class="feedback-label">Your Name / Title</label>
@@ -917,6 +919,8 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
     <textarea name="Review" class="premium-entry-box" placeholder="Share your experience or review details meticulously..." required></textarea>
   </div>
   
+  <input type="hidden" name="redirect" value="https://dexter967.github.io/mandhi/">
+
   <button type="submit" class="btn-submit-ledger">Submit Feedback</button>
 </form>
   </div>
