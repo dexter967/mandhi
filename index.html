@@ -900,25 +900,25 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
     <div class="section-divider" style="margin-bottom: 30px;"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
     <p class="hero-sub" style="margin-bottom: 20px; text-align: left;">We value your feedback! Share your experience with us below.</p>
     
-    <form class="feedback-form" onsubmit="event.preventDefault(); alert('Your correspondence has been formally added to the ledger.'); this.reset();">
-      <div class="form-row-dual">
-        <div class="feedback-field-wrap">
-          <label class="feedback-label">Your Name / Title</label>
-          <input type="text" class="premium-entry-box" placeholder="e.g. Guest Title" required>
-        </div>
-        <div class="feedback-field-wrap">
-          <label class="feedback-label">Email Address</label>
-          <input type="email" class="premium-entry-box" placeholder="name@domain.com" required>
-        </div>
-      </div>
-      
-      <div class="feedback-field-wrap">
-        <label class="feedback-label">Write Your Review</label>
-        <textarea class="premium-entry-box" placeholder="Share your experience or review details meticulously..." required></textarea>
-      </div>
-      
-      <button type="submit" class="btn-submit-ledger">Submit Feedback</button>
-    </form>
+ <form class="feedback-form" action="mailto:aaronbennyphilip@gmail.com" method="post" enctype="text/plain">
+  <div class="form-row-dual">
+    <div class="feedback-field-wrap">
+      <label class="feedback-label">Your Name / Title</label>
+      <input type="text" name="Name" class="premium-entry-box" placeholder="e.g. Guest Title" required>
+    </div>
+    <div class="feedback-field-wrap">
+      <label class="feedback-label">Email Address</label>
+      <input type="email" name="Email" class="premium-entry-box" placeholder="name@domain.com" required>
+    </div>
+  </div>
+  
+  <div class="feedback-field-wrap">
+    <label class="feedback-label">Write Your Review</label>
+    <textarea name="Review" class="premium-entry-box" placeholder="Share your experience or review details meticulously..." required></textarea>
+  </div>
+  
+  <button type="submit" class="btn-submit-ledger">Submit Feedback</button>
+</form>
   </div>
 </section>
 
