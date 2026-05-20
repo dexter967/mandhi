@@ -24,11 +24,12 @@
   --transition-fast: all 0.3s var(--ease-editorial);
 }
 
-*{margin:0;padding:0;box-sizing:border-box; cursor: none !important;}
+*{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth; background: var(--bg-primary);}
 body{background:var(--bg-primary);color:var(--text-main);font-family:var(--font-body);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
 
 .cursor-dot {
+  display: none !important;
   width: 6px;
   height: 6px;
   background: var(--accent);
@@ -42,6 +43,7 @@ body{background:var(--bg-primary);color:var(--text-main);font-family:var(--font-
   will-change: transform;
 }
 .cursor-ring {
+  display: none !important;
   width: 32px;
   height: 32px;
   border: 1px solid var(--accent);
