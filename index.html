@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Al Qaaf Restaurant — Authentic Elite Dining</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400;600;700;900&family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- CHANGE 6: Replaced Google Fonts with premium Arabic typographic pairing: El Messiri (display) + Tajawal (UI/body) -->
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Cairo:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg-primary: #0D0D0D;
@@ -16,9 +17,10 @@
   --text-main: #FBF9F4;
   --text-muted: #8E8E8E;
   --border-fine: rgba(184, 115, 51, 0.15);
-  --font-serif: 'Cinzel', serif;
-  --font-sans: 'Montserrat', sans-serif;
-  --font-body: 'Poppins', sans-serif;
+  /* CHANGE 6: Updated font variables to Arabic typographic pairing */
+  --font-serif: 'El Messiri', serif;
+  --font-sans: 'Cairo', sans-serif;
+  --font-body: 'Tajawal', sans-serif;
   --ease-editorial: cubic-bezier(0.25, 1, 0.5, 1);
   --transition-slow: all 0.6s var(--ease-editorial);
   --transition-fast: all 0.3s var(--ease-editorial);
@@ -131,26 +133,35 @@ nav a:hover::after{width:100%;left:0;}
 .hub-menu-grid a{color:var(--text-muted);text-decoration:none;font-family:var(--font-sans);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;transition:var(--transition-fast);padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.02);}
 .hub-menu-grid a:hover{color:var(--text-main);border-bottom-color:var(--accent);}
 
+/* CHANGE 5: Lightened hero radial gradient to allow food image to show through with more vibrance */
 .hero{position:relative;height:100vh;min-height:650px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
 .hero-parallax-bg{position:absolute;inset:-40px;background:
-  radial-gradient(circle at center, rgba(13,13,13,0.5) 0%, rgba(13,13,13,0.95) 50%, #0D0D0D 100%),
+  radial-gradient(circle at center, rgba(13,13,13,0.15) 0%, rgba(13,13,13,0.55) 45%, rgba(13,13,13,0.82) 100%),
   url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1920&q=90') center/cover no-repeat;
   will-change:transform;}
 .hero-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
 .particle{position:absolute;border-radius:50%;background:var(--accent);opacity:0;animation:floatParticle linear infinite;}
-@keyframes floatParticle{0%{transform:translateY(100vh) scale(0);opacity:0;}10%{opacity:0.3;}90%{opacity:0.1;}100%{transform:translateY(-20px) scale(1);opacity:0;}}
+@keyframes floatParticle{0%{transform:translateY(100vh) scale(0);opacity:0;}10%{opacity:0.6;}90%{opacity:0.25;}100%{transform:translateY(-20px) scale(1);opacity:0;}}
 .hero-content{position:relative;z-index:2;text-align:center;padding:20px;max-width:900px;}
 .hero-badge{display:inline-block;color:#FFD700;font-family:var(--font-sans);font-size:9px;font-weight:700;letter-spacing:0.4em;text-transform:uppercase;margin-bottom:24px;text-shadow:0 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.6);}
 .hero-title{font-family:var(--font-serif);font-size:clamp(36px,5.5vw,80px);font-weight:700;line-height:1.15;letter-spacing:0.05em;margin-bottom:24px;text-transform:uppercase;text-shadow:0 4px 20px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8);color:#FFFFFF;}
 .hero-title span{color:var(--accent);font-weight:400;}
 .hero-sub{font-family:var(--font-sans);font-size:12px;font-weight:500;letter-spacing:0.18em;color:#FFFFFF;margin-bottom:48px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.8;text-shadow:0 2px 10px rgba(0,0,0,0.9), 0 1px 5px rgba(0,0,0,0.8);}
+
+/* CHANGE 2: Hero CTAs — single centered button layout */
 .hero-ctas{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;}
-.btn-heritage-solid{background:var(--text-main);color:var(--bg-primary);font-family:var(--font-sans);font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;padding:16px 36px;border:none;transition:var(--transition-fast);text-shadow:0 1px 3px rgba(0,0,0,0.3);}
-.btn-heritage-solid:hover{background:var(--accent);color:var(--text-main);transform:translateY(-1px);}
-.btn-heritage-outline{background:transparent;color:var(--accent);font-family:var(--font-sans);font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;padding:16px 36px;border:1px solid var(--border-fine);transition:var(--transition-fast);text-shadow:0 2px 6px rgba(0,0,0,0.8);}
-.btn-heritage-outline:hover{background:var(--accent-glow);border-color:var(--accent);}
+.btn-heritage-solid{background:var(--text-main);color:var(--bg-primary);font-family:var(--font-sans);font-size:11px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;padding:20px 56px;border:none;transition:var(--transition-fast);text-shadow:none;cursor:pointer;display:inline-block;}
+.btn-heritage-solid:hover{background:var(--accent);color:var(--text-main);transform:translateY(-2px);box-shadow:0 12px 40px rgba(184,115,51,0.35);}
+
+/* CHANGE 4: Hero fine-print section for relocated editorial subtext */
+.hero-fine-print{margin-top:28px;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.hero-fine-print-tagline{font-family:var(--font-sans);font-size:9px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:rgba(184,115,51,0.65);text-shadow:0 1px 4px rgba(0,0,0,0.8);line-height:1.9;}
+.hero-fine-print-divider{width:40px;height:1px;background:rgba(184,115,51,0.3);margin:2px auto;}
+.hero-fine-print-gst{font-family:var(--font-sans);font-size:8px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(184,115,51,0.85);text-shadow:0 1px 6px rgba(0,0,0,0.9);background:rgba(184,115,51,0.06);border:1px solid rgba(184,115,51,0.18);padding:6px 18px;}
+
 .hero-scroll{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:12px;color:#FFFFFF;font-family:var(--font-sans);font-size:9px;letter-spacing:0.25em;text-transform:uppercase;text-shadow:0 2px 8px rgba(0,0,0,0.8);font-weight:600;}
 .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--accent));animation:scrollPulse 2.5s ease-in-out infinite;}
+@keyframes scrollPulse{0%,100%{opacity:0.3;}50%{opacity:1;}}
 
 .rice-strip{background:var(--bg-surface);border-top:1px solid var(--border-fine);border-bottom:1px solid var(--border-fine);padding:16px 20px;text-align:center;font-family:var(--font-sans);font-size:11px;letter-spacing:0.15em;color:var(--text-muted);text-transform:uppercase;}
 .rice-strip span{color:var(--accent);font-weight:600;}
@@ -163,7 +174,7 @@ nav a:hover::after{width:100%;left:0;}
 
 .tabs-wrap{position:sticky;top:64px;z-index:900;background:rgba(13,13,13,0.96);backdrop-filter:blur(20px);padding:16px 40px;border-bottom:1px solid var(--border-fine);}
 .tabs{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;max-width:1000px;margin:0 auto;}
-.tab{background:transparent;color:var(--text-muted);border:1px solid transparent;padding:10px 22px;font-family:var(--font-sans);font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;transition:var(--transition-fast);position:relative;}
+.tab{background:transparent;color:var(--text-muted);border:1px solid transparent;padding:10px 22px;font-family:var(--font-sans);font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;transition:var(--transition-fast);position:relative;cursor:pointer;}
 .tab::after{content:'';position:absolute;bottom:-17px;left:0;width:0;height:1px;background:var(--accent);transition:var(--transition-fast);}
 .tab:hover{color:var(--text-main);}
 .tab.active{color:var(--text-main);font-weight:500;}
@@ -278,6 +289,7 @@ textarea.premium-entry-box {
   text-transform: uppercase;
   align-self: flex-start;
   transition: var(--transition-fast);
+  cursor: pointer;
 }
 .btn-submit-ledger:hover {
   background: var(--text-main);
@@ -302,9 +314,9 @@ textarea.premium-entry-box {
 .modal-badges{display:flex;flex-wrap:wrap;gap:10px;}
 .modal-badge{background:transparent;border:1px solid rgba(184,115,51,0.25);color:var(--text-muted);font-family:var(--font-sans);font-size:10px;font-weight:400;padding:5px 12px;letter-spacing:0.05em;}
 
-footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 40px 50px;text-align:center;}
+/* CHANGE 4: Footer — removed editorial subtext and GST note (relocated to hero fine-print) */
+footer{background:#080808;border-top:1px solid var(--border-fine);padding:60px 40px 50px;text-align:center;}
 .footer-logo{font-family:var(--font-serif);font-size:24px;color:var(--text-main);letter-spacing:0.4em;margin-bottom:18px;font-weight:300;}
-.footer-sub{color:var(--text-muted);font-size:12px;letter-spacing:0.15em;margin-bottom:36px;font-family:var(--font-sans);text-transform:uppercase;max-width:700px;margin-left:auto;margin-right:auto;line-height:1.8;}
 .footer-divider{width:60px;height:1px;background:var(--accent);margin:0 auto 32px;}
 .footer-copy{color:#3A3A3A;font-size:11px;font-family:var(--font-sans);letter-spacing:0.12em;text-transform:uppercase;}
 
@@ -398,9 +410,15 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
     <div class="hero-badge">✦   An Ancient Mastery   ✦</div>
     <h1 class="hero-title">The Art of<br><span>Arabian Mandhi</span></h1>
     <p class="hero-sub">Slow-cooked over traditional charcoal pits. Restrained on raw textures, rich spices, and presented beautifully on fine copper platters.</p>
+    <!-- CHANGE 2: Single centered CTA — outline button removed -->
     <div class="hero-ctas">
-      <button class="btn-heritage-solid" onclick="document.getElementById('menu-anchor').scrollIntoView({behavior:'smooth'})">Explore Menu</button>
-      <button class="btn-heritage-outline" onclick="openModal()">Full Menu ↗</button>
+      <button class="btn-heritage-solid" onclick="unlockAndScrollToMenu()">Explore Menu</button>
+    </div>
+    <!-- CHANGE 4: Editorial subtext and GST note relocated here from footer -->
+    <div class="hero-fine-print">
+      <span class="hero-fine-print-tagline">Authentic Elite Dining &nbsp;·&nbsp; Pandalam, Pathanamthitta &nbsp;·&nbsp; Masterfully Crafted Inside the Pits</span>
+      <div class="hero-fine-print-divider"></div>
+      <span class="hero-fine-print-gst">✦ &nbsp; 5% GST applicable on all consolidated food items &nbsp; ✦</span>
     </div>
   </div>
   <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
@@ -503,13 +521,9 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
     <h2 class="section-title">Grilled Mandhi</h2>
     <div class="section-divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
     <div class="menu-grid">
-
       <div class="menu-card">
-        <div class="card-img-wrap">
-          <img class="card-img" src="https://i.postimg.cc/mZ1ZsFcw/Gemini-Generated-Image-fs6nofs6nofs6nof.png" alt="Alfaham Mandhi">
-        </div>
-        <div class="card-body">
-          <h3>Alfaham Mandhi</h3>
+        <div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/mZ1ZsFcw/Gemini-Generated-Image-fs6nofs6nofs6nof.png" alt="Alfaham Mandhi"></div>
+        <div class="card-body"><h3>Alfaham Mandhi</h3>
           <div class="price-table">
             <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹250</span></div>
             <div class="price-row"><span class="lbl">Half</span><span class="val">₹440</span></div>
@@ -517,13 +531,9 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
           </div>
         </div>
       </div>
-
       <div class="menu-card">
-        <div class="card-img-wrap">
-          <img class="card-img" src="https://i.postimg.cc/QxWF0ykM/Gemini-Generated-Image-ljjjjpljjjjpljjj.png" alt="Shezwan Mandhi">
-        </div>
-        <div class="card-body">
-          <h3>Shawaya Mandhi</h3>
+        <div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/QxWF0ykM/Gemini-Generated-Image-ljjjjpljjjjpljjj.png" alt="Shezwan Mandhi"></div>
+        <div class="card-body"><h3>Shawaya Mandhi</h3>
           <div class="price-table">
             <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹270</span></div>
             <div class="price-row"><span class="lbl">Half</span><span class="val">₹490</span></div>
@@ -531,13 +541,9 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
           </div>
         </div>
       </div>
-
       <div class="menu-card">
-        <div class="card-img-wrap">
-          <img class="card-img" src="https://i.postimg.cc/zvPfh19L/Gemini-Generated-Image-tr6di7tr6di7tr6d-(1).png" alt="Cheese Alfaham Mandhi">
-        </div>
-        <div class="card-body">
-          <h3>Cheese Alfaham Mandhi</h3>
+        <div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/zvPfh19L/Gemini-Generated-Image-tr6di7tr6di7tr6d-(1).png" alt="Cheese Alfaham Mandhi"></div>
+        <div class="card-body"><h3>Cheese Alfaham Mandhi</h3>
           <div class="price-table">
             <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹310</span></div>
             <div class="price-row"><span class="lbl">Half</span><span class="val">₹540</span></div>
@@ -545,13 +551,9 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
           </div>
         </div>
       </div>
-
       <div class="menu-card">
-        <div class="card-img-wrap">
-          <img class="card-img" src="https://i.postimg.cc/SQ8BB4Z2/Gemini-Generated-Image-z4ammsz4ammsz4am.png" alt="BBQ Alfaham Mandhi">
-        </div>
-        <div class="card-body">
-          <h3>BBQ Alfaham Mandhi</h3>
+        <div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/SQ8BB4Z2/Gemini-Generated-Image-z4ammsz4ammsz4am.png" alt="BBQ Alfaham Mandhi"></div>
+        <div class="card-body"><h3>BBQ Alfaham Mandhi</h3>
           <div class="price-table">
             <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹260</span></div>
             <div class="price-row"><span class="lbl">Half</span><span class="val">₹490</span></div>
@@ -559,13 +561,9 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
           </div>
         </div>
       </div>
-
       <div class="menu-card">
-        <div class="card-img-wrap">
-          <img class="card-img" src="https://i.postimg.cc/wTn9h2bw/Gemini-Generated-Image-zhfmznzhfmznzhfm.png" alt="Honey Chilli Mandhi">
-        </div>
-        <div class="card-body">
-          <h3>Honey Chilli Mandhi</h3>
+        <div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/wTn9h2bw/Gemini-Generated-Image-zhfmznzhfmznzhfm.png" alt="Honey Chilli Mandhi"></div>
+        <div class="card-body"><h3>Honey Chilli Mandhi</h3>
           <div class="price-table">
             <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹270</span></div>
             <div class="price-row"><span class="lbl">Half</span><span class="val">₹510</span></div>
@@ -573,13 +571,9 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
           </div>
         </div>
       </div>
-
       <div class="menu-card">
-        <div class="card-img-wrap">
-          <img class="card-img" src="https://i.postimg.cc/kXRmX8XK/Gemini-Generated-Image-fr4540fr4540fr45.png" alt="Kanthari Mandhi">
-        </div>
-        <div class="card-body">
-          <h3>Kanthari Mandhi</h3>
+        <div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/kXRmX8XK/Gemini-Generated-Image-fr4540fr4540fr45.png" alt="Kanthari Mandhi"></div>
+        <div class="card-body"><h3>Kanthari Mandhi</h3>
           <div class="price-table">
             <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹250</span></div>
             <div class="price-row"><span class="lbl">Half</span><span class="val">₹480</span></div>
@@ -587,13 +581,9 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
           </div>
         </div>
       </div>
-
       <div class="menu-card">
-        <div class="card-img-wrap">
-          <img class="card-img" src="https://i.postimg.cc/jqG2RRQ3/Gemini-Generated-Image-1islga1islga1isl.png" alt="Peri Peri Mandhi">
-        </div>
-        <div class="card-body">
-          <h3>Peri Peri Mandhi</h3>
+        <div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/jqG2RRQ3/Gemini-Generated-Image-1islga1islga1isl.png" alt="Peri Peri Mandhi"></div>
+        <div class="card-body"><h3>Peri Peri Mandhi</h3>
           <div class="price-table">
             <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹270</span></div>
             <div class="price-row"><span class="lbl">Half</span><span class="val">₹510</span></div>
@@ -601,13 +591,9 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
           </div>
         </div>
       </div>
-
       <div class="menu-card">
-        <div class="card-img-wrap">
-          <img class="card-img" src="https://i.postimg.cc/yYyH2KfY/Gemini-Generated-Image-7pjsss7pjsss7pjs.pngg" alt="Pepper Mandhi">
-        </div>
-        <div class="card-body">
-          <h3>Pepper Mandhi</h3>
+        <div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/yYyH2KfY/Gemini-Generated-Image-7pjsss7pjsss7pjs.pngg" alt="Pepper Mandhi"></div>
+        <div class="card-body"><h3>Pepper Mandhi</h3>
           <div class="price-table">
             <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹250</span></div>
             <div class="price-row"><span class="lbl">Half</span><span class="val">₹480</span></div>
@@ -615,13 +601,9 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
           </div>
         </div>
       </div>
-
       <div class="menu-card">
-        <div class="card-img-wrap">
-          <img class="card-img" src="https://i.postimg.cc/nrndDyqd/Gemini-Generated-Image-pwhz4tpwhz4tpwhz.png" alt="Arabic Shawaya Mandhi">
-        </div>
-        <div class="card-body">
-          <h3>Arabic Shawaya Mandhi</h3>
+        <div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/nrndDyqd/Gemini-Generated-Image-pwhz4tpwhz4tpwhz.png" alt="Arabic Shawaya Mandhi"></div>
+        <div class="card-body"><h3>Arabic Shawaya Mandhi</h3>
           <div class="price-table">
             <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹270</span></div>
             <div class="price-row"><span class="lbl">Half</span><span class="val">₹500</span></div>
@@ -629,13 +611,9 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
           </div>
         </div>
       </div>
-
       <div class="menu-card">
-        <div class="card-img-wrap">
-          <img class="card-img" src="https://i.postimg.cc/xCnGxKqc/Gemini-Generated-Image-gq2m58gq2m58gq2m.png" alt="Masala Shawaya Mandhi">
-        </div>
-        <div class="card-body">
-          <h3>Masala Shawaya Mandhi</h3>
+        <div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/xCnGxKqc/Gemini-Generated-Image-gq2m58gq2m58gq2m.png" alt="Masala Shawaya Mandhi"></div>
+        <div class="card-body"><h3>Masala Shawaya Mandhi</h3>
           <div class="price-table">
             <div class="price-row"><span class="lbl">Quarter</span><span class="val">₹300</span></div>
             <div class="price-row"><span class="lbl">Half</span><span class="val">₹530</span></div>
@@ -643,7 +621,6 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -856,7 +833,6 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
     <h2 class="section-title">Stories Behind The Smoke</h2>
     <div class="section-divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
   </div>
-  
   <div class="blog-grid">
     <div class="blog-card">
       <div class="blog-img-wrap">
@@ -868,7 +844,6 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
         <p class="blog-desc">An insider's analysis exploring how we harmonized authentic Yemeni underground smoking methods with local flavor preferences to establish Pandalam's premier dining venue.</p>
       </div>
     </div>
-
     <div class="blog-card">
       <div class="blog-img-wrap">
         <img class="blog-img" src="https://i.postimg.cc/hPmQ3yWh/Whats-App-Image-2026-05-20-at-12-31-57.jpg" alt="Ancient Heritage Spices">
@@ -879,7 +854,6 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
         <p class="blog-desc">Tracing the path of historic marine trading routes and clay pit oven cooking methodologies that traveled oceans to preserve the authentic craftsmanship we honor here daily.</p>
       </div>
     </div>
-
     <div class="blog-card">
       <div class="blog-img-wrap">
         <img class="blog-img" src="https://i.postimg.cc/1RfWCqmJ/Whats-App-Image-2026-05-20-at-12-32-53.jpg" alt="Smoke and Fire culinary process">
@@ -899,30 +873,25 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
     <h2 class="section-title">Customer Reviews</h2>
     <div class="section-divider" style="margin-bottom: 30px;"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
     <p class="hero-sub" style="margin-bottom: 20px; text-align: left;">We value your feedback! Share your experience with us below.</p>
-    
-<form class="feedback-form" action="https://api.web3forms.com/submit" method="POST">
-  <input type="hidden" name="access_key" value="dcad1e03-4736-4553-87dd-3d527362cc1e">
-
-  <div class="form-row-dual">
-    <div class="feedback-field-wrap">
-      <label class="feedback-label">Your Name / Title</label>
-      <input type="text" name="Name" class="premium-entry-box" placeholder="e.g. Guest Title" required>
-    </div>
-    <div class="feedback-field-wrap">
-      <label class="feedback-label">Email Address</label>
-      <input type="email" name="Email" class="premium-entry-box" placeholder="name@domain.com" required>
-    </div>
-  </div>
-  
-  <div class="feedback-field-wrap">
-    <label class="feedback-label">Write Your Review</label>
-    <textarea name="Review" class="premium-entry-box" placeholder="Share your experience or review details meticulously..." required></textarea>
-  </div>
-  
-  <input type="hidden" name="redirect" value="https://dexter967.github.io/mandhi/">
-
-  <button type="submit" class="btn-submit-ledger">Submit Feedback</button>
-</form>
+    <form class="feedback-form" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="dcad1e03-4736-4553-87dd-3d527362cc1e">
+      <div class="form-row-dual">
+        <div class="feedback-field-wrap">
+          <label class="feedback-label">Your Name / Title</label>
+          <input type="text" name="Name" class="premium-entry-box" placeholder="e.g. Guest Title" required>
+        </div>
+        <div class="feedback-field-wrap">
+          <label class="feedback-label">Email Address</label>
+          <input type="email" name="Email" class="premium-entry-box" placeholder="name@domain.com" required>
+        </div>
+      </div>
+      <div class="feedback-field-wrap">
+        <label class="feedback-label">Write Your Review</label>
+        <textarea name="Review" class="premium-entry-box" placeholder="Share your experience or review details meticulously..." required></textarea>
+      </div>
+      <input type="hidden" name="redirect" value="https://dexter967.github.io/mandhi/">
+      <button type="submit" class="btn-submit-ledger">Submit Feedback</button>
+    </form>
   </div>
 </section>
 
@@ -935,14 +904,15 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
   <div class="modal-body" id="modalBody"></div>
 </div>
 
+<!-- CHANGE 4: Footer — editorial subtext and GST note removed (relocated to hero) -->
 <footer>
   <div class="footer-logo">AL QAAF</div>
-  <p class="footer-sub">Authentic Elite Dining · Mapped via Al Qaaf Pandalam Footprint · Masterfully Crafted Inside the Pits <br> <span style="color:var(--accent); font-weight:600; font-size:10px; letter-spacing:0.2em; display:block; margin-top:8px;">NOTE: 5% GST WILL BE ADDED ON ALL CONSOLIDATED FOOD ITEMS</span></p>
   <div class="footer-divider"></div>
   <p class="footer-copy">© 2026 Al Qaaf Restaurant. Process Integrity Preserved.</p>
 </footer>
 
 <script>
+// ─── Cursor tracking (untouched) ───────────────────────────────────────────
 (function(){
   const dot = document.getElementById('cDot');
   const ring = document.getElementById('cRing');
@@ -970,28 +940,34 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:80px 4
 
   const targets = 'a, button, .tab, .menu-card, .blog-card, .modal-close, .premium-entry-box, .left-brand-trigger';
   document.addEventListener('mouseover', (e) => {
-    if (e.target.closest(targets)) {
-      ring.classList.add('expand');
-    }
+    if (e.target.closest(targets)) ring.classList.add('expand');
   });
   document.addEventListener('mouseout', (e) => {
-    if (e.target.closest(targets)) {
-      ring.classList.remove('expand');
-    }
+    if (e.target.closest(targets)) ring.classList.remove('expand');
   });
 })();
 
+// CHANGE 1: Enhanced particle engine — larger size range, higher opacity, copper glow
 (function(){
   const wrap = document.getElementById('particles');
-  for(let i=0; i<15; i++){
+  for(let i = 0; i < 15; i++){
     const p = document.createElement('div');
     p.className = 'particle';
-    const sz = Math.random()*2.5+1;
-    p.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}%;animation-duration:${Math.random()*12+6}s;animation-delay:${Math.random()*8}s;opacity:0.4;`;
+    const sz = Math.random() * 5 + 3; // was 2.5+1 → now 5+3 (3–8px)
+    p.style.cssText = `
+      width:${sz}px;
+      height:${sz}px;
+      left:${Math.random() * 100}%;
+      animation-duration:${Math.random() * 12 + 6}s;
+      animation-delay:${Math.random() * 8}s;
+      opacity:0.7;
+      box-shadow: 0 0 8px var(--accent);
+    `;
     wrap.appendChild(p);
   }
 })();
 
+// Parallax scroll (untouched)
 const bg = document.getElementById('parallaxBg');
 window.addEventListener('scroll', () => {
   const y = window.scrollY;
@@ -1000,6 +976,7 @@ window.addEventListener('scroll', () => {
   }
 }, {passive:true});
 
+// Brand overlay (untouched)
 function openBrandOverlay() {
   document.getElementById('brandOverlay').classList.add('open');
   document.getElementById('brandPanel').classList.add('open');
@@ -1011,6 +988,18 @@ function closeBrandOverlay() {
   document.body.style.overflow = '';
 }
 
+// CHANGE 3: Scroll lock on page load
+document.body.style.overflow = 'hidden';
+
+// CHANGE 3: Unlock scroll + hardware-accelerated smooth scroll to menu anchor
+function unlockAndScrollToMenu() {
+  document.body.style.overflow = '';
+  const target = document.getElementById('menu-anchor');
+  if (!target) return;
+  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// IntersectionObserver — untouched
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((e) => {
     if(e.isIntersecting){
@@ -1026,20 +1015,28 @@ const observer = new IntersectionObserver((entries) => {
 function runGridObservations(){
   const activeMenuGrid = document.querySelector('.cat-content.active .menu-grid');
   if(activeMenuGrid) observer.observe(activeMenuGrid);
-  
   const blogGrid = document.querySelector('.blog-grid');
   if(blogGrid) observer.observe(blogGrid);
 }
 runGridObservations();
 
+// CHANGE 3: switchCat — smooth scroll to active menu grid after tab switch
 function switchCat(id, btn) {
   document.querySelectorAll('.cat-content').forEach(c => c.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   if(btn) btn.classList.add('active');
-  setTimeout(runGridObservations, 40);
+  setTimeout(() => {
+    runGridObservations();
+    // Smooth scroll to center the active menu grid in view
+    const activeGrid = document.querySelector('#' + id + ' .menu-grid');
+    if(activeGrid) {
+      activeGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 40);
 }
 
+// Modal (const ALL matrix untouched)
 const ALL = {
   'Yemeni Mandhi Dishes':[
     {n:'Chicken Yemeni Mandhi',p:{Quarter:'₹210',Half:'₹400',Full:'₹750'}},
