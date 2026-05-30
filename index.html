@@ -1,137 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<style>
-.explore-button {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, #FF6B6B 0%, #FF8E72 100%);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 40px;
-    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
-    z-index: 999;
-    transition: all 0.3s ease;
-    animation: pulse-bounce 2s infinite, float-up 3s ease-in-out infinite;
-}
-
-.explore-button:hover {
-    width: 95px;
-    height: 95px;
-    box-shadow: 0 12px 40px rgba(255, 107, 107, 0.6);
-    transform: scale(1.1);
-}
-
-.explore-button::before {
-    content: '✨';
-    position: absolute;
-    font-size: 20px;
-    animation: sparkle 1.5s infinite;
-}
-
-@keyframes pulse-bounce {
-    0%, 100% { box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4), 0 0 0 0 rgba(255, 107, 107, 0.7); }
-    50% { box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6), 0 0 0 15px rgba(255, 107, 107, 0); }
-}
-
-@keyframes float-up {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-}
-
-@keyframes sparkle {
-    0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
-    50% { opacity: 0.5; transform: scale(1.2) rotate(180deg); }
-}
-
-.explore-label {
-    position: fixed;
-    bottom: 125px;
-    right: 35px;
-    background: rgba(0, 0, 0, 0.9);
-    color: #FF6B6B;
-    padding: 12px 20px;
-    border-radius: 25px;
-    font-size: 14px;
-    font-weight: bold;
-    white-space: nowrap;
-    animation: slide-in 0.5s ease forwards;
-    z-index: 998;
-    pointer-events: none;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-@keyframes slide-in {
-    from { opacity: 0; transform: translateX(20px) translateY(20px); }
-    to { opacity: 1; transform: translateX(0) translateY(0); }
-}
-
-.explore-badge {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background: #FFD700;
-    color: #000;
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: bold;
-    animation: badge-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-@keyframes badge-pop {
-    0% { transform: scale(0); }
-    50% { transform: scale(1.3); }
-    100% { transform: scale(1); }
-}
-
-@media (max-width: 768px) {
-    .explore-button {
-        width: 70px;
-        height: 70px;
-        bottom: 20px;
-        right: 20px;
-        font-size: 32px;
-    }
-    
-    .explore-label {
-        bottom: 110px;
-        right: 25px;
-        font-size: 12px;
-        padding: 10px 15px;
-    }
-}
-
-.explore-button.ripple::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    animation: ripple-spread 0.6s ease-out;
-}
-
-@keyframes ripple-spread {
-    0% { width: 100%; height: 100%; opacity: 1; }
-    100% { width: 300%; height: 300%; opacity: 0; }
-}
-</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Al Qaaf Restaurant — Authentic Elite Dining</title>
@@ -174,24 +43,6 @@
 html{scroll-behavior:smooth;background:var(--bg-primary);}
 body{background:var(--bg-primary);color:var(--text-main);font-family:var(--font-thematic);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
 
-.cursor-dot{display:none !important;}
-.cursor-ring{
-  display:none !important;
-  width:32px;height:32px;border:1px solid var(--accent);
-  position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:9999;
-  transform:translate(-50%,-50%);will-change:transform;
-  transition:width 0.4s var(--ease-editorial),height 0.4s var(--ease-editorial),
-              background 0.4s var(--ease-editorial),border-color 0.4s var(--ease-editorial);
-  display:flex;align-items:center;justify-content:center;
-}
-.cursor-ring span{
-  font-family:var(--font-thematic);font-size:8px;font-weight:600;letter-spacing:0.15em;
-  color:var(--bg-primary);opacity:0;transition:opacity 0.2s ease;
-  text-transform:uppercase;pointer-events:none;white-space:nowrap;
-}
-.cursor-ring.expand{width:64px;height:64px;background:rgba(184,115,51,0.9);border-color:transparent;}
-.cursor-ring.expand span{opacity:1;}
-
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:var(--bg-primary);}
 ::-webkit-scrollbar-thumb{background:var(--accent-muted);border-radius:0;}
@@ -210,14 +61,11 @@ header{
 .logo-symbol{display:flex;align-items:center;justify-content:center;}
 .logo-symbol svg{width:18px;height:18px;fill:var(--accent);transition:transform 0.4s var(--ease-editorial);}
 .left-brand-trigger:hover .logo-symbol svg{transform:scale(1.15);}
-/* Logo — Khodijah: luxury/elegant */
 .logo-text{
   font-family:var(--font-luxury);font-size:15px;font-weight:300;
-  letter-spacing:0.05em;color:var(--text-main);text-transform:uppercase;
-  line-height:1;
+  letter-spacing:0.05em;color:var(--text-main);text-transform:uppercase;line-height:1;
 }
 nav{display:flex;align-items:center;gap:40px;}
-/* Nav links — Arabico: thematic subheader style */
 nav a{
   color:var(--text-muted);text-decoration:none;
   font-family:var(--font-thematic);font-size:11px;line-height:1.6;
@@ -232,7 +80,6 @@ nav a:hover{color:var(--text-main);}
 nav a:hover::after{width:100%;left:0;}
 
 .nav-right-actions{display:flex;align-items:center;gap:20px;}
-/* "Locate Us" — Arabico */
 .nav-map-link{
   display:flex;align-items:center;gap:8px;color:var(--text-muted);text-decoration:none;
   font-family:var(--font-thematic);font-size:11px;line-height:1.6;
@@ -272,25 +119,20 @@ nav a:hover::after{width:100%;left:0;}
 .brand-panel-close:hover{background:var(--accent-glow);border-color:var(--accent);transform:rotate(90deg);}
 
 .hub-section{margin-bottom:40px;}
-/* Panel section headings — Khodijah */
 .hub-title{
   font-family:var(--font-luxury);font-size:15px;font-weight:300;letter-spacing:0.05em;
   color:var(--accent);border-bottom:1px solid rgba(184,115,51,0.2);
   padding-bottom:10px;margin-bottom:20px;
 }
-/* Address text — Arabico */
 .hub-address{font-family:var(--font-thematic);font-size:11px;line-height:1.6;color:var(--text-muted);}
-/* Restaurant name in panel — Zanzabar */
 .hub-address strong{
   font-family:var(--font-impact);font-size:18px;font-weight:700;text-transform:uppercase;
   color:var(--text-main);display:block;margin-bottom:6px;
 }
-/* Phone links — Arabico */
 .hub-contact-link{
   display:block;color:var(--accent);text-decoration:none;
   font-family:var(--font-thematic);font-size:11px;line-height:1.6;margin-top:8px;
 }
-/* Quick nav links — Khodijah */
 .hub-links-list{list-style:none;}
 .hub-links-list li{margin-bottom:14px;}
 .hub-links-list a{
@@ -299,7 +141,6 @@ nav a:hover::after{width:100%;left:0;}
   transition:var(--transition-fast);display:inline-block;
 }
 .hub-links-list a:hover{color:var(--accent);transform:translateX(6px);}
-/* Menu grid in panel — Arabico */
 .hub-menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;}
 .hub-menu-grid a{
   color:var(--text-muted);text-decoration:none;
@@ -327,14 +168,12 @@ nav a:hover::after{width:100%;left:0;}
 }
 .hero-content{position:relative;z-index:2;text-align:center;padding:20px;max-width:900px;}
 
-/* Hero badge — Arabico */
 .hero-badge{
   display:inline-block;color:#FFD700;
   font-family:var(--font-thematic);font-size:11px;line-height:1.6;
   letter-spacing:0.3em;text-transform:uppercase;margin-bottom:24px;
   text-shadow:0 2px 8px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.6);
 }
-/* Hero main title — Zanzabar: impact/action */
 .hero-title{
   font-family:var(--font-impact);
   font-size:clamp(36px,5.5vw,80px);
@@ -343,42 +182,148 @@ nav a:hover::after{width:100%;left:0;}
   text-shadow:0 4px 20px rgba(0,0,0,0.9),0 2px 10px rgba(0,0,0,0.8);color:#FFFFFF;
 }
 .hero-title span{color:var(--accent);}
-/* Hero subtitle — Khodijah */
 .hero-sub{
   font-family:var(--font-luxury);font-size:15px;font-weight:300;letter-spacing:0.05em;
   color:#FFFFFF;margin-bottom:48px;max-width:600px;
   margin-left:auto;margin-right:auto;line-height:1.5;
   text-shadow:0 2px 10px rgba(0,0,0,0.9),0 1px 5px rgba(0,0,0,0.8);
 }
-.hero-ctas{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;}
-/* CTA button — Zanzabar */
-.btn-heritage-solid{
-  background:var(--text-main);color:var(--bg-primary);
-  font-family:var(--font-impact);font-size:17px;font-weight:700;
-  letter-spacing:0.15em;text-transform:uppercase;
-  padding:20px 56px;border:none;transition:var(--transition-fast);
-  text-shadow:none;cursor:pointer;display:inline-block;
+
+/* ── PREMIUM EXPLORE MENU CTA ── */
+.hero-ctas{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;align-items:center;}
+
+.btn-explore-premium {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+  outline: none;
 }
-.btn-heritage-solid:hover{
-  background:var(--accent);color:var(--text-main);
-  transform:translateY(-2px);box-shadow:0 12px 40px rgba(184,115,51,0.35);
+
+.btn-explore-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--text-main);
+  color: var(--bg-primary);
+  padding: 20px 48px;
+  font-family: var(--font-impact);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: all 0.5s var(--ease-editorial);
 }
+
+/* Animated fill on hover */
+.btn-explore-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: translateX(-101%);
+  transition: transform 0.5s var(--ease-editorial);
+  z-index: 0;
+}
+
+.btn-explore-premium:hover .btn-explore-inner::before {
+  transform: translateX(0);
+}
+
+.btn-explore-inner span,
+.btn-explore-icon {
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s ease;
+}
+
+.btn-explore-premium:hover .btn-explore-inner span,
+.btn-explore-premium:hover .btn-explore-icon {
+  color: var(--text-main);
+}
+
+.btn-explore-icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  transition: transform 0.4s var(--ease-editorial), fill 0.3s ease;
+}
+
+.btn-explore-premium:hover .btn-explore-icon {
+  transform: translateX(4px);
+  fill: var(--text-main);
+}
+
+/* Subtle glow halo behind the button */
+.btn-explore-premium::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  background: radial-gradient(ellipse at center, rgba(184,115,51,0.18) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+.btn-explore-premium:hover::after {
+  opacity: 1;
+}
+
+/* ── AUTO-REVEAL hint: a thin animated gold underline that draws in ── */
+.explore-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+.explore-hint-text {
+  font-family: var(--font-thematic);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(184, 115, 51, 0.55);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+  animation: hintFade 3s ease-in-out infinite;
+}
+@keyframes hintFade {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.explore-line {
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: expandLine 2.8s ease-in-out infinite;
+}
+@keyframes expandLine {
+  0% { width: 0; opacity: 0; }
+  40% { width: 60px; opacity: 1; }
+  80% { width: 60px; opacity: 0.5; }
+  100% { width: 0; opacity: 0; }
+}
+
 .hero-fine-print{margin-top:28px;display:flex;flex-direction:column;align-items:center;gap:8px;}
-/* Fine print — Arabico */
 .hero-fine-print-tagline{
   font-family:var(--font-thematic);font-size:11px;line-height:1.6;
   letter-spacing:0.15em;text-transform:uppercase;
   color:rgba(184,115,51,0.65);text-shadow:0 1px 4px rgba(0,0,0,0.8);
 }
 .hero-fine-print-divider{width:40px;height:1px;background:rgba(184,115,51,0.3);margin:2px auto;}
-/* GST badge — Arabico */
 .hero-fine-print-gst{
   font-family:var(--font-thematic);font-size:11px;line-height:1.6;
   letter-spacing:0.15em;text-transform:uppercase;
   color:rgba(184,115,51,0.85);text-shadow:0 1px 6px rgba(0,0,0,0.9);
   background:rgba(184,115,51,0.06);border:1px solid rgba(184,115,51,0.18);padding:6px 18px;
 }
-/* Scroll hint — Arabico */
 .hero-scroll{
   position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:12px;color:#FFFFFF;
@@ -389,7 +334,6 @@ nav a:hover::after{width:100%;left:0;}
 .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--accent));animation:scrollPulse 2.5s ease-in-out infinite;}
 @keyframes scrollPulse{0%,100%{opacity:0.3;}50%{opacity:1;}}
 
-/* Rice strip — Arabico */
 .rice-strip{
   background:var(--bg-surface);border-top:1px solid var(--border-fine);border-bottom:1px solid var(--border-fine);
   padding:16px 20px;text-align:center;
@@ -399,12 +343,10 @@ nav a:hover::after{width:100%;left:0;}
 .rice-strip span{color:var(--accent);font-family:var(--font-impact);font-weight:700;}
 
 /* ── SECTION HEADINGS ── */
-/* Section label — Arabico */
 .section-label{
   font-family:var(--font-thematic);font-size:11px;line-height:1.6;
   letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;
 }
-/* Section title — Zanzabar */
 .section-title{
   font-family:var(--font-impact);
   font-size:clamp(26px,3.5vw,40px);
@@ -421,7 +363,6 @@ nav a:hover::after{width:100%;left:0;}
   padding:16px 40px;border-bottom:1px solid var(--border-fine);
 }
 .tabs{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;max-width:1000px;margin:0 auto;}
-/* Tab buttons — Arabico */
 .tab{
   background:transparent;color:var(--text-muted);border:1px solid transparent;
   padding:10px 22px;font-family:var(--font-thematic);font-size:11px;line-height:1.6;
@@ -451,28 +392,25 @@ nav a:hover::after{width:100%;left:0;}
 .card-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,var(--bg-card) 100%);z-index:1;}
 .card-img{width:100%;height:100%;object-fit:cover;transition:transform 0.8s var(--ease-editorial);filter:contrast(1.05) brightness(0.95);}
 .menu-card:hover .card-img{transform:scale(0.97);}
-/* Card badge — Arabico */
 .card-badge{
   position:absolute;top:20px;right:20px;z-index:2;background:var(--accent-muted);color:var(--text-main);
   font-family:var(--font-thematic);font-size:11px;line-height:1.6;
   letter-spacing:0.15em;padding:6px 14px;text-transform:uppercase;
 }
 .card-body{padding:28px;position:relative;z-index:2;flex-grow:1;display:flex;flex-direction:column;justify-content:space-between;}
-/* Dish name — Khodijah */
 .card-body h3{
   font-family:var(--font-luxury);font-size:15px;font-weight:300;letter-spacing:0.05em;
   color:var(--text-main);margin-bottom:18px;transition:color 0.4s;line-height:1.3;
 }
 .menu-card:hover .card-body h3{color:var(--accent);}
 
-/* Price table — Arabico for labels */
 .price-table{background:rgba(0,0,0,0.2);border-left:1px solid var(--accent);}
 .price-row{display:flex;justify-content:space-between;align-items:center;padding:11px 18px;border-bottom:1px solid rgba(184,115,51,0.05);}
 .price-row:last-child{border-bottom:none;}
 .price-row .lbl{color:var(--text-muted);font-family:var(--font-thematic);font-size:11px;line-height:1.6;letter-spacing:0.08em;}
 .price-row .val{color:var(--accent);font-family:var(--font-impact);font-size:11px;font-weight:700;letter-spacing:0.05em;}
 
-/* ── BLOG SECTION ── */
+/* ── BLOG ── */
 .blog-section{background:var(--bg-surface);border-top:1px solid var(--border-fine);padding:100px 40px;position:relative;}
 .blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;max-width:1340px;margin:0 auto;}
 .blog-card{background:var(--bg-primary);border:1px solid var(--border-fine);overflow:hidden;transition:var(--transition-slow);opacity:0;transform:translateY(40px);}
@@ -483,33 +421,28 @@ nav a:hover::after{width:100%;left:0;}
 .blog-img{width:100%;height:100%;object-fit:cover;transition:transform 0.9s var(--ease-editorial);filter:grayscale(0.1) brightness(0.85) contrast(1.1);}
 .blog-card:hover .blog-img{transform:scale(0.96);}
 .blog-body{padding:32px;}
-/* Blog tag — Arabico */
 .blog-tag{
   font-family:var(--font-thematic);font-size:11px;line-height:1.6;
   letter-spacing:0.2em;color:var(--accent);text-transform:uppercase;margin-bottom:12px;display:block;
 }
-/* Blog title — Khodijah */
 .blog-title{
   font-family:var(--font-luxury);font-size:15px;font-weight:300;letter-spacing:0.05em;
   color:var(--text-main);line-height:1.4;margin-bottom:14px;transition:color 0.4s;
 }
 .blog-card:hover .blog-title{color:var(--accent);}
-/* Blog description — Arabico */
 .blog-desc{font-family:var(--font-thematic);font-size:11px;line-height:1.6;color:var(--text-muted);}
 
-/* ── FEEDBACK SECTION ── */
+/* ── FEEDBACK ── */
 .feedback-section{background:var(--bg-primary);border-top:1px solid var(--border-fine);padding:100px 40px;position:relative;}
 .feedback-container{max-width:680px;margin:0 auto;}
 .feedback-form{margin-top:40px;display:flex;flex-direction:column;gap:24px;}
 .form-row-dual{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
 @media(max-width:600px){.form-row-dual{grid-template-columns:1fr;}}
 .feedback-field-wrap{display:flex;flex-direction:column;gap:8px;}
-/* Form labels — Arabico */
 .feedback-label{
   font-family:var(--font-thematic);font-size:11px;line-height:1.6;
   letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);
 }
-/* Form inputs — Arabico (user input, placeholder) */
 .premium-entry-box{
   background:var(--bg-card) !important;color:var(--text-main) !important;
   border:1px solid var(--border-fine);padding:16px 20px;
@@ -521,7 +454,6 @@ nav a:hover::after{width:100%;left:0;}
   box-shadow:0 0 15px rgba(184,115,51,0.15);
 }
 textarea.premium-entry-box{resize:vertical;min-height:140px;}
-/* Submit button — Zanzabar */
 .btn-submit-ledger{
   background:transparent;color:var(--text-main);border:1px solid var(--accent);
   padding:18px 40px;font-family:var(--font-impact);font-size:17px;font-weight:700;
@@ -536,7 +468,6 @@ textarea.premium-entry-box{resize:vertical;min-height:140px;}
 .modal-panel{position:fixed;right:0;top:0;bottom:0;width:min(540px,100%);background:var(--bg-surface);border-left:1px solid var(--border-fine);z-index:2001;transform:translateX(100%);transition:transform 0.6s var(--ease-editorial);overflow-y:auto;padding-bottom:60px;}
 .modal-panel.open{transform:translateX(0);}
 .modal-head{position:sticky;top:0;background:var(--bg-card);border-bottom:1px solid var(--border-fine);padding:24px 40px;display:flex;justify-content:space-between;align-items:center;z-index:10;}
-/* Modal heading — Zanzabar */
 .modal-head h2{
   font-family:var(--font-impact);font-size:17px;font-weight:700;
   color:var(--text-main);letter-spacing:0.15em;text-transform:uppercase;
@@ -545,7 +476,6 @@ textarea.premium-entry-box{resize:vertical;min-height:140px;}
 .modal-close:hover{background:var(--accent-glow);transform:rotate(90deg);border-color:var(--accent);}
 .modal-body{padding:40px;}
 .modal-cat{margin-bottom:44px;}
-/* Modal category title — Arabico */
 .modal-cat-title{
   font-family:var(--font-thematic);font-size:11px;line-height:1.6;
   letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);
@@ -553,13 +483,11 @@ textarea.premium-entry-box{resize:vertical;min-height:140px;}
 }
 .modal-item{background:rgba(255,255,255,0.01);border-left:1px solid var(--accent);padding:16px 20px;margin-bottom:12px;transition:var(--transition-fast);}
 .modal-item:hover{background:var(--accent-glow);transform:translateX(4px);}
-/* Modal item name — Khodijah */
 .modal-item-name{
   font-family:var(--font-luxury);font-size:15px;font-weight:300;letter-spacing:0.05em;
   color:var(--text-main);margin-bottom:12px;
 }
 .modal-badges{display:flex;flex-wrap:wrap;gap:10px;}
-/* Modal price badges — Arabico */
 .modal-badge{
   background:transparent;border:1px solid rgba(184,115,51,0.25);color:var(--text-muted);
   font-family:var(--font-thematic);font-size:11px;line-height:1.6;
@@ -568,13 +496,11 @@ textarea.premium-entry-box{resize:vertical;min-height:140px;}
 
 /* ── FOOTER ── */
 footer{background:#080808;border-top:1px solid var(--border-fine);padding:60px 40px 50px;text-align:center;}
-/* Footer logo — Zanzabar */
 .footer-logo{
   font-family:var(--font-impact);font-size:17px;font-weight:700;
   color:var(--text-main);letter-spacing:0.4em;text-transform:uppercase;margin-bottom:18px;
 }
 .footer-divider{width:60px;height:1px;background:var(--accent);margin:0 auto 32px;}
-/* Footer copy — Arabico */
 .footer-copy{
   color:#3A3A3A;font-family:var(--font-thematic);font-size:11px;line-height:1.6;
   letter-spacing:0.12em;text-transform:uppercase;
@@ -584,151 +510,24 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:60px 4
 @media(max-width:992px){
   header{padding:0 24px;}
   nav{display:none;}
-  .cursor-dot,.cursor-ring{display:none !important;}
-  *{cursor:auto !important;}
 }
 @media(max-width:768px){
-  /* Zanzabar hero: tight clamp so strokes don't overlap */
   .hero-title{font-size:clamp(28px,8vw,42px);letter-spacing:0.04em;}
-  /* Logo on mobile */
   .logo-text{font-size:11px;}
-  /* Section titles */
   .section-title{font-size:clamp(22px,5vw,30px);}
-  /* Dish names, blog titles */
   .card-body h3{font-size:clamp(16px,4vw,20px);}
   .blog-title{font-size:clamp(16px,4vw,20px);}
-  /* Modal item names */
   .modal-item-name{font-size:clamp(14px,4vw,17px);}
-  /* Reduce nav/tag/label sizes */
-  nav a,.nav-map-link,.tab,.section-label,.blog-tag,.card-badge,
-  .rice-strip,.hero-badge,.hero-fine-print-tagline,.hero-fine-print-gst,
-  .hero-scroll,.hub-title,.hub-address,.hub-contact-link,.hub-links-list a,
-  .hub-menu-grid a,.feedback-label,.premium-entry-box,.modal-cat-title,
-  .modal-badge,.footer-copy,.blog-desc,.price-row .lbl,.price-row .val{
-    font-size:11px;
-  }
-  .btn-heritage-solid,.btn-submit-ledger,.modal-head h2,.footer-logo{font-size:11px;}
-  .hero-sub{font-size:12px;}
   .tabs-wrap{padding:12px 10px;}
   .menu-wrap{padding:60px 20px 40px;}
   .blog-section{padding:60px 20px;}
+  .btn-explore-inner{padding:16px 32px;font-size:13px;}
 }
 </style>
 </head>
 <body>
-</script>
-<script>
-const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/15mVIys3OFzvfjLtU07-mPn_nN8B-zmq-nhLVmQpqaW0/pub?gid=0&single=true&output=csv";
 
-let RES_IMAGE_LIBRARY = {};
-
-async function loadImagesFromGoogleSheet() {
-    try {
-        const response = await fetch(GOOGLE_SHEET_CSV_URL);
-        const csvText = await response.text();
-        const lines = csvText.trim().split('\n');
-        
-        for (let i = 1; i < lines.length; i++) {
-            const line = lines[i].trim();
-            if (!line) continue;
-            
-            const values = parseCSVLine(line);
-            if (values.length >= 2) {
-                const dishName = values[0].trim();
-                const imageUrl = values[1].trim();
-                if (dishName && imageUrl) {
-                    RES_IMAGE_LIBRARY[dishName] = imageUrl;
-                }
-            }
-        }
-        return true;
-    } catch (error) {
-        console.error("Error loading images:", error);
-        return false;
-    }
-}
-
-function parseCSVLine(line) {
-    const result = [];
-    let current = '';
-    let insideQuotes = false;
-    
-    for (let i = 0; i < line.length; i++) {
-        const char = line[i];
-        if (char === '"') {
-            insideQuotes = !insideQuotes;
-        } else if (char === ',' && !insideQuotes) {
-            result.push(current);
-            current = '';
-        } else {
-            current += char;
-        }
-    }
-    result.push(current);
-    return result;
-}
-
-document.addEventListener('DOMContentLoaded', async function() {
-    await loadImagesFromGoogleSheet();
-});
-</script>
-
-<div class="explore-label">Click to Explore! 🍛</div>
-<button class="explore-button" id="exploreBtn" title="Click to explore our menu!">
-    🔍
-    <span class="explore-badge">NEW</span>
-</button>
-
-<script>
-const exploreBtn = document.getElementById('exploreBtn');
-
-exploreBtn.addEventListener('click', function(e) {
-    this.classList.add('ripple');
-    setTimeout(() => {
-        this.classList.remove('ripple');
-    }, 600);
-    
-    if (typeof openExploreMenu === 'function') {
-        openExploreMenu();
-    } else {
-        const menuSection = document.querySelector('.menu-section') || document.querySelector('[data-menu]');
-        if (menuSection) {
-            menuSection.scrollIntoView({ behavior: 'smooth' });
-        }
-    }
-});
-
-let firstInteraction = true;
-document.addEventListener('click', function(e) {
-    if (firstInteraction && e.target === exploreBtn) {
-        const label = document.querySelector('.explore-label');
-        if (label) {
-            label.style.animation = 'slide-in 0.5s ease forwards reverse';
-            setTimeout(() => {
-                label.style.display = 'none';
-            }, 500);
-            firstInteraction = false;
-        }
-    }
-});
-
-let interactionTimeout;
-function resetInteractionTimer() {
-    clearTimeout(interactionTimeout);
-    exploreBtn.classList.remove('attention');
-    
-    interactionTimeout = setTimeout(() => {
-        exploreBtn.classList.add('attention');
-    }, 8000);
-}
-
-document.addEventListener('click', resetInteractionTimer);
-document.addEventListener('scroll', resetInteractionTimer);
-
-resetInteractionTimer();
-</script>
-<div class="cursor-dot" id="cDot"></div>
-<div class="cursor-ring" id="cRing"><span>Explore</span></div>
+<div class="cursor-ring" id="cRing" style="display:none"></div>
 
 <header>
   <button class="left-brand-trigger" onclick="openBrandOverlay()">
@@ -778,11 +577,11 @@ resetInteractionTimer();
   <div class="hub-section">
     <div class="hub-title">Discover Our Menu</div>
     <div class="hub-menu-grid">
-      <a href="#menu-anchor" onclick="closeBrandOverlay();switchCat('yemeni',document.querySelector('[onclick*=\'yemeni\']'))">Yemeni Mandhi</a>
-      <a href="#menu-anchor" onclick="closeBrandOverlay();switchCat('grilled',document.querySelector('[onclick*=\'grilled\']'))">Grilled Mandhi</a>
-      <a href="#menu-anchor" onclick="closeBrandOverlay();switchCat('pieces',document.querySelector('[onclick*=\'pieces\']'))">Grilled Pieces</a>
-      <a href="#menu-anchor" onclick="closeBrandOverlay();switchCat('mandi-only',document.querySelector('[onclick*=\'mandi-only\']'))">Mandhi Proteins</a>
-      <a href="#menu-anchor" onclick="closeBrandOverlay();switchCat('juices',document.querySelector('[onclick*=\'juices\']'))">Fresh Juices</a>
+      <a href="#menu-anchor" onclick="closeBrandOverlay();switchTabPanel('YEMENI MANDHI',null)">Yemeni Mandhi</a>
+      <a href="#menu-anchor" onclick="closeBrandOverlay();switchTabPanel('GRILLED MANDHI',null)">Grilled Mandhi</a>
+      <a href="#menu-anchor" onclick="closeBrandOverlay();switchTabPanel('GRILLED PIECES',null)">Grilled Pieces</a>
+      <a href="#menu-anchor" onclick="closeBrandOverlay();switchTabPanel('MANDHI PIECES',null)">Mandhi Proteins</a>
+      <a href="#menu-anchor" onclick="closeBrandOverlay();switchTabPanel('FRESH JUICES',null)">Fresh Juices</a>
     </div>
   </div>
 </div>
@@ -794,9 +593,25 @@ resetInteractionTimer();
     <div class="hero-badge">✦   An Ancient Mastery   ✦</div>
     <h1 class="hero-title">The Art of<br><span>Arabian Mandhi</span></h1>
     <p class="hero-sub">Slow-cooked over traditional charcoal pits. Restrained on raw textures, rich spices, and presented beautifully on fine copper platters.</p>
+
     <div class="hero-ctas">
-      <button class="btn-heritage-solid" onclick="unlockAndScrollToMenu()">Explore Menu</button>
+      <!-- Premium Explore Menu Button -->
+      <button class="btn-explore-premium" onclick="unlockAndScrollToMenu()">
+        <div class="btn-explore-inner">
+          <span>Explore Menu</span>
+          <svg class="btn-explore-icon" viewBox="0 0 24 24">
+            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+          </svg>
+        </div>
+      </button>
     </div>
+
+    <!-- Subtle animated hint below the button -->
+    <div class="explore-hint">
+      <div class="explore-line"></div>
+      <span class="explore-hint-text">Tap to unlock the full menu</span>
+    </div>
+
     <div class="hero-fine-print">
       <span class="hero-fine-print-tagline">Authentic Elite Dining &nbsp;·&nbsp; Pandalam, Pathanamthitta &nbsp;·&nbsp; Masterfully Crafted Inside the Pits</span>
       <div class="hero-fine-print-divider"></div>
@@ -811,105 +626,19 @@ resetInteractionTimer();
 </div>
 
 <div class="tabs-wrap" id="menu-anchor">
-<div class="tabs" id="tabsContainer">
-    <button class="tab active" onclick="switchCat('yemeni',this)">Yemeni Mandhi</button>
-    <button class="tab" onclick="switchCat('grilled',this)">Grilled Mandhi</button>
-    <button class="tab" onclick="switchCat('pieces',this)">Grilled Pieces</button>
-    <button class="tab" onclick="switchCat('mandi-only',this)">Mandhi Pieces</button>
-    <button class="tab" onclick="switchCat('juices',this)">Fresh Juices</button>
+  <div class="tabs" id="tabsContainer">
+    <button class="tab active" onclick="switchTabPanel('YEMENI MANDHI',this)">Yemeni Mandhi</button>
+    <button class="tab" onclick="switchTabPanel('GRILLED MANDHI',this)">Grilled Mandhi</button>
+    <button class="tab" onclick="switchTabPanel('GRILLED PIECES',this)">Grilled Pieces</button>
+    <button class="tab" onclick="switchTabPanel('MANDHI PIECES',this)">Mandhi Pieces</button>
+    <button class="tab" onclick="switchTabPanel('FRESH JUICES',this)">Fresh Juices</button>
   </div>
 </div>
 
 <div class="menu-wrap" id="menuWrap">
-  <div id="yemeni" class="cat-content active">
-    <p class="section-label">✦ Heritage Collection</p>
-    <h2 class="section-title">Yemeni Mandhi Dishes</h2>
-    <div class="section-divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
-    <div class="menu-grid">
-      <div class="menu-card">
-        <div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/tTf92z4s/Gemini-Generated-Image-3m9wp93m9wp93m9w.png" alt="Chicken Yemeni Mandi"><div class="card-badge">Signature</div></div>
-        <div class="card-body"><h3>Chicken Yemeni Mandhi</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹210</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹400</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹750</span></div></div></div>
-      </div>
-      <div class="menu-card">
-        <div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/2SVRXZgk/Gemini-Generated-Image-fmthfzfmthfzfmth.png" alt="Chicken Spicy Mandi"><div class="card-badge" style="background:var(--accent-muted);">Spiced</div></div>
-        <div class="card-body"><h3>Chicken Spicy Mandhi</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹260</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹480</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹850</span></div></div></div>
-      </div>
-      <div class="menu-card">
-        <div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/7h4J8YYj/Gemini-Generated-Image-cx5wa7cx5wa7cx5w.png" alt="Beef Ran Mandi"></div>
-        <div class="card-body"><h3>Beef Ran Mandhi</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹300</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹520</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹970</span></div></div></div>
-      </div>
-      <div class="menu-card">
-        <div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/FF7qjLkF/Gemini-Generated-Image-fu80d7fu80d7fu80.png"><div class="card-badge">Reserve</div></div>
-        <div class="card-body"><h3>Mutton Yemeni Mandhi</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹430</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹870</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹1750</span></div></div></div>
-      </div>
-      <div class="menu-card">
-        <div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/x1JcpFKW/Gemini-Generated-Image-3o7qnz3o7qnz3o7q-(1).png" alt="Mandhi Rice"></div>
-        <div class="card-body"><h3>Mandhi Rice Only</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹140</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹240</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹400</span></div></div></div>
-      </div>
-    </div>
+  <div style="text-align:center;padding:60px 20px;color:var(--text-muted);font-family:var(--font-thematic);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;">
+    ✦ Loading menu from kitchen... ✦
   </div>
-
-  <div id="grilled" class="cat-content">
-    <p class="section-label">✦ Grilled Fusion</p>
-    <h2 class="section-title">Grilled Mandhi</h2>
-    <div class="section-divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
-    <div class="menu-grid">
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/mZ1ZsFcw/Gemini-Generated-Image-fs6nofs6nofs6nof.png" alt="Alfaham Mandhi"></div><div class="card-body"><h3>Alfaham Mandhi</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹250</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹440</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹840</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/QxWF0ykM/Gemini-Generated-Image-ljjjjpljjjjpljjj.png" alt="Shawaya Mandhi"></div><div class="card-body"><h3>Shawaya Mandhi</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹270</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹490</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹850</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/zvPfh19L/Gemini-Generated-Image-tr6di7tr6di7tr6d-(1).png" alt="Cheese Alfaham Mandhi"></div><div class="card-body"><h3>Cheese Alfaham Mandhi</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹310</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹540</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹960</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/SQ8BB4Z2/Gemini-Generated-Image-z4ammsz4ammsz4am.png" alt="BBQ Alfaham Mandhi"></div><div class="card-body"><h3>BBQ Alfaham Mandhi</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹260</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹490</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹870</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/wTn9h2bw/Gemini-Generated-Image-zhfmznzhfmznzhfm.png" alt="Honey Chilli Mandhi"></div><div class="card-body"><h3>Honey Chilli Mandhi</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹270</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹510</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹870</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/kXRmX8XK/Gemini-Generated-Image-fr4540fr4540fr45.png" alt="Kanthari Mandhi"></div><div class="card-body"><h3>Kanthari Mandhi</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹250</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹480</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹870</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/jqG2RRQ3/Gemini-Generated-Image-1islga1islga1isl.png" alt="Peri Peri Mandhi"></div><div class="card-body"><h3>Peri Peri Mandhi</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹270</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹510</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹870</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/yYyH2KfY/Gemini-Generated-Image-7pjsss7pjsss7pjs.pngg" alt="Pepper Mandhi"></div><div class="card-body"><h3>Pepper Mandhi</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹250</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹480</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹870</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/nrndDyqd/Gemini-Generated-Image-pwhz4tpwhz4tpwhz.png" alt="Arabic Shawaya Mandhi"></div><div class="card-body"><h3>Arabic Shawaya Mandhi</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹270</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹500</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹850</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/xCnGxKqc/Gemini-Generated-Image-gq2m58gq2m58gq2m.png" alt="Masala Shawaya Mandhi"></div><div class="card-body"><h3>Masala Shawaya Mandhi</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹300</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹530</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹900</span></div></div></div></div>
-    </div>
-  </div>
-
-  <div id="pieces" class="cat-content">
-    <p class="section-label">✦ Pit-Charred Elements</p>
-    <h2 class="section-title">Grilled Charred Pieces</h2>
-    <div class="section-divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
-    <div class="menu-grid">
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/WzTdPvkw/Gemini-Generated-Image-f7i0uff7i0uff7i0.png" alt="Alfaham Chicken"></div><div class="card-body"><h3>Alfaham Chicken</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹180</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹310</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹590</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/htMdrhN3/Whats-App-Image-2026-05-20-at-01-35-23.jpg"></div><div class="card-body"><h3>Shezwan Alfaham</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹210</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹360</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹630</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/pXJhWpVy/Whats-App-Image-2026-05-20-at-01-35-24.jpg" alt="Cheese Alfaham"></div><div class="card-body"><h3>Cheese Alfaham</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹220</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹390</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹650</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/5yq02RVS/Whats-App-Image-2026-05-20-at-01-35-24-(1).jpg" alt="BBQ Chicken"></div><div class="card-body"><h3>BBQ Chicken</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹200</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹350</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹620</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/7Y9hvdXS/Whats-App-Image-2026-05-20-at-01-35-24-(2).jpg" alt="Peri Peri Alfaham"></div><div class="card-body"><h3>Peri Peri Alfaham</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹200</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹350</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹630</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/DzPVzTVf/Whats-App-Image-2026-05-20-at-12-18-46.jpg" alt="Honey Chilli"></div><div class="card-body"><h3>Honey Chilli Chicken</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹210</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹360</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹630</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/FHq9N4L2/Whats-App-Image-2026-05-20-at-01-35-24-(3).jpg" alt="Kanthari"></div><div class="card-body"><h3>Kanthari Chicken</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹200</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹350</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹620</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1541518763669-27fef04b14ea?auto=format&fit=crop&w=800&q=85" alt="Pepper Alfaham"></div><div class="card-body"><h3>Pepper Alfaham</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹200</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹350</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹610</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/52HVPRRP/Whats-App-Image-2026-05-20-at-01-50-47.jpg" alt="Arabic Shawaya"></div><div class="card-body"><h3>Arabic Shawaya</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹170</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹320</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹600</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/L4NFmSK2/Whats-App-Image-2026-05-20-at-01-50-47-(1).jpg" alt="Masala Shawaya"></div><div class="card-body"><h3>Masala Shawaya</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹210</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹350</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹630</span></div></div></div></div>
-    </div>
-  </div>
-
-  <div id="mandi-only" class="cat-content">
-    <p class="section-label">✦ Pure Proteins</p>
-    <h2 class="section-title">Mandhi Meat Side Pieces (No Rice)</h2>
-    <div class="section-divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
-    <div class="menu-grid">
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/wT7ZHsQv/Whats-App-Image-2026-05-20-at-01-50-49.jpg" alt="Chicken Mandi"></div><div class="card-body"><h3>Chicken Mandhi Pieces</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹150</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹290</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹550</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/Rh8PqXLN/Whats-App-Image-2026-05-20-at-01-50-49-(1).jpg" alt="Beef Mandi"></div><div class="card-body"><h3>Beef Mandhi Pieces</h3><div class="price-table"><div class="price-row"><span class="lbl">Quarter</span><span class="val">₹130</span></div><div class="price-row"><span class="lbl">Half</span><span class="val">₹260</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹500</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/0Nfc78Cq/Whats-App-Image-2026-05-20-at-01-50-49-(2).jpg" alt="Mutton Mandi"></div><div class="card-body"><h3>Mutton Mandhi Pieces</h3><div class="price-table"><div class="price-row"><span class="lbl">Half</span><span class="val">₹650</span></div><div class="price-row"><span class="lbl">Full</span><span class="val">₹1350</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=800&q=85" alt="Mayonnaise"></div><div class="card-body"><h3>Extra Mayonnaise</h3><div class="price-table"><div class="price-row"><span class="lbl">Per Serving</span><span class="val">₹20</span></div></div></div></div>
-    </div>
-  </div>
-
-  <div id="juices" class="cat-content">
-    <p class="section-label">✦ Fresh Juices</p>
-    <h2 class="section-title">Fresh Juices</h2>
-    <div class="section-divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
-    <div class="menu-grid">
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/y65nmp0j/Whats-App-Image-2026-05-20-at-01-50-47-(2).jpg" alt="Mint Lime"></div><div class="card-body"><h3>Mint Lime</h3><div class="price-table"><div class="price-row"><span class="lbl">Per Glass</span><span class="val">₹50</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/PNsmBcMZ/Whats-App-Image-2026-05-20-at-01-50-48.jpg" alt="Lime Juice"></div><div class="card-body"><h3>Lime Juice</h3><div class="price-table"><div class="price-row"><span class="lbl">Per Glass</span><span class="val">₹40</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/mg4n96GY/Whats-App-Image-2026-05-20-at-01-50-48-(1).jpg" alt="Watermelon Juice"></div><div class="card-body"><h3>Pressed Watermelon</h3><div class="price-table"><div class="price-row"><span class="lbl">Per Glass</span><span class="val">₹60</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/Kz1pb6nY/Whats-App-Image-2026-05-20-at-01-50-48-(2).jpg" alt="Ginger Lime"></div><div class="card-body"><h3>Ginger Lime Infusion</h3><div class="price-table"><div class="price-row"><span class="lbl">Per Glass</span><span class="val">₹60</span></div></div></div></div>
-      <div class="menu-card"><div class="card-img-wrap"><img class="card-img" src="https://i.postimg.cc/MK23krXT/Whats-App-Image-2026-05-20-at-01-50-49-(3).jpg" alt="Pineapple Juice"></div><div class="card-body"><h3>Crushed Pineapple</h3><div class="price-table"><div class="price-row"><span class="lbl">Per Glass</span><span class="val">₹60</span></div></div></div></div>
-    </div>
-  </div>
-
 </div>
 
 <section class="blog-section" id="journals-anchor">
@@ -978,54 +707,88 @@ resetInteractionTimer();
 </footer>
 
 <script>
+// ── PARTICLES ──
 (function(){
-  const dot=document.getElementById('cDot'),ring=document.getElementById('cRing');
-  let mx=0,my=0,dx=0,dy=0,rx=0,ry=0;
-  window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-  (function tick(){
-    dx+=(mx-dx)*1; dy+=(my-dy)*1;
-    dot.style.transform=`translate3d(${dx}px,${dy}px,0) translate(-50%,-50%)`;
-    rx+=(mx-rx)*0.15; ry+=(my-ry)*0.15;
-    ring.style.transform=`translate3d(${rx}px,${ry}px,0) translate(-50%,-50%)`;
-    requestAnimationFrame(tick);
-  })();
-  const T='a,button,.tab,.menu-card,.blog-card,.modal-close,.premium-entry-box,.left-brand-trigger';
-  document.addEventListener('mouseover',e=>{if(e.target.closest(T))ring.classList.add('expand');});
-  document.addEventListener('mouseout',e=>{if(e.target.closest(T))ring.classList.remove('expand');});
-})();
-
-(function(){
-  const wrap=document.getElementById('particles');
-  for(let i=0;i<15;i++){
-    const p=document.createElement('div'); p.className='particle';
-    const sz=Math.random()*5+3;
-    p.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;animation-duration:${Math.random()*12+6}s;animation-delay:${Math.random()*8}s;opacity:0.7;box-shadow:0 0 8px var(--accent);`;
+  const wrap = document.getElementById('particles');
+  for(let i = 0; i < 15; i++){
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const sz = Math.random() * 5 + 3;
+    p.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}%;animation-duration:${Math.random()*12+6}s;animation-delay:${Math.random()*8}s;opacity:0.7;box-shadow:0 0 8px var(--accent);`;
     wrap.appendChild(p);
   }
 })();
 
-const bg=document.getElementById('parallaxBg');
-window.addEventListener('scroll',()=>{const y=window.scrollY;if(y<window.innerHeight*1.5)bg.style.transform=`translate3d(0,${y*0.28}px,0) scale(1.02)`;},{passive:true});
+// ── PARALLAX ──
+const bg = document.getElementById('parallaxBg');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if(y < window.innerHeight * 1.5) bg.style.transform = `translate3d(0,${y*0.28}px,0) scale(1.02)`;
+}, {passive: true});
 
-function openBrandOverlay(){document.getElementById('brandOverlay').classList.add('open');document.getElementById('brandPanel').classList.add('open');document.body.style.overflow='hidden';}
-function closeBrandOverlay(){document.getElementById('brandOverlay').classList.remove('open');document.getElementById('brandPanel').classList.remove('open');document.body.style.overflow='';}
-
-document.body.style.overflow='hidden';
-function unlockAndScrollToMenu(){document.body.style.overflow='';const t=document.getElementById('menu-anchor');if(t)t.scrollIntoView({behavior:'smooth',block:'start'});}
-
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.menu-card,.blog-card').forEach((c,i)=>setTimeout(()=>c.classList.add('revealed'),i*70));observer.unobserve(e.target);}});},{threshold:0.05});
-function runGridObservations(){const g=document.querySelector('.cat-content.active .menu-grid');if(g)observer.observe(g);const b=document.querySelector('.blog-grid');if(b)observer.observe(b);}
-runGridObservations();
-
-function switchCat(id,btn){
-  document.querySelectorAll('.cat-content').forEach(c=>c.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  if(btn)btn.classList.add('active');
-  setTimeout(()=>{runGridObservations();const g=document.querySelector('#'+id+' .menu-grid');if(g)g.scrollIntoView({behavior:'smooth',block:'start'});},40);
+// ── BRAND OVERLAY ──
+function openBrandOverlay(){
+  document.getElementById('brandOverlay').classList.add('open');
+  document.getElementById('brandPanel').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeBrandOverlay(){
+  document.getElementById('brandOverlay').classList.remove('open');
+  document.getElementById('brandPanel').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
-const ALL={
+// ── HERO LOCK / UNLOCK ──
+document.body.style.overflow = 'hidden';
+
+function unlockAndScrollToMenu(){
+  document.body.style.overflow = '';
+  const t = document.getElementById('menu-anchor');
+  if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.menu-card, .blog-card').forEach((c, i) =>
+        setTimeout(() => c.classList.add('revealed'), i * 70)
+      );
+      observer.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.05});
+
+function runGridObservations(){
+  const g = document.querySelector('.cat-content.active .menu-grid');
+  if(g) observer.observe(g);
+  const b = document.querySelector('.blog-grid');
+  if(b) observer.observe(b);
+}
+
+// ── TAB SWITCHING ──
+function switchTabPanel(categoryKey, clickAnchor) {
+  document.querySelectorAll('.cat-content').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+
+  const target = document.getElementById(`cat-${categoryKey.replace(/\s+/g,'-')}`);
+  if(target) target.classList.add('active');
+
+  if(clickAnchor){
+    clickAnchor.classList.add('active');
+  } else {
+    // Activate matching tab button
+    document.querySelectorAll('.tab').forEach(btn => {
+      if(btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(`'${categoryKey}'`))
+        btn.classList.add('active');
+    });
+  }
+
+  setTimeout(() => runGridObservations(), 40);
+}
+
+// ── MODAL ──
+const ALL = {
   'Yemeni Mandhi Dishes':[
     {n:'Chicken Yemeni Mandhi',p:{Quarter:'₹210',Half:'₹400',Full:'₹750'}},
     {n:'Chicken Spicy Mandhi',p:{Quarter:'₹260',Half:'₹480',Full:'₹850'}},
@@ -1075,41 +838,39 @@ const ALL={
 };
 
 function openModal(){
-  let h='';
-  for(const[cat,items]of Object.entries(ALL)){
-    h+=`<div class="modal-cat"><div class="modal-cat-title">${cat}</div>`;
-    items.forEach(it=>{
-      const b=Object.entries(it.p).map(([k,v])=>`<span class="modal-badge">${k}: ${v}</span>`).join('');
-      h+=`<div class="modal-item"><div class="modal-item-name">${it.n}</div><div class="modal-badges">${b}</div></div>`;
+  let h = '';
+  for(const [cat, items] of Object.entries(ALL)){
+    h += `<div class="modal-cat"><div class="modal-cat-title">${cat}</div>`;
+    items.forEach(it => {
+      const b = Object.entries(it.p).map(([k,v]) => `<span class="modal-badge">${k}: ${v}</span>`).join('');
+      h += `<div class="modal-item"><div class="modal-item-name">${it.n}</div><div class="modal-badges">${b}</div></div>`;
     });
-    h+='</div>';
+    h += '</div>';
   }
-  document.getElementById('modalBody').innerHTML=h;
+  document.getElementById('modalBody').innerHTML = h;
   document.getElementById('overlay').classList.add('open');
   document.getElementById('modalPanel').classList.add('open');
-  document.body.style.overflow='hidden';
+  document.body.style.overflow = 'hidden';
 }
 function closeModal(){
   document.getElementById('overlay').classList.remove('open');
   document.getElementById('modalPanel').classList.remove('open');
-  document.body.style.overflow='';
+  document.body.style.overflow = '';
 }
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeBrandOverlay();}});
-</script>
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){ closeModal(); closeBrandOverlay(); }
+});
 
-<script>
-// 1. LIVE GOOGLE SHEET CSV LINK
+// ── LIVE MENU FROM GOOGLE SHEET ──
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2rSWCYiSi-gXHPkFY3ZvmMNLeqrabax6dO9Okdm4C3ecvw1-RLNciNvSTJebKlQM7nLmVkHmKq4ap/pub?gid=0&single=true&output=csv";
-
-// Fallback image if a specific row doesn't have an image link yet
 const DEFAULT_FALLBACK_IMAGE = "https://i.postimg.cc/tTf92z4s/Gemini-Generated-Image-3m9wp93m9wp93m9w.png";
 
 const CATEGORY_STYLES = {
-  "YEMENI MANDHI": { label: "✦ Heritage Collection", title: "Yemeni Mandhi Dishes", tab: "Yemeni Mandhi" },
-  "GRILLED MANDHI": { label: "✦ Grilled Fusion", title: "Grilled Mandhi", tab: "Grilled Mandhi" },
-  "GRILLED PIECES": { label: "✦ Pit-Charred Elements", title: "Grilled Charred Pieces", tab: "Grilled Pieces" },
-  "MANDHI PIECES": { label: "✦ Pure Proteins", title: "Mandhi Meat Side Pieces", tab: "Mandhi Pieces" },
-  "FRESH JUICES": { label: "✦ Fresh Juices", title: "Fresh Juices", tab: "Fresh Juices" }
+  "YEMENI MANDHI":  { label: "✦ Heritage Collection", title: "Yemeni Mandhi Dishes",          tab: "Yemeni Mandhi" },
+  "GRILLED MANDHI": { label: "✦ Grilled Fusion",       title: "Grilled Mandhi",                tab: "Grilled Mandhi" },
+  "GRILLED PIECES": { label: "✦ Pit-Charred Elements", title: "Grilled Charred Pieces",        tab: "Grilled Pieces" },
+  "MANDHI PIECES":  { label: "✦ Pure Proteins",        title: "Mandhi Meat Side Pieces",       tab: "Mandhi Pieces" },
+  "FRESH JUICES":   { label: "✦ Fresh Juices",         title: "Fresh Juices",                  tab: "Fresh Juices" }
 };
 
 let parsedMenuData = {};
@@ -1117,19 +878,14 @@ let dynamicCategoryOrder = [];
 
 async function initializeLiveKitchenMenu() {
   try {
-    const fetchResponse = await fetch(SHEET_CSV_URL);
-    const dataBlob = await fetchResponse.text();
-    
-    // Split into individual data rows
-    const rows = dataBlob.trim().split(/\r?\n/);
-    if (rows.length < 2) return;
+    const res = await fetch(SHEET_CSV_URL);
+    const csv = await res.text();
+    const rows = csv.trim().split(/\r?\n/);
+    if(rows.length < 2) return;
 
-    // Helper to safely parse CSV rows containing quotes and commas
-    const parseCsvRow = (text) => text.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+    const parseRow = (text) => text.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+    const headers = parseRow(rows[0]).map(h => h.replace(/^"|"$/g,'').trim().toLowerCase());
 
-    // DYNAMIC HEADER DETECTION (Allows columns to be dragged anywhere)
-    const headers = parseCsvRow(rows[0]).map(h => h.replace(/^"|"$/g, '').trim().toLowerCase());
-    
     const nameIdx  = headers.findIndex(h => h.includes('name') || h.includes('dish'));
     const catIdx   = headers.findIndex(h => h.includes('category') || h.includes('cat'));
     const qtrIdx   = headers.findIndex(h => h.includes('quarter') || h.includes('qtr'));
@@ -1141,109 +897,86 @@ async function initializeLiveKitchenMenu() {
     parsedMenuData = {};
     dynamicCategoryOrder = [];
 
-    // Process data rows (skipping the header row)
     rows.slice(1).forEach(row => {
-      const fieldCols = parseCsvRow(row);
-      if (fieldCols.length < 2) return;
+      const cols = parseRow(row);
+      if(cols.length < 2) return;
+      const name = nameIdx !== -1 && cols[nameIdx] ? cols[nameIdx].replace(/^"|"$/g,'').trim() : '';
+      const cat  = catIdx  !== -1 && cols[catIdx]  ? cols[catIdx].replace(/^"|"$/g,'').toUpperCase().trim() : '';
+      if(!name || !cat) return;
 
-      const titleName = nameIdx !== -1 && fieldCols[nameIdx] ? fieldCols[nameIdx].replace(/^"|"$/g, '').trim() : '';
-      const catKey    = catIdx !== -1 && fieldCols[catIdx] ? fieldCols[catIdx].replace(/^"|"$/g, '').toUpperCase().trim() : '';
-      
-      if (!titleName || !catKey) return;
+      if(!parsedMenuData[cat]){ parsedMenuData[cat] = []; dynamicCategoryOrder.push(cat); }
 
-      const qtrPrice   = qtrIdx !== -1 && fieldCols[qtrIdx] ? fieldCols[qtrIdx].trim() : '';
-      const halfPrice  = halfIdx !== -1 && fieldCols[halfIdx] ? fieldCols[halfIdx].trim() : '';
-      const fullPrice  = fullIdx !== -1 && fieldCols[fullIdx] ? fieldCols[fullIdx].trim() : '';
-      const tagBadge   = tagIdx !== -1 && fieldCols[tagIdx] ? fieldCols[tagIdx].replace(/^"|"$/g, '').trim() : '';
-      
-      // Pull image link right out of the dynamically mapped spreadsheet cell
-      const imageUrl   = imageIdx !== -1 && fieldCols[imageIdx] ? fieldCols[imageIdx].replace(/^"|"$/g, '').trim() : '';
-
-      if (!parsedMenuData[catKey]) {
-        parsedMenuData[catKey] = [];
-        dynamicCategoryOrder.push(catKey);
-      }
-
-      parsedMenuData[catKey].push({
-        name: titleName,
-        qtr: qtrPrice,
-        half: halfPrice,
-        full: fullPrice,
-        tag: tagBadge,
-        image: imageUrl || DEFAULT_FALLBACK_IMAGE
+      parsedMenuData[cat].push({
+        name,
+        qtr:   qtrIdx   !== -1 && cols[qtrIdx]   ? cols[qtrIdx].trim()                              : '',
+        half:  halfIdx  !== -1 && cols[halfIdx]   ? cols[halfIdx].trim()                             : '',
+        full:  fullIdx  !== -1 && cols[fullIdx]   ? cols[fullIdx].trim()                             : '',
+        tag:   tagIdx   !== -1 && cols[tagIdx]    ? cols[tagIdx].replace(/^"|"$/g,'').trim()         : '',
+        image: imageIdx !== -1 && cols[imageIdx]  ? cols[imageIdx].replace(/^"|"$/g,'').trim() || DEFAULT_FALLBACK_IMAGE : DEFAULT_FALLBACK_IMAGE
       });
     });
 
     renderDynamicWebLayout();
-  } catch(error) {
-    console.error("Menu parse error: ", error);
-    document.getElementById('menuWrap').innerHTML = `<div class="menu-error">✦ Connection Error. Live update paused. ✦</div>`;
+  } catch(err) {
+    console.error("Menu load error:", err);
+    document.getElementById('menuWrap').innerHTML = `<div style="text-align:center;padding:60px;color:var(--text-muted);font-family:var(--font-thematic);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;">✦ Could not connect to menu. Please refresh. ✦</div>`;
   }
 }
 
 function renderDynamicWebLayout() {
   const tabsContainer = document.getElementById('tabsContainer');
-  const webGridWrapper = document.getElementById('menuWrap');
-  if (!tabsContainer || !webGridWrapper) return;
+  const menuWrap = document.getElementById('menuWrap');
+  if(!tabsContainer || !menuWrap) return;
 
   let tabsMarkup = '';
-  dynamicCategoryOrder.forEach((cat, index) => {
-    tabsMarkup += `<button class="tab${index === 0 ? ' active' : ''}" onclick="switchTabPanel('${cat}', this)">${CATEGORY_STYLES[cat]?.tab || cat}</button>`;
+  dynamicCategoryOrder.forEach((cat, i) => {
+    const style = CATEGORY_STYLES[cat] || {};
+    tabsMarkup += `<button class="tab${i === 0 ? ' active' : ''}" onclick="switchTabPanel('${cat}',this)">${style.tab || cat}</button>`;
   });
   tabsContainer.innerHTML = tabsMarkup;
 
   let listsMarkup = '';
-  dynamicCategoryOrder.forEach((cat, index) => {
-    const styleMeta = CATEGORY_STYLES[cat] || {};
-    let itemCardsMarkup = '';
+  dynamicCategoryOrder.forEach((cat, i) => {
+    const style = CATEGORY_STYLES[cat] || {};
+    let cards = '';
 
     (parsedMenuData[cat] || []).forEach(dish => {
-      let ratesRowsMarkup = '';
-      if (cat === "FRESH JUICES") {
-        ratesRowsMarkup = `<div class="price-row"><span class="lbl">Per Glass</span><span class="val">₹${dish.full}</span></div>`;
+      let priceRows = '';
+      if(cat === "FRESH JUICES"){
+        priceRows = `<div class="price-row"><span class="lbl">Per Glass</span><span class="val">₹${dish.full}</span></div>`;
       } else {
-        if (dish.qtr) ratesRowsMarkup += `<div class="price-row"><span class="lbl">Quarter</span><span class="val">₹${dish.qtr}</span></div>`;
-        if (dish.half) ratesRowsMarkup += `<div class="price-row"><span class="lbl">Half</span><span class="val">₹${dish.half}</span></div>`;
-        if (dish.full) ratesRowsMarkup += `<div class="price-row"><span class="lbl">Full</span><span class="val">₹${dish.full}</span></div>`;
+        if(dish.qtr)  priceRows += `<div class="price-row"><span class="lbl">Quarter</span><span class="val">₹${dish.qtr}</span></div>`;
+        if(dish.half) priceRows += `<div class="price-row"><span class="lbl">Half</span><span class="val">₹${dish.half}</span></div>`;
+        if(dish.full) priceRows += `<div class="price-row"><span class="lbl">Full</span><span class="val">₹${dish.full}</span></div>`;
       }
-
-      const ribbonBadge = dish.tag ? `<div class="card-badge">${dish.tag}</div>` : '';
-
-      itemCardsMarkup += `
+      const badge = dish.tag ? `<div class="card-badge">${dish.tag}</div>` : '';
+      cards += `
         <div class="menu-card revealed">
           <div class="card-img-wrap">
             <img class="card-img" src="${dish.image}" alt="${dish.name}">
-            ${ribbonBadge}
+            ${badge}
           </div>
           <div class="card-body">
             <h3>${dish.name}</h3>
-            <div class="price-table">${ratesRowsMarkup}</div>
+            <div class="price-table">${priceRows}</div>
           </div>
         </div>`;
     });
 
     listsMarkup += `
-      <div id="cat-${cat.replace(/\s+/g, '-')}" class="cat-content${index === 0 ? ' active' : ''}">
-        <p class="section-label">${styleMeta.label || ''}</p>
-        <h2 class="section-title">${styleMeta.title || ''}</h2>
+      <div id="cat-${cat.replace(/\s+/g,'-')}" class="cat-content${i === 0 ? ' active' : ''}">
+        <p class="section-label">${style.label || ''}</p>
+        <h2 class="section-title">${style.title || cat}</h2>
         <div class="section-divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
-        <div class="menu-grid">${itemCardsMarkup}</div>
+        <div class="menu-grid">${cards}</div>
       </div>`;
   });
 
-  webGridWrapper.innerHTML = listsMarkup;
+  menuWrap.innerHTML = listsMarkup;
+  runGridObservations();
 }
 
-function switchTabPanel(categoryKey, clickAnchor) {
-  document.querySelectorAll('.cat-content').forEach(panel => panel.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(tabButton => tabButton.classList.remove('active'));
-  
-  const targetContent = document.getElementById(`cat-${categoryKey.replace(/\s+/g, '-')}`);
-  if (targetContent) targetContent.classList.add('active');
-  if (clickAnchor) clickAnchor.classList.add('active');
-}
-
-document.addEventListener("DOMContentLoaded", initializeLiveKitchenMenu);
+document.addEventListener('DOMContentLoaded', initializeLiveKitchenMenu);
 </script>
 </body>
 </html>
