@@ -534,6 +534,51 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:60px 4
   letter-spacing:0.12em;text-transform:uppercase;
 }
 
+/* ── AUTO-HIGHLIGHT: JS adds .auto-lit to cycle effects visibly ── */
+
+/* Nav links auto-lit */
+nav a.auto-lit { color: var(--text-main) !important; }
+nav a.auto-lit::after { width: 100% !important; left: 0 !important; }
+
+/* Nav map link auto-lit */
+.nav-map-link.auto-lit { color: var(--text-main) !important; border-color: var(--border-fine) !important; background: var(--accent-glow) !important; }
+.nav-map-link.auto-lit svg { transform: translateY(-1px); }
+
+/* Menu dot button auto-lit */
+.menu-dot-btn.auto-lit { background: var(--accent-glow) !important; border-color: var(--accent) !important; }
+.menu-dot-btn.auto-lit svg { fill: var(--text-main) !important; }
+
+/* Tab auto-lit */
+.tab.auto-lit { color: var(--text-main) !important; }
+.tab.auto-lit::after { width: 100% !important; }
+
+/* Menu card auto-lit — gold border lift + image scale + name gold */
+.menu-card.auto-lit {
+  border-color: var(--accent) !important;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(184,115,51,0.1) !important;
+  transform: translateY(-4px) !important;
+}
+.menu-card.auto-lit .card-img { transform: scale(0.97); }
+.menu-card.auto-lit .card-body h3 { color: var(--accent) !important; }
+
+/* Blog card auto-lit */
+.blog-card.auto-lit {
+  border-color: var(--accent) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.9) !important;
+}
+.blog-card.auto-lit .blog-title { color: var(--accent) !important; }
+.blog-card.auto-lit .blog-img { transform: scale(0.96); }
+
+/* Modal item auto-lit */
+.modal-item.auto-lit { background: var(--accent-glow) !important; transform: translateX(4px) !important; }
+
+/* Brand trigger auto-lit */
+.left-brand-trigger.auto-lit .logo-symbol svg { transform: scale(1.15); }
+
+/* Hub links auto-lit */
+.hub-links-list a.auto-lit { color: var(--accent) !important; transform: translateX(6px) !important; }
+
 /* ── RESPONSIVE ── */
 @media(max-width:992px){
   header{padding:0 24px;}
@@ -697,24 +742,27 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:60px 4
     <h2 class="section-title">Customer Reviews</h2>
     <div class="section-divider" style="margin-bottom:30px;"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
     <p class="hero-sub" style="margin-bottom:20px;text-align:left;">We value your feedback! Share your experience with us below.</p>
-    <form class="feedback-form" action="https://api.web3forms.com/submit" method="POST">
+    <div id="feedbackSuccess" style="display:none;text-align:center;padding:40px 20px;border:1px solid rgba(184,115,51,0.3);background:rgba(184,115,51,0.05);margin-bottom:24px;">
+      <div style="font-family:var(--font-impact);font-size:22px;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px;">✦ Thank You ✦</div>
+      <div style="font-family:var(--font-thematic);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(251,249,244,0.7);">Your review has been received. We are honoured by your time.</div>
+    </div>
+    <form class="feedback-form" id="feedbackForm">
       <input type="hidden" name="access_key" value="dcad1e03-4736-4553-87dd-3d527362cc1e">
       <div class="form-row-dual">
         <div class="feedback-field-wrap">
           <label class="feedback-label">Your Name / Title</label>
-          <input type="text" name="Name" class="premium-entry-box" placeholder="e.g. Guest Title" required>
+          <input type="text" id="fName" name="Name" class="premium-entry-box" placeholder="e.g. Guest Title" required>
         </div>
         <div class="feedback-field-wrap">
           <label class="feedback-label">Email Address</label>
-          <input type="email" name="Email" class="premium-entry-box" placeholder="name@domain.com" required>
+          <input type="email" id="fEmail" name="Email" class="premium-entry-box" placeholder="name@domain.com" required>
         </div>
       </div>
       <div class="feedback-field-wrap">
         <label class="feedback-label">Write Your Review</label>
-        <textarea name="Review" class="premium-entry-box" placeholder="Share your experience or review details meticulously..." required></textarea>
+        <textarea id="fReview" name="Review" class="premium-entry-box" placeholder="Share your experience or review details meticulously..." required></textarea>
       </div>
-      <input type="hidden" name="redirect" value="https://dexter967.github.io/mandhi/">
-      <button type="submit" class="btn-submit-ledger">Submit Feedback</button>
+      <button type="submit" class="btn-submit-ledger" id="feedbackSubmitBtn">Submit Feedback</button>
     </form>
   </div>
 </section>
@@ -768,7 +816,6 @@ function closeBrandOverlay(){
 
 // ── HERO LOCK / UNLOCK ──
 document.body.style.overflow = 'hidden';
-
 function unlockAndScrollToMenu(){
   document.body.style.overflow = '';
   const t = document.getElementById('menu-anchor');
@@ -798,22 +845,61 @@ function runGridObservations(){
 function switchTabPanel(categoryKey, clickAnchor) {
   document.querySelectorAll('.cat-content').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-
   const target = document.getElementById(`cat-${categoryKey.replace(/\s+/g,'-')}`);
   if(target) target.classList.add('active');
-
   if(clickAnchor){
     clickAnchor.classList.add('active');
   } else {
-    // Activate matching tab button
     document.querySelectorAll('.tab').forEach(btn => {
       if(btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(`'${categoryKey}'`))
         btn.classList.add('active');
     });
   }
-
   setTimeout(() => runGridObservations(), 40);
 }
+
+// ── FEEDBACK FORM — fetch submit + clear ──
+document.getElementById('feedbackForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const btn = document.getElementById('feedbackSubmitBtn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  const formData = new FormData(this);
+  formData.append('access_key', 'dcad1e03-4736-4553-87dd-3d527362cc1e');
+
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    });
+    const data = await res.json();
+    if(data.success){
+      // Clear all fields
+      document.getElementById('fName').value = '';
+      document.getElementById('fEmail').value = '';
+      document.getElementById('fReview').value = '';
+      // Show success banner, hide form
+      document.getElementById('feedbackSuccess').style.display = 'block';
+      document.getElementById('feedbackForm').style.display = 'none';
+      // After 5s, hide banner and show clean empty form again
+      setTimeout(() => {
+        document.getElementById('feedbackSuccess').style.display = 'none';
+        document.getElementById('feedbackForm').style.display = 'flex';
+        btn.textContent = 'Submit Feedback';
+        btn.disabled = false;
+      }, 5000);
+    } else {
+      btn.textContent = 'Submit Feedback';
+      btn.disabled = false;
+      alert('Something went wrong. Please try again.');
+    }
+  } catch(err){
+    btn.textContent = 'Submit Feedback';
+    btn.disabled = false;
+    alert('Connection error. Please try again.');
+  }
+});
 
 // ── MODAL ──
 const ALL = {
@@ -889,16 +975,66 @@ document.addEventListener('keydown', e => {
   if(e.key === 'Escape'){ closeModal(); closeBrandOverlay(); }
 });
 
+// ── AUTO-CYCLING HOVER ENGINE ──
+// Picks elements across the page in sequence and briefly applies the hover class,
+// so the site feels alive even without a cursor. Runs every 1.8s, never overlaps.
+(function(){
+  let queue = [];
+  let idx = 0;
+
+  function buildQueue(){
+    // Gather all interactive element groups in order of visual interest
+    const groups = [
+      [...document.querySelectorAll('nav a')],
+      [...document.querySelectorAll('.tab')],
+      [...document.querySelectorAll('.menu-card.revealed')],
+      [...document.querySelectorAll('.menu-card.revealed')], // repeat for more card visits
+      [...document.querySelectorAll('.blog-card.revealed')],
+      [...document.querySelectorAll('.nav-map-link')],
+      [...document.querySelectorAll('.menu-dot-btn')],
+    ];
+    queue = [];
+    groups.forEach(g => g.forEach(el => queue.push(el)));
+    // Shuffle so it feels organic
+    for(let i = queue.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [queue[i], queue[j]] = [queue[j], queue[i]];
+    }
+  }
+
+  function highlightNext(){
+    // Rebuild queue periodically to pick up dynamically added cards
+    if(idx === 0) buildQueue();
+    if(!queue.length){ idx = 0; return; }
+
+    const el = queue[idx % queue.length];
+    idx++;
+
+    if(!el || !document.body.contains(el)){ return; }
+
+    // Don't highlight the active tab
+    if(el.classList.contains('tab') && el.classList.contains('active')) return;
+
+    el.classList.add('auto-lit');
+    setTimeout(() => el.classList.remove('auto-lit'), 900);
+  }
+
+  // Start after page settles
+  setTimeout(() => {
+    setInterval(highlightNext, 1800);
+  }, 2000);
+})();
+
 // ── LIVE MENU FROM GOOGLE SHEET ──
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2rSWCYiSi-gXHPkFY3ZvmMNLeqrabax6dO9Okdm4C3ecvw1-RLNciNvSTJebKlQM7nLmVkHmKq4ap/pub?gid=0&single=true&output=csv";
 const DEFAULT_FALLBACK_IMAGE = "https://i.postimg.cc/tTf92z4s/Gemini-Generated-Image-3m9wp93m9wp93m9w.png";
 
 const CATEGORY_STYLES = {
-  "YEMENI MANDHI":  { label: "✦ Heritage Collection", title: "Yemeni Mandhi Dishes",          tab: "Yemeni Mandhi" },
-  "GRILLED MANDHI": { label: "✦ Grilled Fusion",       title: "Grilled Mandhi",                tab: "Grilled Mandhi" },
-  "GRILLED PIECES": { label: "✦ Pit-Charred Elements", title: "Grilled Charred Pieces",        tab: "Grilled Pieces" },
-  "MANDHI PIECES":  { label: "✦ Pure Proteins",        title: "Mandhi Meat Side Pieces",       tab: "Mandhi Pieces" },
-  "FRESH JUICES":   { label: "✦ Fresh Juices",         title: "Fresh Juices",                  tab: "Fresh Juices" }
+  "YEMENI MANDHI":  { label: "✦ Heritage Collection", title: "Yemeni Mandhi Dishes",    tab: "Yemeni Mandhi" },
+  "GRILLED MANDHI": { label: "✦ Grilled Fusion",       title: "Grilled Mandhi",          tab: "Grilled Mandhi" },
+  "GRILLED PIECES": { label: "✦ Pit-Charred Elements", title: "Grilled Charred Pieces",  tab: "Grilled Pieces" },
+  "MANDHI PIECES":  { label: "✦ Pure Proteins",        title: "Mandhi Meat Side Pieces", tab: "Mandhi Pieces" },
+  "FRESH JUICES":   { label: "✦ Fresh Juices",         title: "Fresh Juices",            tab: "Fresh Juices" }
 };
 
 let parsedMenuData = {};
@@ -931,16 +1067,14 @@ async function initializeLiveKitchenMenu() {
       const name = nameIdx !== -1 && cols[nameIdx] ? cols[nameIdx].replace(/^"|"$/g,'').trim() : '';
       const cat  = catIdx  !== -1 && cols[catIdx]  ? cols[catIdx].replace(/^"|"$/g,'').toUpperCase().trim() : '';
       if(!name || !cat) return;
-
       if(!parsedMenuData[cat]){ parsedMenuData[cat] = []; dynamicCategoryOrder.push(cat); }
-
       parsedMenuData[cat].push({
         name,
-        qtr:   qtrIdx   !== -1 && cols[qtrIdx]   ? cols[qtrIdx].trim()                              : '',
-        half:  halfIdx  !== -1 && cols[halfIdx]   ? cols[halfIdx].trim()                             : '',
-        full:  fullIdx  !== -1 && cols[fullIdx]   ? cols[fullIdx].trim()                             : '',
-        tag:   tagIdx   !== -1 && cols[tagIdx]    ? cols[tagIdx].replace(/^"|"$/g,'').trim()         : '',
-        image: imageIdx !== -1 && cols[imageIdx]  ? cols[imageIdx].replace(/^"|"$/g,'').trim() || DEFAULT_FALLBACK_IMAGE : DEFAULT_FALLBACK_IMAGE
+        qtr:   qtrIdx   !== -1 && cols[qtrIdx]  ? cols[qtrIdx].trim()                              : '',
+        half:  halfIdx  !== -1 && cols[halfIdx]  ? cols[halfIdx].trim()                             : '',
+        full:  fullIdx  !== -1 && cols[fullIdx]  ? cols[fullIdx].trim()                             : '',
+        tag:   tagIdx   !== -1 && cols[tagIdx]   ? cols[tagIdx].replace(/^"|"$/g,'').trim()         : '',
+        image: imageIdx !== -1 && cols[imageIdx] ? cols[imageIdx].replace(/^"|"$/g,'').trim() || DEFAULT_FALLBACK_IMAGE : DEFAULT_FALLBACK_IMAGE
       });
     });
 
@@ -967,7 +1101,6 @@ function renderDynamicWebLayout() {
   dynamicCategoryOrder.forEach((cat, i) => {
     const style = CATEGORY_STYLES[cat] || {};
     let cards = '';
-
     (parsedMenuData[cat] || []).forEach(dish => {
       let priceRows = '';
       if(cat === "FRESH JUICES"){
