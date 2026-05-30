@@ -570,7 +570,7 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:60px 4
 </div>
 
 <div class="tabs-wrap" id="menu-anchor">
-  <div class="tabs">
+<div class="tabs" id="tabsContainer">
     <button class="tab active" onclick="switchCat('yemeni',this)">Yemeni Mandhi</button>
     <button class="tab" onclick="switchCat('grilled',this)">Grilled Mandhi</button>
     <button class="tab" onclick="switchCat('pieces',this)">Grilled Pieces</button>
@@ -579,8 +579,7 @@ footer{background:#080808;border-top:1px solid var(--border-fine);padding:60px 4
   </div>
 </div>
 
-<div class="menu-wrap">
-
+<div class="menu-wrap" id="menuWrap">
   <div id="yemeni" class="cat-content active">
     <p class="section-label">✦ Heritage Collection</p>
     <h2 class="section-title">Yemeni Mandhi Dishes</h2>
@@ -855,6 +854,152 @@ function closeModal(){
   document.body.style.overflow='';
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeBrandOverlay();}});
+</script>
+  <script>
+// 1. PLACE YOUR CSV LINK HERE
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2rSWCYiSi-gXHPkFY3ZvmMNLeqrabax6dO9Okdm4C3ecvw1-RLNciNvSTJebKlQM7nLmVkHmKq4ap/pub?gid=0&single=true&output=csv";
+
+// This image library stays safely in your code. It matches dish names to photos!
+const RES_IMAGE_LIBRARY = {
+  "Chicken Yemeni Mandhi": "https://i.postimg.cc/tTf92z4s/Gemini-Generated-Image-3m9wp93m9wp93m9w.png",
+  "Chicken Spicy Mandhi": "https://i.postimg.cc/tTf92z4s/Gemini-Generated-Image-3m9wp93m9wp93m9w.png",
+  "Beef Ran Mandhi": "https://i.postimg.cc/tTf92z4s/Gemini-Generated-Image-3m9wp93m9wp93m9w.png",
+  "Mutton Yemeni Mandhi": "https://i.postimg.cc/tTf92z4s/Gemini-Generated-Image-3m9wp93m9wp93m9w.png",
+  "Mandhi Rice Only": "https://i.postimg.cc/tTf92z4s/Gemini-Generated-Image-3m9wp93m9wp93m9w.png",
+  "Alfaham Mandhi": "https://i.postimg.cc/mZ1ZsFcw/Gemini-Generated-Image-fs6nofs6nofs6nof.png",
+  "Shawaya Mandhi": "https://i.postimg.cc/mZ1ZsFcw/Gemini-Generated-Image-fs6nofs6nofs6nof.png",
+  "Cheese Alfaham Mandhi": "https://i.postimg.cc/mZ1ZsFcw/Gemini-Generated-Image-fs6nofs6nofs6nof.png",
+  "BBQ Alfaham Mandhi": "https://i.postimg.cc/mZ1ZsFcw/Gemini-Generated-Image-fs6nofs6nofs6nof.png",
+  "Honey Chilli Mandhi": "https://i.postimg.cc/mZ1ZsFcw/Gemini-Generated-Image-fs6nofs6nofs6nof.png",
+  "Kanthari Mandhi": "https://i.postimg.cc/mZ1ZsFcw/Gemini-Generated-Image-fs6nofs6nofs6nof.png",
+  "Peri Peri Mandhi": "https://i.postimg.cc/mZ1ZsFcw/Gemini-Generated-Image-fs6nofs6nofs6nof.png",
+  "Pepper Mandhi": "https://i.postimg.cc/mZ1ZsFcw/Gemini-Generated-Image-fs6nofs6nofs6nof.png",
+  "Arabic Shawaya Mandhi": "https://i.postimg.cc/mZ1ZsFcw/Gemini-Generated-Image-fs6nofs6nofs6nof.png",
+  "Masala Shawaya Mandhi": "https://i.postimg.cc/mZ1ZsFcw/Gemini-Generated-Image-fs6nofs6nofs6nof.png",
+  "Alfaham Chicken": "https://i.postimg.cc/WzTdPvkw/Gemini-Generated-Image-f7i0uff7i0uff7i0.png",
+  "Shezwan Alfaham": "https://i.postimg.cc/WzTdPvkw/Gemini-Generated-Image-f7i0uff7i0uff7i0.png",
+  "Cheese Alfaham": "https://i.postimg.cc/WzTdPvkw/Gemini-Generated-Image-f7i0uff7i0uff7i0.png",
+  "BBQ Chicken": "https://i.postimg.cc/WzTdPvkw/Gemini-Generated-Image-f7i0uff7i0uff7i0.png",
+  "Peri Peri Alfaham": "https://i.postimg.cc/WzTdPvkw/Gemini-Generated-Image-f7i0uff7i0uff7i0.png",
+  "Honey Chilli Chicken": "https://i.postimg.cc/WzTdPvkw/Gemini-Generated-Image-f7i0uff7i0uff7i0.png",
+  "Kanthari Chicken": "https://i.postimg.cc/WzTdPvkw/Gemini-Generated-Image-f7i0uff7i0uff7i0.png",
+  "Pepper Alfaham": "https://i.postimg.cc/WzTdPvkw/Gemini-Generated-Image-f7i0uff7i0uff7i0.png",
+  "Arabic Shawaya": "https://i.postimg.cc/WzTdPvkw/Gemini-Generated-Image-f7i0uff7i0uff7i0.png",
+  "Masala Shawaya": "https://i.postimg.cc/WzTdPvkw/Gemini-Generated-Image-f7i0uff7i0uff7i0.png",
+  "Chicken Mandhi Pieces": "https://i.postimg.cc/wT7ZHsQv/Whats-App-Image-2026-05-20-at-01-50-49.jpg",
+  "Beef Mandhi Pieces": "https://i.postimg.cc/wT7ZHsQv/Whats-App-Image-2026-05-20-at-01-50-49.jpg",
+  "Mutton Mandhi Pieces": "https://i.postimg.cc/wT7ZHsQv/Whats-App-Image-2026-05-20-at-01-50-49.jpg",
+  "Extra Mayonnaise": "https://i.postimg.cc/wT7ZHsQv/Whats-App-Image-2026-05-20-at-01-50-49.jpg",
+  "Mint Lime": "https://i.postimg.cc/y65nmp0j/Whats-App-Image-2026-05-20-at-01-50-47-(2).jpg",
+  "Lime Juice": "https://i.postimg.cc/y65nmp0j/Whats-App-Image-2026-05-20-at-01-50-47-(2).jpg",
+  "Pressed Watermelon": "https://i.postimg.cc/y65nmp0j/Whats-App-Image-2026-05-20-at-01-50-47-(2).jpg",
+  "Ginger Lime Infusion": "https://i.postimg.cc/y65nmp0j/Whats-App-Image-2026-05-20-at-01-50-47-(2).jpg",
+  "Crushed Pineapple": "https://i.postimg.cc/y65nmp0j/Whats-App-Image-2026-05-20-at-01-50-47-(2).jpg"
+};
+
+const CATEGORY_STYLES = {
+  "YEMENI MANDHI": { label: "✦ Heritage Collection", title: "Yemeni Mandhi Dishes", tab: "Yemeni Mandhi" },
+  "GRILLED MANDHI": { label: "✦ Grilled Fusion", title: "Grilled Mandhi", tab: "Grilled Mandhi" },
+  "GRILLED PIECES": { label: "✦ Pit-Charred Elements", title: "Grilled Charred Pieces", tab: "Grilled Pieces" },
+  "MANDHI PIECES": { label: "✦ Pure Proteins", title: "Mandhi Meat Side Pieces", tab: "Mandhi Pieces" },
+  "FRESH JUICES": { label: "✦ Fresh Juices", title: "Fresh Juices", tab: "Fresh Juices" }
+};
+
+let parsedMenuData = {};
+let dynamicCategoryOrder = [];
+
+async function initializeLiveKitchenMenu() {
+  try {
+    const fetchResponse = await fetch(SHEET_CSV_URL);
+    const dataBlob = await fetchResponse.text();
+    const records = dataBlob.trim().split(/\r?\n/).slice(1);
+    
+    parsedMenuData = {}; 
+    dynamicCategoryOrder = [];
+
+    records.forEach(row => {
+      const fieldCols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+      if (fieldCols.length < 3) return;
+
+      const titleName = fieldCols[1].replace(/^"|"$/g, '').trim();
+      const catKey = fieldCols[2].replace(/^"|"$/g, '').toUpperCase().trim();
+      const qtrPrice = fieldCols[3] ? fieldCols[3].trim() : '';
+      const halfPrice = fieldCols[4] ? fieldCols[4].trim() : '';
+      const fullPrice = fieldCols[5] ? fieldCols[5].trim() : '';
+      const tagBadge = fieldCols[6] ? fieldCols[6].replace(/^"|"$/g, '').trim() : '';
+
+      if (!titleName || !catKey) return;
+      if (!parsedMenuData[catKey]) { 
+        parsedMenuData[catKey] = []; 
+        dynamicCategoryOrder.push(catKey); 
+      }
+      parsedMenuData[catKey].push({ name: titleName, qtr: qtrPrice, half: halfPrice, full: fullPrice, tag: tagBadge });
+    });
+
+    renderDynamicWebLayout();
+  } catch(error) {
+    document.getElementById('menuWrap').innerHTML = `<div class="menu-error">✦ Connection Error. Live update paused. ✦</div>`;
+  }
+}
+
+function renderDynamicWebLayout() {
+  const tabsContainer = document.getElementById('tabsContainer');
+  const webGridWrapper = document.getElementById('menuWrap');
+  
+  if (!tabsContainer || !webGridWrapper) return;
+  
+  let tabsMarkup = '';
+  dynamicCategoryOrder.forEach((cat, index) => {
+    tabsMarkup += `<button class="tab${index === 0 ? ' active' : ''}" onclick="switchTabPanel('${cat}', this)">${CATEGORY_STYLES[cat]?.tab || cat}</button>`;
+  });
+  tabsContainer.innerHTML = tabsMarkup;
+
+  let listsMarkup = '';
+  dynamicCategoryOrder.forEach((cat, index) => {
+    const styleMeta = CATEGORY_STYLES[cat] || {};
+    let itemCardsMarkup = '';
+    
+    (parsedMenuData[cat] || []).forEach(dish => {
+      let ratesRowsMarkup = '';
+      if (cat === "FRESH JUICES") {
+        ratesRowsMarkup = `<div class="price-row"><span class="lbl">Per Glass</span><span class="val">₹${dish.full}</span></div>`;
+      } else {
+        if (dish.qtr) ratesRowsMarkup += `<div class="price-row"><span class="lbl">Quarter</span><span class="val">₹${dish.qtr}</span></div>`;
+        if (dish.half) ratesRowsMarkup += `<div class="price-row"><span class="lbl">Half</span><span class="val">₹${dish.half}</span></div>`;
+        if (dish.full) ratesRowsMarkup += `<div class="price-row"><span class="lbl">Full</span><span class="val">₹${dish.full}</span></div>`;
+      }
+      
+      const photoPath = RES_IMAGE_LIBRARY[dish.name] || "https://i.postimg.cc/tTf92z4s/Gemini-Generated-Image-3m9wp93m9wp93m9w.png";
+      const ribbonBadge = dish.tag ? `<div class="card-badge">${dish.tag}</div>` : '';
+
+      itemCardsMarkup += `
+        <div class="menu-card revealed">
+          <div class="card-img-wrap"><img class="card-img" src="${photoPath}" alt="${dish.name}">${ribbonBadge}</div>
+          <div class="card-body"><h3>${dish.name}</h3><div class="price-table">${ratesRowsMarkup}</div></div>
+        </div>`;
+    });
+
+    listsMarkup += `
+      <div id="cat-${cat.replace(/\s+/g, '-')}" class="cat-content${index === 0 ? ' active' : ''}">
+        <p class="section-label">${styleMeta.label || ''}</p>
+        <h2 class="section-title">${styleMeta.title || ''}</h2>
+        <div class="section-divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
+        <div class="menu-grid">${itemCardsMarkup}</div>
+      </div>`;
+  });
+  webGridWrapper.innerHTML = listsMarkup;
+}
+
+function switchTabPanel(categoryKey, clickAnchor) {
+  document.querySelectorAll('.cat-content').forEach(panel => panel.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(tabButton => tabButton.classList.remove('active'));
+  
+  const targetContent = document.getElementById(`cat-${categoryKey.replace(/\s+/g, '-')}`);
+  if (targetContent) targetContent.classList.add('active');
+  if (clickAnchor) clickAnchor.classList.add('active');
+}
+
+document.addEventListener("DOMContentLoaded", initializeLiveKitchenMenu);
 </script>
 </body>
 </html>
