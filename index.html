@@ -192,19 +192,34 @@ nav a:hover::after{width:100%;left:0;}
 /* ── PREMIUM EXPLORE MENU CTA ── */
 .hero-ctas{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;align-items:center;}
 
+/* Outer wrapper — carries the pulsing ring */
 .btn-explore-premium {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 14px;
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 0;
-  text-decoration: none;
+  padding: 4px;
   outline: none;
 }
 
+/* Pulsing animated border ring — very visible gold glow */
+.btn-explore-premium::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--accent);
+  animation: ringPulse 2s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes ringPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(184,115,51,0.7), 0 0 14px 2px rgba(184,115,51,0.25); opacity:1; }
+  50%      { box-shadow: 0 0 0 10px rgba(184,115,51,0), 0 0 28px 6px rgba(184,115,51,0.5); opacity:1; }
+}
+
+/* The button face */
 .btn-explore-inner {
   position: relative;
   display: flex;
@@ -212,117 +227,130 @@ nav a:hover::after{width:100%;left:0;}
   gap: 14px;
   background: var(--text-main);
   color: var(--bg-primary);
-  padding: 20px 48px;
+  padding: 20px 52px;
   font-family: var(--font-impact);
   font-size: 15px;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   overflow: hidden;
-  transition: all 0.5s var(--ease-editorial);
+  z-index: 1;
+  transition: color 0.4s ease;
 }
 
-/* Animated fill on hover */
+/* Gold fill sweep on hover */
 .btn-explore-inner::before {
   content: '';
   position: absolute;
   inset: 0;
   background: var(--accent);
   transform: translateX(-101%);
-  transition: transform 0.5s var(--ease-editorial);
+  transition: transform 0.52s var(--ease-editorial);
   z-index: 0;
 }
-
 .btn-explore-premium:hover .btn-explore-inner::before {
   transform: translateX(0);
+}
+
+/* Bright white shimmer sweep — clearly visible on the white button */
+.btn-explore-inner::after {
+  content: '';
+  position: absolute;
+  top: -10%; left: -60%;
+  width: 40%; height: 120%;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255,255,255,0.55) 50%,
+    transparent 70%
+  );
+  transform: skewX(-15deg);
+  animation: shimmerSweep 2.8s ease-in-out infinite;
+  z-index: 2;
+  pointer-events: none;
+}
+@keyframes shimmerSweep {
+  0%        { left: -60%;  opacity: 0; }
+  8%        { opacity: 1; }
+  55%       { left: 130%;  opacity: 1; }
+  56%,100%  { left: 130%;  opacity: 0; }
 }
 
 .btn-explore-inner span,
 .btn-explore-icon {
   position: relative;
-  z-index: 1;
-  transition: color 0.3s ease;
+  z-index: 3;
+  transition: color 0.35s ease;
 }
-
 .btn-explore-premium:hover .btn-explore-inner span,
-.btn-explore-premium:hover .btn-explore-icon {
-  color: var(--text-main);
-}
+.btn-explore-premium:hover .btn-explore-icon { color: var(--text-main); }
 
 .btn-explore-icon {
   width: 18px;
   height: 18px;
   fill: currentColor;
-  transition: transform 0.4s var(--ease-editorial), fill 0.3s ease;
+  animation: arrowBounce 2s ease-in-out infinite;
 }
-
+@keyframes arrowBounce {
+  0%,100% { transform: translateX(0); }
+  50%     { transform: translateX(6px); }
+}
 .btn-explore-premium:hover .btn-explore-icon {
-  transform: translateX(4px);
-  fill: var(--text-main);
+  animation: none;
+  transform: translateX(7px);
 }
 
-/* Subtle glow halo behind the button */
-.btn-explore-premium::after {
-  content: '';
-  position: absolute;
-  inset: -8px;
-  background: radial-gradient(ellipse at center, rgba(184,115,51,0.18) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  z-index: -1;
-  pointer-events: none;
-}
-.btn-explore-premium:hover::after {
-  opacity: 1;
-}
-
-/* ── AUTO-REVEAL hint: a thin animated gold underline that draws in ── */
+/* ── Hint below button ── */
 .explore-hint {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  margin-top: 6px;
+  margin-top: 12px;
 }
 .explore-hint-text {
   font-family: var(--font-thematic);
   font-size: 10px;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(184, 115, 51, 0.55);
-  text-shadow: 0 1px 4px rgba(0,0,0,0.7);
-  animation: hintFade 3s ease-in-out infinite;
+  color: rgba(251,249,244,0.7);
+  text-shadow: 0 1px 8px rgba(0,0,0,0.9);
+  animation: hintFade 2.8s ease-in-out infinite;
 }
 @keyframes hintFade {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
+  0%,100% { opacity: 0.5; }
+  50%     { opacity: 1; }
 }
-
 .explore-line {
   width: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  background: linear-gradient(90deg, transparent, rgba(184,115,51,0.9), transparent);
   animation: expandLine 2.8s ease-in-out infinite;
 }
 @keyframes expandLine {
-  0% { width: 0; opacity: 0; }
-  40% { width: 60px; opacity: 1; }
-  80% { width: 60px; opacity: 0.5; }
-  100% { width: 0; opacity: 0; }
+  0%      { width: 0;    opacity: 0; }
+  40%     { width: 80px; opacity: 1; }
+  80%     { width: 80px; opacity: 0.6; }
+  100%    { width: 0;    opacity: 0; }
 }
 
 .hero-fine-print{margin-top:28px;display:flex;flex-direction:column;align-items:center;gap:8px;}
 .hero-fine-print-tagline{
   font-family:var(--font-thematic);font-size:11px;line-height:1.6;
   letter-spacing:0.15em;text-transform:uppercase;
-  color:rgba(184,115,51,0.65);text-shadow:0 1px 4px rgba(0,0,0,0.8);
+  color:rgba(251,249,244,0.82);
+  text-shadow:0 1px 8px rgba(0,0,0,0.95),0 0 20px rgba(0,0,0,0.8);
 }
-.hero-fine-print-divider{width:40px;height:1px;background:rgba(184,115,51,0.3);margin:2px auto;}
+.hero-fine-print-divider{width:40px;height:1px;background:rgba(184,115,51,0.45);margin:2px auto;}
 .hero-fine-print-gst{
   font-family:var(--font-thematic);font-size:11px;line-height:1.6;
   letter-spacing:0.15em;text-transform:uppercase;
-  color:rgba(184,115,51,0.85);text-shadow:0 1px 6px rgba(0,0,0,0.9);
-  background:rgba(184,115,51,0.06);border:1px solid rgba(184,115,51,0.18);padding:6px 18px;
+  color:rgba(251,249,244,0.92);
+  text-shadow:0 1px 8px rgba(0,0,0,0.95),0 0 16px rgba(0,0,0,0.8);
+  background:rgba(0,0,0,0.45);
+  border:1px solid rgba(184,115,51,0.35);
+  padding:8px 20px;
+  backdrop-filter:blur(4px);
 }
 .hero-scroll{
   position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
