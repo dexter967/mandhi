@@ -855,47 +855,13 @@ function closeModal(){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeBrandOverlay();}});
 </script>
-  <script>
-// 1. PLACE YOUR CSV LINK HERE
+
+<script>
+// 1. LIVE GOOGLE SHEET CSV LINK
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2rSWCYiSi-gXHPkFY3ZvmMNLeqrabax6dO9Okdm4C3ecvw1-RLNciNvSTJebKlQM7nLmVkHmKq4ap/pub?gid=0&single=true&output=csv";
 
-// This image library stays safely in your code. It matches dish names to photos!
-const RES_IMAGE_LIBRARY = {
-  "Chicken Yemeni Mandhi": "https://i.postimg.cc/tTf92z4s/Gemini-Generated-Image-3m9wp93m9wp93m9w.png",
-  "Chicken Spicy Mandhi": "https://i.postimg.cc/2SVRXZgk/Gemini-Generated-Image-fmthfzfmthfzfmth.png",
-  "Beef Ran Mandhi": "https://i.postimg.cc/7h4J8YYj/Gemini-Generated-Image-cx5wa7cx5wa7cx5w.png",
-  "Mutton Yemeni Mandhi": "https://i.postimg.cc/FF7qjLkF/Gemini-Generated-Image-fu80d7fu80d7fu80.png",
-  "Mandhi Rice Only": "https://i.postimg.cc/x1JcpFKW/Gemini-Generated-Image-3o7qnz3o7qnz3o7q-(1).png",
-  "Alfaham Mandhi": "https://i.postimg.cc/mZ1ZsFcw/Gemini-Generated-Image-fs6nofs6nofs6nof.png",
-  "Shawaya Mandhi": "https://i.postimg.cc/QxWF0ykM/Gemini-Generated-Image-ljjjjpljjjjpljjj.png",
-  "Cheese Alfaham Mandhi": "https://i.postimg.cc/zvPfh19L/Gemini-Generated-Image-tr6di7tr6di7tr6d-(1).png",
-  "BBQ Alfaham Mandhi": "https://i.postimg.cc/SQ8BB4Z2/Gemini-Generated-Image-z4ammsz4ammsz4am.png",
-  "Honey Chilli Mandhi": "https://i.postimg.cc/wTn9h2bw/Gemini-Generated-Image-zhfmznzhfmznzhfm.png",
-  "Kanthari Mandhi": "https://i.postimg.cc/kXRmX8XK/Gemini-Generated-Image-fr4540fr4540fr45.png",
-  "Peri Peri Mandhi": "https://i.postimg.cc/jqG2RRQ3/Gemini-Generated-Image-1islga1islga1isl.png",
-  "Pepper Mandhi": "https://i.postimg.cc/yYyH2KfY/Gemini-Generated-Image-7pjsss7pjsss7pjs.png",
-  "Arabic Shawaya Mandhi": "https://i.postimg.cc/nrndDyqd/Gemini-Generated-Image-pwhz4tpwhz4tpwhz.png",
-  "Masala Shawaya Mandhi": "https://i.postimg.cc/xCnGxKqc/Gemini-Generated-Image-gq2m58gq2m58gq2m.png",
-  "Alfaham Chicken": "https://i.postimg.cc/WzTdPvkw/Gemini-Generated-Image-f7i0uff7i0uff7i0.png",
-  "Shezwan Alfaham": "https://i.postimg.cc/htMdrhN3/Whats-App-Image-2026-05-20-at-01-35-23.jpg",
-  "Cheese Alfaham": "https://i.postimg.cc/pXJhWpVy/Whats-App-Image-2026-05-20-at-01-35-24.jpg",
-  "BBQ Chicken": "https://i.postimg.cc/5yq02RVS/Whats-App-Image-2026-05-20-at-01-35-24-(1).jpg",
-  "Peri Peri Alfaham": "https://i.postimg.cc/7Y9hvdXS/Whats-App-Image-2026-05-20-at-01-35-24-(2).jpg",
-  "Honey Chilli Chicken": "https://i.postimg.cc/DzPVzTVf/Whats-App-Image-2026-05-20-at-12-18-46.jpg",
-  "Kanthari Chicken": "https://i.postimg.cc/FHq9N4L2/Whats-App-Image-2026-05-20-at-01-35-24-(3).jpg",
-  "Pepper Alfaham": "https://images.unsplash.com/photo-1541518763669-27fef04b14ea?auto=format&fit=crop&w=800&q=85",
-  "Arabic Shawaya": "https://i.postimg.cc/52HVPRRP/Whats-App-Image-2026-05-20-at-01-50-47.jpg",
-  "Masala Shawaya": "https://i.postimg.cc/L4NFmSK2/Whats-App-Image-2026-05-20-at-01-50-47-(1).jpg",
-  "Chicken Mandhi Pieces": "https://i.postimg.cc/wT7ZHsQv/Whats-App-Image-2026-05-20-at-01-50-49.jpg",
-  "Beef Mandhi Pieces": "https://i.postimg.cc/Rh8PqXLN/Whats-App-Image-2026-05-20-at-01-50-49-(1).jpg",
-  "Mutton Mandhi Pieces": "https://i.postimg.cc/0Nfc78Cq/Whats-App-Image-2026-05-20-at-01-50-49-(2).jpg",
-  "Extra Mayonnaise": "https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=800&q=85",
-  "Mint Lime": "https://i.postimg.cc/y65nmp0j/Whats-App-Image-2026-05-20-at-01-50-47-(2).jpg",
-  "Lime Juice": "https://i.postimg.cc/PNsmBcMZ/Whats-App-Image-2026-05-20-at-01-50-48.jpg",
-  "Pressed Watermelon": "https://i.postimg.cc/mg4n96GY/Whats-App-Image-2026-05-20-at-01-50-48-(1).jpg",
-  "Ginger Lime Infusion": "https://i.postimg.cc/Kz1pb6nY/Whats-App-Image-2026-05-20-at-01-50-48-(2).jpg",
-  "Crushed Pineapple": "https://i.postimg.cc/MK23krXT/Whats-App-Image-2026-05-20-at-01-50-49-(3).jpg"
-};
+// Fallback image if a specific row doesn't have an image link yet
+const DEFAULT_FALLBACK_IMAGE = "https://i.postimg.cc/tTf92z4s/Gemini-Generated-Image-3m9wp93m9wp93m9w.png";
 
 const CATEGORY_STYLES = {
   "YEMENI MANDHI": { label: "✦ Heritage Collection", title: "Yemeni Mandhi Dishes", tab: "Yemeni Mandhi" },
@@ -912,32 +878,64 @@ async function initializeLiveKitchenMenu() {
   try {
     const fetchResponse = await fetch(SHEET_CSV_URL);
     const dataBlob = await fetchResponse.text();
-    const records = dataBlob.trim().split(/\r?\n/).slice(1);
     
-    parsedMenuData = {}; 
+    // Split into individual data rows
+    const rows = dataBlob.trim().split(/\r?\n/);
+    if (rows.length < 2) return;
+
+    // Helper to safely parse CSV rows containing quotes and commas
+    const parseCsvRow = (text) => text.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+
+    // DYNAMIC HEADER DETECTION (Allows columns to be dragged anywhere)
+    const headers = parseCsvRow(rows[0]).map(h => h.replace(/^"|"$/g, '').trim().toLowerCase());
+    
+    const nameIdx  = headers.findIndex(h => h.includes('name') || h.includes('dish'));
+    const catIdx   = headers.findIndex(h => h.includes('category') || h.includes('cat'));
+    const qtrIdx   = headers.findIndex(h => h.includes('quarter') || h.includes('qtr'));
+    const halfIdx  = headers.findIndex(h => h.includes('half'));
+    const fullIdx  = headers.findIndex(h => h.includes('full'));
+    const tagIdx   = headers.findIndex(h => h.includes('tag') || h.includes('badge'));
+    const imageIdx = headers.findIndex(h => h.includes('image') || h.includes('img') || h.includes('link'));
+
+    parsedMenuData = {};
     dynamicCategoryOrder = [];
 
-    records.forEach(row => {
-      const fieldCols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-      if (fieldCols.length < 3) return;
+    // Process data rows (skipping the header row)
+    rows.slice(1).forEach(row => {
+      const fieldCols = parseCsvRow(row);
+      if (fieldCols.length < 2) return;
 
-      const titleName = fieldCols[1].replace(/^"|"$/g, '').trim();
-      const catKey = fieldCols[2].replace(/^"|"$/g, '').toUpperCase().trim();
-      const qtrPrice = fieldCols[3] ? fieldCols[3].trim() : '';
-      const halfPrice = fieldCols[4] ? fieldCols[4].trim() : '';
-      const fullPrice = fieldCols[5] ? fieldCols[5].trim() : '';
-      const tagBadge = fieldCols[6] ? fieldCols[6].replace(/^"|"$/g, '').trim() : '';
-
+      const titleName = nameIdx !== -1 && fieldCols[nameIdx] ? fieldCols[nameIdx].replace(/^"|"$/g, '').trim() : '';
+      const catKey    = catIdx !== -1 && fieldCols[catIdx] ? fieldCols[catIdx].replace(/^"|"$/g, '').toUpperCase().trim() : '';
+      
       if (!titleName || !catKey) return;
-      if (!parsedMenuData[catKey]) { 
-        parsedMenuData[catKey] = []; 
-        dynamicCategoryOrder.push(catKey); 
+
+      const qtrPrice   = qtrIdx !== -1 && fieldCols[qtrIdx] ? fieldCols[qtrIdx].trim() : '';
+      const halfPrice  = halfIdx !== -1 && fieldCols[halfIdx] ? fieldCols[halfIdx].trim() : '';
+      const fullPrice  = fullIdx !== -1 && fieldCols[fullIdx] ? fieldCols[fullIdx].trim() : '';
+      const tagBadge   = tagIdx !== -1 && fieldCols[tagIdx] ? fieldCols[tagIdx].replace(/^"|"$/g, '').trim() : '';
+      
+      // Pull image link right out of the dynamically mapped spreadsheet cell
+      const imageUrl   = imageIdx !== -1 && fieldCols[imageIdx] ? fieldCols[imageIdx].replace(/^"|"$/g, '').trim() : '';
+
+      if (!parsedMenuData[catKey]) {
+        parsedMenuData[catKey] = [];
+        dynamicCategoryOrder.push(catKey);
       }
-      parsedMenuData[catKey].push({ name: titleName, qtr: qtrPrice, half: halfPrice, full: fullPrice, tag: tagBadge });
+
+      parsedMenuData[catKey].push({
+        name: titleName,
+        qtr: qtrPrice,
+        half: halfPrice,
+        full: fullPrice,
+        tag: tagBadge,
+        image: imageUrl || DEFAULT_FALLBACK_IMAGE
+      });
     });
 
     renderDynamicWebLayout();
   } catch(error) {
+    console.error("Menu parse error: ", error);
     document.getElementById('menuWrap').innerHTML = `<div class="menu-error">✦ Connection Error. Live update paused. ✦</div>`;
   }
 }
@@ -945,9 +943,8 @@ async function initializeLiveKitchenMenu() {
 function renderDynamicWebLayout() {
   const tabsContainer = document.getElementById('tabsContainer');
   const webGridWrapper = document.getElementById('menuWrap');
-  
   if (!tabsContainer || !webGridWrapper) return;
-  
+
   let tabsMarkup = '';
   dynamicCategoryOrder.forEach((cat, index) => {
     tabsMarkup += `<button class="tab${index === 0 ? ' active' : ''}" onclick="switchTabPanel('${cat}', this)">${CATEGORY_STYLES[cat]?.tab || cat}</button>`;
@@ -958,7 +955,7 @@ function renderDynamicWebLayout() {
   dynamicCategoryOrder.forEach((cat, index) => {
     const styleMeta = CATEGORY_STYLES[cat] || {};
     let itemCardsMarkup = '';
-    
+
     (parsedMenuData[cat] || []).forEach(dish => {
       let ratesRowsMarkup = '';
       if (cat === "FRESH JUICES") {
@@ -968,14 +965,19 @@ function renderDynamicWebLayout() {
         if (dish.half) ratesRowsMarkup += `<div class="price-row"><span class="lbl">Half</span><span class="val">₹${dish.half}</span></div>`;
         if (dish.full) ratesRowsMarkup += `<div class="price-row"><span class="lbl">Full</span><span class="val">₹${dish.full}</span></div>`;
       }
-      
-      const photoPath = RES_IMAGE_LIBRARY[dish.name] || "https://i.postimg.cc/tTf92z4s/Gemini-Generated-Image-3m9wp93m9wp93m9w.png";
+
       const ribbonBadge = dish.tag ? `<div class="card-badge">${dish.tag}</div>` : '';
 
       itemCardsMarkup += `
         <div class="menu-card revealed">
-          <div class="card-img-wrap"><img class="card-img" src="${photoPath}" alt="${dish.name}">${ribbonBadge}</div>
-          <div class="card-body"><h3>${dish.name}</h3><div class="price-table">${ratesRowsMarkup}</div></div>
+          <div class="card-img-wrap">
+            <img class="card-img" src="${dish.image}" alt="${dish.name}">
+            ${ribbonBadge}
+          </div>
+          <div class="card-body">
+            <h3>${dish.name}</h3>
+            <div class="price-table">${ratesRowsMarkup}</div>
+          </div>
         </div>`;
     });
 
@@ -987,6 +989,7 @@ function renderDynamicWebLayout() {
         <div class="menu-grid">${itemCardsMarkup}</div>
       </div>`;
   });
+
   webGridWrapper.innerHTML = listsMarkup;
 }
 
