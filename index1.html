@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Al Qaaf Restaurant — Authentic Elite Dining</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="cursor-ring" id="cRing" style="display:none"></div>
+
+<!-- ── HEADER ── -->
+<header>
+  <button class="left-brand-trigger" onclick="openBrandOverlay()">
+    <div class="logo-symbol">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.25z"/></svg>
+    </div>
+    <span class="logo-text">Al Qaaf</span>
+  </button>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#menu-anchor">Full Menu</a>
+    <a href="#journals-anchor">Our Story</a>
+    <a href="#feedback-anchor">Get in Touch</a>
+  </nav>
+  <div class="nav-right-actions">
+    <a href="https://maps.google.com/?q=Al+Qaaf+Restaurant+Medical+Mission+Hospital+Road+Pandalam+Pathanamthitta+Kerala" target="_blank" class="nav-map-link">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      <span>Locate Us</span>
+    </a>
+    <button class="menu-dot-btn" onclick="openModal()" title="View Full Menu">
+      <svg viewBox="0 0 24 24"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0 12c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ── BRAND PANEL ── -->
+<div class="brand-overlay" id="brandOverlay" onclick="closeBrandOverlay()"></div>
+<div class="brand-panel" id="brandPanel">
+  <button class="brand-panel-close" onclick="closeBrandOverlay()">✕</button>
+  <div class="hub-section" style="margin-top:40px;">
+    <div class="hub-title">The Destination</div>
+    <div class="hub-address">
+      <strong>Al Qaaf Restaurant</strong>
+      Medical Mission Hospital Road,<br>Pandalam, Pathanamthitta,<br>Kerala — 689501
+    </div>
+    <a href="tel:+919447778328" class="hub-contact-link">M: +91 944 777 8328</a>
+    <a href="tel:+914734251104" class="hub-contact-link">P: +91 4734 251104</a>
+  </div>
+  <div class="hub-section">
+    <div class="hub-title">Quick Navigation</div>
+    <ul class="hub-links-list">
+      <li><a href="#" onclick="closeBrandOverlay()">Home</a></li>
+      <li><a href="#menu-anchor" onclick="closeBrandOverlay()">Our Menu</a></li>
+      <li><a href="#journals-anchor" onclick="closeBrandOverlay()">Our Story</a></li>
+      <li><a href="#feedback-anchor" onclick="closeBrandOverlay()">Customer Feedback</a></li>
+    </ul>
+  </div>
+  <div class="hub-section">
+    <div class="hub-title">Discover Our Menu</div>
+    <div class="hub-menu-grid">
+      <a href="#menu-anchor" onclick="closeBrandOverlay();switchTabPanel('YEMENI MANDHI',null)">Yemeni Mandhi</a>
+      <a href="#menu-anchor" onclick="closeBrandOverlay();switchTabPanel('GRILLED MANDHI',null)">Grilled Mandhi</a>
+      <a href="#menu-anchor" onclick="closeBrandOverlay();switchTabPanel('GRILLED PIECES',null)">Grilled Pieces</a>
+      <a href="#menu-anchor" onclick="closeBrandOverlay();switchTabPanel('MANDHI PIECES',null)">Mandhi Proteins</a>
+      <a href="#menu-anchor" onclick="closeBrandOverlay();switchTabPanel('FRESH JUICES',null)">Fresh Juices</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-parallax-bg" id="parallaxBg"></div>
+  <div class="hero-particles" id="particles"></div>
+  <div class="hero-content">
+    <div class="hero-badge">✦   An Ancient Mastery   ✦</div>
+    <h1 class="hero-title">The Art of<br><span>Arabian Mandhi</span></h1>
+    <p class="hero-sub">Slow-cooked over traditional charcoal pits. Restrained on raw textures, rich spices, and presented beautifully on fine copper platters.</p>
+
+    <div class="hero-ctas">
+      <button class="btn-explore-premium" onclick="unlockAndScrollToMenu()">
+        <div class="btn-explore-inner">
+          <span>Explore Menu</span>
+          <svg class="btn-explore-icon" viewBox="0 0 24 24">
+            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+          </svg>
+        </div>
+      </button>
+    </div>
+
+    <div class="explore-hint">
+      <div class="explore-line"></div>
+      <span class="explore-hint-text">Tap to unlock the full menu</span>
+    </div>
+
+    <div class="hero-fine-print">
+      <span class="hero-fine-print-tagline">Authentic Elite Dining &nbsp;·&nbsp; Pandalam, Pathanamthitta &nbsp;·&nbsp; Masterfully Crafted Inside the Pits</span>
+      <div class="hero-fine-print-divider"></div>
+      <span class="hero-fine-print-gst">✦ &nbsp; 5% GST applicable on all consolidated food items &nbsp; ✦</span>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
+</section>
+
+<!-- ── RICE STRIP ── -->
+<div class="rice-strip">
+  ✦ <span>Unlimited Rice</span>: Full (4 Pax) | Half (2 Pax) | ¾ (3 Pax) | Qtr (1 Person) | *Takeaway excludes unlimited balance* ✦
+</div>
+
+<!-- ── MENU TABS ── -->
+<div class="tabs-wrap" id="menu-anchor">
+  <div class="tabs" id="tabsContainer">
+    <button class="tab active" onclick="switchTabPanel('YEMENI MANDHI',this)">Yemeni Mandhi</button>
+    <button class="tab" onclick="switchTabPanel('GRILLED MANDHI',this)">Grilled Mandhi</button>
+    <button class="tab" onclick="switchTabPanel('GRILLED PIECES',this)">Grilled Pieces</button>
+    <button class="tab" onclick="switchTabPanel('MANDHI PIECES',this)">Mandhi Pieces</button>
+    <button class="tab" onclick="switchTabPanel('FRESH JUICES',this)">Fresh Juices</button>
+  </div>
+</div>
+
+<!-- ── MENU CONTENT ── -->
+<div class="menu-wrap" id="menuWrap">
+  <div style="text-align:center;padding:60px 20px;color:var(--text-muted);font-family:var(--font-thematic);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;">
+    ✦ Loading menu from kitchen... ✦
+  </div>
+</div>
+
+<!-- ── OUR STORY / BLOG ── -->
+<section class="blog-section" id="journals-anchor">
+  <div style="text-align:center;max-width:900px;margin:0 auto 20px;">
+    <p class="section-label">✦ Our Story</p>
+    <h2 class="section-title">Stories Behind The Smoke</h2>
+    <div class="section-divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
+  </div>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-img-wrap"><img class="blog-img" src="https://i.postimg.cc/28LnNjvk/Whats-App-Image-2026-05-20-at-12-30-39.jpg" alt="Pandalam"></div>
+      <div class="blog-body">
+        <span class="blog-tag">Local Legacy · Pandalam</span>
+        <h3 class="blog-title">The Quest for the Best Mandhi</h3>
+        <p class="blog-desc">An insider's analysis exploring how we harmonized authentic Yemeni underground smoking methods with local flavor preferences to establish Pandalam's premier dining venue.</p>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img-wrap"><img class="blog-img" src="https://i.postimg.cc/hPmQ3yWh/Whats-App-Image-2026-05-20-at-12-31-57.jpg" alt="Heritage Spices"></div>
+      <div class="blog-body">
+        <span class="blog-tag">Heritage · Ancient Origins</span>
+        <h3 class="blog-title">From Pits of Yemen to Malabar</h3>
+        <p class="blog-desc">Tracing the path of historic marine trading routes and clay pit oven cooking methodologies that traveled oceans to preserve the authentic craftsmanship we honor here daily.</p>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img-wrap"><img class="blog-img" src="https://i.postimg.cc/1RfWCqmJ/Whats-App-Image-2026-05-20-at-12-32-53.jpg" alt="Fire Mastery"></div>
+      <div class="blog-body">
+        <span class="blog-tag">Process · Fire Mastery</span>
+        <h3 class="blog-title">The Art of Slow-Smoked Perfection</h3>
+        <p class="blog-desc">A careful behind-the-scenes breakdown of wood selection layouts and temperature profiling required to dissolve tough tissues into succulent, fall-off-the-bone textures.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEEDBACK ── -->
+<section class="feedback-section" id="feedback-anchor">
+  <div class="feedback-container">
+    <p class="section-label">✦ Get in Touch</p>
+    <h2 class="section-title">Customer Reviews</h2>
+    <div class="section-divider" style="margin-bottom:30px;"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
+    <p class="hero-sub" style="margin-bottom:20px;text-align:left;">We value your feedback! Share your experience with us below.</p>
+    <div id="feedbackSuccess" style="display:none;text-align:center;padding:40px 20px;border:1px solid rgba(184,115,51,0.3);background:rgba(184,115,51,0.05);margin-bottom:24px;">
+      <div style="font-family:var(--font-impact);font-size:22px;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px;">✦ Thank You ✦</div>
+      <div style="font-family:var(--font-thematic);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(251,249,244,0.7);">Your review has been received. We are honoured by your time.</div>
+    </div>
+    <form class="feedback-form" id="feedbackForm">
+      <input type="hidden" name="access_key" value="dcad1e03-4736-4553-87dd-3d527362cc1e">
+      <div class="form-row-dual">
+        <div class="feedback-field-wrap">
+          <label class="feedback-label">Your Name / Title</label>
+          <input type="text" id="fName" name="Name" class="premium-entry-box" placeholder="e.g. Guest Title" required>
+        </div>
+        <div class="feedback-field-wrap">
+          <label class="feedback-label">Email Address</label>
+          <input type="email" id="fEmail" name="Email" class="premium-entry-box" placeholder="name@domain.com" required>
+        </div>
+      </div>
+      <div class="feedback-field-wrap">
+        <label class="feedback-label">Write Your Review</label>
+        <textarea id="fReview" name="Review" class="premium-entry-box" placeholder="Share your experience or review details meticulously..." required></textarea>
+      </div>
+      <button type="submit" class="btn-submit-ledger" id="feedbackSubmitBtn">Submit Feedback</button>
+    </form>
+  </div>
+</section>
+
+<!-- ── MODAL ── -->
+<div class="modal-overlay" id="overlay" onclick="closeModal()"></div>
+<div class="modal-panel" id="modalPanel">
+  <div class="modal-head">
+    <h2>Complete Menu Overview</h2>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+  </div>
+  <div class="modal-body" id="modalBody"></div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">AL QAAF</div>
+  <div class="footer-divider"></div>
+  <p class="footer-copy">© 2026 Al Qaaf Restaurant. Process Integrity Preserved.</p>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
