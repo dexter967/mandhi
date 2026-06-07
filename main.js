@@ -239,6 +239,18 @@ const CATEGORY_STYLES = {
   "FRESH JUICES":   { label: "✦ Fresh Juices",         title: "Fresh Juices",            tab: "Fresh Juices" }
 };
 
+// Quick helper to generate professional styling titles for completely new categories automatically
+function getCategoryStyle(catKey) {
+  if (CATEGORY_STYLES[catKey]) return CATEGORY_STYLES[catKey];
+  
+  // Format standard looking title from your raw spreadsheet text (e.g. "CHINESE" -> "Chinese")
+  const cleanTitle = catKey.toLowerCase().split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  return {
+    label: `✦ Modern Additions`,
+    title: `${cleanTitle} Selection`,
+    tab: cleanTitle
+  };
+}
 let parsedMenuData = {};
 let dynamicCategoryOrder = [];
 
@@ -267,9 +279,21 @@ async function initializeLiveKitchenMenu() {
       const cols = parseRow(row);
       if (cols.length < 2) return;
       const name = nameIdx !== -1 && cols[nameIdx] ? cols[nameIdx].replace(/^"|"$/g, '').trim() : '';
-      const cat  = catIdx  !== -1 && cols[catIdx]  ? cols[catIdx].replace(/^"|"$/g, '').toUpperCase().trim() : '';
+      let cat    = catIdx  !== -1 && cols[catIdx]  ? cols[catIdx].replace(/^"|"$/g, '').toUpperCase().trim() : '';
       if (!name || !cat) return;
-      if (!parsedMenuData[cat]) { parsedMenuData[cat] = []; dynamicCategoryOrder.push(cat); }
+
+      // ── FIXED COALESCING ──
+      // Converts any accidental spelling variants straight into your main key
+      if (cat === "YEMENI MANDI" || cat === "YAMANI MANDHI" || cat === "YAMANI MANDI" || cat === "YAMENI MANDHI") {
+        cat = "YEMENI MANDHI";
+      }
+
+      // Track categories uniquely without duplicating bars
+      if (!parsedMenuData[cat]) { 
+        parsedMenuData[cat] = []; 
+        dynamicCategoryOrder.push(cat); 
+      }
+      
       parsedMenuData[cat].push({
         name,
         qtr:   qtrIdx   !== -1 && cols[qtrIdx]   ? cols[qtrIdx].trim()                              : '',
@@ -280,7 +304,7 @@ async function initializeLiveKitchenMenu() {
       });
     });
 
-    renderDynamicWebLayout();
+renderDynamicWebLayout();
   } catch (err) {
     console.error("Menu load error:", err);
     document.getElementById('menuWrap').innerHTML = `<div style="text-align:center;padding:60px;color:var(--text-muted);font-family:var(--font-thematic);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;">✦ Could not connect to menu. Please refresh. ✦</div>`;
@@ -292,17 +316,20 @@ function renderDynamicWebLayout() {
   const menuWrap = document.getElementById('menuWrap');
   if (!tabsContainer || !menuWrap) return;
 
+  // 1. Render Navigation Tabs
   let tabsMarkup = '';
   dynamicCategoryOrder.forEach((cat, i) => {
-    const style = CATEGORY_STYLES[cat] || {};
-    tabsMarkup += `<button class="tab${i === 0 ? ' active' : ''}" onclick="switchTabPanel('${cat}',this)">${style.tab || cat}</button>`;
+    const style = getCategoryStyle(cat);
+    tabsMarkup += `<button class="tab${i === 0 ? ' active' : ''}" onclick="switchTabPanel('${cat}',this)">${style.tab}</button>`;
   });
   tabsContainer.innerHTML = tabsMarkup;
 
+  // 2. Render Cards and Pricing Piles
   let listsMarkup = '';
   dynamicCategoryOrder.forEach((cat, i) => {
-    const style = CATEGORY_STYLES[cat] || {};
+    const style = getCategoryStyle(cat);
     let cards = '';
+    
     (parsedMenuData[cat] || []).forEach(dish => {
       let priceRows = '';
       if (cat === "FRESH JUICES") {
@@ -328,8 +355,8 @@ function renderDynamicWebLayout() {
 
     listsMarkup += `
       <div id="cat-${cat.replace(/\s+/g, '-')}" class="cat-content${i === 0 ? ' active' : ''}">
-        <p class="section-label">${style.label || ''}</p>
-        <h2 class="section-title">${style.title || cat}</h2>
+        <p class="section-label">${style.label}</p>
+        <h2 class="section-title">${style.title}</h2>
         <div class="section-divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
         <div class="menu-grid">${cards}</div>
       </div>`;
