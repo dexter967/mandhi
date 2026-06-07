@@ -278,90 +278,34 @@ async function initializeLiveKitchenMenu() {
     rows.slice(1).forEach(row => {
       const cols = parseRow(row);
       if (cols.length < 2) return;
-     const name = nameIdx !== -1 && cols[nameIdx] ? cols[nameIdx].replace(/^"|"$/g, '').trim() : '';
-        let cat    = catIdx  !== -1 && cols[catIdx]  ? cols[catIdx].replace(/^"|"$/g, '').toUpperCase().trim() : '';
-        if (!name || !cat) return;
+      
+      const name = nameIdx !== -1 && cols[nameIdx] ? cols[nameIdx].replace(/^"|"$/g, '').trim() : '';
+      let cat    = catIdx  !== -1 && cols[catIdx]  ? cols[catIdx].replace(/^"|"$/g, '').toUpperCase().trim() : '';
+      if (!name || !cat) return;
 
-        // ── SCRUB INVISIBLE CHARACTERS & SPACE VARIATIONS ──
-        // Strips zero-width bytes, non-breaking spaces, and collapses extra internal spaces
-        cat = cat.replace(/[\u200B-\u200D\uFEFF\u00A0\r\n]/g, '').replace(/\s+/g, ' ').trim();
+      // ── CRITICAL FIX: CLEAN STRINGS BEFORE ANY CHECKS ──
+      // This strips out invisible carriage returns (\r), hidden characters, and collapses double spaces
+      cat = cat.replace(/[\u200B-\u200D\uFEFF\u00A0\r\n]/g, '').replace(/\s+/g, ' ').trim();
 
-        // Track categories uniquely without duplicating tabs
-        if (!parsedMenuData[cat]) {
-          parsedMenuData[cat] = [];
-          dynamicCategoryOrder.push(cat);
-        }
+      // Track categories uniquely without duplicating tabs
+      if (!parsedMenuData[cat]) {
+        parsedMenuData[cat] = [];
+        dynamicCategoryOrder.push(cat);
+      }
       
       parsedMenuData[cat].push({
         name,
-        qtr:   qtrIdx   !== -1 && cols[qtrIdx]   ? cols[qtrIdx].trim()                              : '',
-        half:  halfIdx  !== -1 && cols[halfIdx]   ? cols[halfIdx].trim()                             : '',
-        full:  fullIdx  !== -1 && cols[fullIdx]   ? cols[fullIdx].trim()                             : '',
-        tag:   tagIdx   !== -1 && cols[tagIdx]    ? cols[tagIdx].replace(/^"|"$/g, '').trim()        : '',
+        qtr:   qtrIdx   !== -1 && cols[qtrIdx]   ? cols[qtrIdx].trim() : '',
+        half:  halfIdx  !== -1 && cols[halfIdx]   ? cols[halfIdx].trim() : '',
+        full:  fullIdx  !== -1 && cols[fullIdx]   ? cols[fullIdx].trim() : '',
+        tag:   tagIdx   !== -1 && cols[tagIdx]    ? cols[tagIdx].replace(/^"|"$/g, '').trim() : '',
         image: imageIdx !== -1 && cols[imageIdx]  ? cols[imageIdx].replace(/^"|"$/g, '').trim() || DEFAULT_FALLBACK_IMAGE : DEFAULT_FALLBACK_IMAGE
       });
     });
 
-renderDynamicWebLayout();
+    renderDynamicWebLayout();
   } catch (err) {
     console.error("Menu load error:", err);
     document.getElementById('menuWrap').innerHTML = `<div style="text-align:center;padding:60px;color:var(--text-muted);font-family:var(--font-thematic);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;">✦ Could not connect to menu. Please refresh. ✦</div>`;
   }
 }
-
-function renderDynamicWebLayout() {
-  const tabsContainer = document.getElementById('tabsContainer');
-  const menuWrap = document.getElementById('menuWrap');
-  if (!tabsContainer || !menuWrap) return;
-
-  // 1. Render Navigation Tabs
-  let tabsMarkup = '';
-  dynamicCategoryOrder.forEach((cat, i) => {
-    const style = getCategoryStyle(cat);
-    tabsMarkup += `<button class="tab${i === 0 ? ' active' : ''}" onclick="switchTabPanel('${cat}',this)">${style.tab}</button>`;
-  });
-  tabsContainer.innerHTML = tabsMarkup;
-
-  // 2. Render Cards and Pricing Piles
-  let listsMarkup = '';
-  dynamicCategoryOrder.forEach((cat, i) => {
-    const style = getCategoryStyle(cat);
-    let cards = '';
-    
-    (parsedMenuData[cat] || []).forEach(dish => {
-      let priceRows = '';
-      if (cat === "FRESH JUICES") {
-        priceRows = `<div class="price-row"><span class="lbl">Per Glass</span><span class="val">₹${dish.full}</span></div>`;
-      } else {
-        if (dish.qtr)  priceRows += `<div class="price-row"><span class="lbl">Quarter</span><span class="val">₹${dish.qtr}</span></div>`;
-        if (dish.half) priceRows += `<div class="price-row"><span class="lbl">Half</span><span class="val">₹${dish.half}</span></div>`;
-        if (dish.full) priceRows += `<div class="price-row"><span class="lbl">Full</span><span class="val">₹${dish.full}</span></div>`;
-      }
-      const badge = dish.tag ? `<div class="card-badge">${dish.tag}</div>` : '';
-      cards += `
-        <div class="menu-card revealed">
-          <div class="card-img-wrap">
-            <img class="card-img" src="${dish.image}" alt="${dish.name}">
-            ${badge}
-          </div>
-          <div class="card-body">
-            <h3>${dish.name}</h3>
-            <div class="price-table">${priceRows}</div>
-          </div>
-        </div>`;
-    });
-
-    listsMarkup += `
-      <div id="cat-${cat.replace(/\s+/g, '-')}" class="cat-content${i === 0 ? ' active' : ''}">
-        <p class="section-label">${style.label}</p>
-        <h2 class="section-title">${style.title}</h2>
-        <div class="section-divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
-        <div class="menu-grid">${cards}</div>
-      </div>`;
-  });
-
-  menuWrap.innerHTML = listsMarkup;
-  runGridObservations();
-}
-
-document.addEventListener('DOMContentLoaded', initializeLiveKitchenMenu);
