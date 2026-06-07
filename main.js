@@ -258,18 +258,41 @@ async function initializeLiveKitchenMenu() {
   try {
     const res = await fetch(SHEET_CSV_URL);
     const csv = await res.text();
-    const rows = csv.trim().split(/\r?\n/);
+    
+    // Split rows safely and filter out completely empty entries
+    const rows = csv.split(/\r?\n/).map(r => r.trim()).filter(r => r.length > 0);
     if (rows.length < 2) return;
 
-    const parseRow = (text) => text.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+    // Helper to safely parse CSV cells regardless of quotes or empty tags
+    const parseRow = (text) => {
+      const result = [];
+      let current = '';
+      let inQuotes = false;
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        if (char === '"') {
+          inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+          result.push(current.trim());
+          current = '';
+        } else {
+          current += char;
+        }
+      }
+      result.push(current.trim());
+      return result;
+    };
+
+    // Extract headers precisely
     const headers = parseRow(rows[0]).map(h => h.replace(/^"|"$/g, '').trim().toLowerCase());
 
-    const nameIdx  = headers.findIndex(h => h.includes('name')     || h.includes('dish'));
-    const catIdx   = headers.findIndex(h => h.includes('category') || h.includes('cat'));
-    const qtrIdx   = headers.findIndex(h => h.includes('quarter')  || h.includes('qtr'));
+    // Map the column indexes directly based on your header row names
+    const nameIdx  = headers.findIndex(h => h === 'name'     || h.includes('dish'));
+    const catIdx   = headers.findIndex(h => h === 'category' || h.includes('cat'));
+    const qtrIdx   = headers.findIndex(h => h.includes('qtr')      || h.includes('quarter'));
     const halfIdx  = headers.findIndex(h => h.includes('half'));
     const fullIdx  = headers.findIndex(h => h.includes('full'));
-    const tagIdx   = headers.findIndex(h => h.includes('tag')      || h.includes('badge'));
+    const tagIdx   = headers.findIndex(h => h === 'tag'      || h.includes('badge'));
     const imageIdx = headers.findIndex(h => h.includes('image')    || h.includes('img') || h.includes('link'));
 
     parsedMenuData = {};
@@ -277,29 +300,41 @@ async function initializeLiveKitchenMenu() {
 
     rows.slice(1).forEach(row => {
       const cols = parseRow(row);
-      if (cols.length < 2) return;
+      if (cols.length <= Math.max(nameIdx, catIdx)) return;
       
       const name = nameIdx !== -1 && cols[nameIdx] ? cols[nameIdx].replace(/^"|"$/g, '').trim() : '';
       let cat    = catIdx  !== -1 && cols[catIdx]  ? cols[catIdx].replace(/^"|"$/g, '').toUpperCase().trim() : '';
+      
+      // If the line doesn't have a valid name or category, skip it cleanly
       if (!name || !cat) return;
 
-      // ── CRITICAL FIX: CLEAN STRINGS BEFORE ANY CHECKS ──
-      // This strips out invisible carriage returns (\r), hidden characters, and collapses double spaces
+      // Scrub invisible control bytes and clean multiple internal spacing elements
       cat = cat.replace(/[\u200B-\u200D\uFEFF\u00A0\r\n]/g, '').replace(/\s+/g, ' ').trim();
 
-      // Track categories uniquely without duplicating tabs
-      if (!parsedMenuData[cat]) {
-        parsedMenuData[cat] = [];
-        dynamicCategoryOrder.push(cat);
+      // Track categories uniquely without duplicating navigation elements
+      if (!parsedMenuData[cat]) { 
+        parsedMenuData[cat] = []; 
+        dynamicCategoryOrder.push(cat); 
+      }
+      
+      // Pull dynamic values or substitute fallbacks seamlessly for missing values
+      const qtrVal  = (qtrIdx !== -1 && cols[qtrIdx]) ? cols[qtrIdx].replace(/^"|"$/g, '').trim() : '';
+      const halfVal = (halfIdx !== -1 && cols[halfIdx]) ? cols[halfIdx].replace(/^"|"$/g, '').trim() : '';
+      const fullVal = (fullIdx !== -1 && cols[fullIdx]) ? cols[fullIdx].replace(/^"|"$/g, '').trim() : '';
+      const tagVal  = (tagIdx !== -1 && cols[tagIdx]) ? cols[tagIdx].replace(/^"|"$/g, '').trim() : '';
+      
+      let imgVal = (imageIdx !== -1 && cols[imageIdx]) ? cols[imageIdx].replace(/^"|"$/g, '').trim() : '';
+      if (!imgVal || imgVal.toLowerCase() === 'undefined' || imgVal === '') {
+        imgVal = DEFAULT_FALLBACK_IMAGE;
       }
       
       parsedMenuData[cat].push({
-        name,
-        qtr:   qtrIdx   !== -1 && cols[qtrIdx]   ? cols[qtrIdx].trim() : '',
-        half:  halfIdx  !== -1 && cols[halfIdx]   ? cols[halfIdx].trim() : '',
-        full:  fullIdx  !== -1 && cols[fullIdx]   ? cols[fullIdx].trim() : '',
-        tag:   tagIdx   !== -1 && cols[tagIdx]    ? cols[tagIdx].replace(/^"|"$/g, '').trim() : '',
-        image: imageIdx !== -1 && cols[imageIdx]  ? cols[imageIdx].replace(/^"|"$/g, '').trim() || DEFAULT_FALLBACK_IMAGE : DEFAULT_FALLBACK_IMAGE
+        name: name,
+        qtr: qtrVal,
+        half: halfVal,
+        full: fullVal,
+        tag: tagVal,
+        image: imgVal
       });
     });
 
