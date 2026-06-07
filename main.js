@@ -278,21 +278,19 @@ async function initializeLiveKitchenMenu() {
     rows.slice(1).forEach(row => {
       const cols = parseRow(row);
       if (cols.length < 2) return;
-      const name = nameIdx !== -1 && cols[nameIdx] ? cols[nameIdx].replace(/^"|"$/g, '').trim() : '';
-      let cat    = catIdx  !== -1 && cols[catIdx]  ? cols[catIdx].replace(/^"|"$/g, '').toUpperCase().trim() : '';
-      if (!name || !cat) return;
+     const name = nameIdx !== -1 && cols[nameIdx] ? cols[nameIdx].replace(/^"|"$/g, '').trim() : '';
+        let cat    = catIdx  !== -1 && cols[catIdx]  ? cols[catIdx].replace(/^"|"$/g, '').toUpperCase().trim() : '';
+        if (!name || !cat) return;
 
-      // ── FIXED COALESCING ──
-      // Converts any accidental spelling variants straight into your main key
-      if (cat === "YEMENI MANDI" || cat === "YAMANI MANDHI" || cat === "YAMANI MANDI" || cat === "YAMENI MANDHI") {
-        cat = "YEMENI MANDHI";
-      }
+        // ── SCRUB INVISIBLE CHARACTERS & SPACE VARIATIONS ──
+        // Strips zero-width bytes, non-breaking spaces, and collapses extra internal spaces
+        cat = cat.replace(/[\u200B-\u200D\uFEFF\u00A0\r\n]/g, '').replace(/\s+/g, ' ').trim();
 
-      // Track categories uniquely without duplicating bars
-      if (!parsedMenuData[cat]) { 
-        parsedMenuData[cat] = []; 
-        dynamicCategoryOrder.push(cat); 
-      }
+        // Track categories uniquely without duplicating tabs
+        if (!parsedMenuData[cat]) {
+          parsedMenuData[cat] = [];
+          dynamicCategoryOrder.push(cat);
+        }
       
       parsedMenuData[cat].push({
         name,
