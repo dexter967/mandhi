@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Restaurant Admin</title>
+
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Restaurant CMS</h1>
+
+      <div class="card">
+        <h2>Add Menu Item</h2>
+
+        <input id="name" placeholder="Food Name" />
+
+        <textarea id="description" placeholder="Description"></textarea>
+
+        <input id="price" type="number" placeholder="Price" />
+
+        <input id="image" placeholder="Image URL" />
+
+        <button onclick="addItem()">Add Item</button>
+      </div>
+
+      <div class="card" id="editCard" style="display: none;">
+
+    <h2>Edit Menu Item</h2>
+
+    <input type="hidden" id="editId">
+
+    <input id="editName" placeholder="Food Name">
+
+    <textarea id="editDescription" placeholder="Description"></textarea>
+
+    <input id="editPrice" type="number" placeholder="Price">
+
+    <input id="editImage" placeholder="Image URL">
+
+    <div>
+        <label>
+            <input type="checkbox" id="editAvailable">
+            Available
+        </label>
+    </div>
+
+    <div>
+        <label>
+            <input type="checkbox" id="editBestseller">
+            Bestseller
+        </label>
+    </div>
+
+    <div>
+        <label>
+            <input type="checkbox" id="editFeatured">
+            Featured
+        </label>
+    </div>
+
+    <button onclick="saveEdit()">Save Changes</button>
+
+    <button onclick="cancelEdit()">Cancel</button>
+
+</div>
+     <div id="message"></div>
+
+<hr>
+
+<div class="card">
+    <h2>Existing Menu Items</h2>
+
+    <div id="menuList">
+        Loading menu...
+    </div>
+</div>
+
+<script src="admin.js"></script>
+
+</body>
+</html>
