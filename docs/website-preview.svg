@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">Al Qaaf Restaurant website preview</title>
+  <desc id="desc">Illustrated preview of the dark, copper-accented restaurant website, with a hero section, navigation, menu categories and dish cards.</desc>
+  <defs>
+    <linearGradient id="hero" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#17130f"/>
+      <stop offset=".55" stop-color="#0d0d0d"/>
+      <stop offset="1" stop-color="#24170f"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="#b87333" stop-opacity=".27"/>
+      <stop offset="1" stop-color="#b87333" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="rice" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4d79e"/>
+      <stop offset="1" stop-color="#c58a43"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000" flood-opacity=".5"/>
+    </filter>
+  </defs>
+
+  <rect width="1440" height="900" rx="24" fill="#080808"/>
+  <rect x="1" y="1" width="1438" height="898" rx="23" fill="none" stroke="#b87333" stroke-opacity=".35"/>
+
+  <rect x="28" y="28" width="1384" height="844" rx="14" fill="#0d0d0d"/>
+  <rect x="28" y="28" width="1384" height="54" rx="14" fill="#111"/>
+  <path d="M28 68v14h1384V68" fill="#111"/>
+  <circle cx="54" cy="54" r="6" fill="#e36b5d"/>
+  <circle cx="76" cy="54" r="6" fill="#e6b95a"/>
+  <circle cx="98" cy="54" r="6" fill="#62b477"/>
+  <rect x="450" y="40" width="540" height="28" rx="14" fill="#1b1b1b"/>
+  <text x="720" y="59" text-anchor="middle" fill="#89837c" font-family="Arial, sans-serif" font-size="12">alqaaf.example  ·  restaurant website preview</text>
+
+  <rect x="28" y="82" width="1384" height="54" fill="#0d0d0d"/>
+  <path d="M28 135.5h1384" stroke="#b87333" stroke-opacity=".23"/>
+  <circle cx="79" cy="109" r="12" fill="none" stroke="#b87333" stroke-width="1.5"/>
+  <path d="M75 109h8m-4-4v8" stroke="#b87333" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="101" y="114" fill="#f5f1e9" font-family="Georgia, serif" font-size="15" letter-spacing="2">AL QAAF</text>
+  <text x="510" y="113" fill="#aaa39a" font-family="Arial, sans-serif" font-size="10" letter-spacing="2">HOME</text>
+  <text x="626" y="113" fill="#aaa39a" font-family="Arial, sans-serif" font-size="10" letter-spacing="2">FULL MENU</text>
+  <text x="763" y="113" fill="#aaa39a" font-family="Arial, sans-serif" font-size="10" letter-spacing="2">OUR STORY</text>
+  <text x="895" y="113" fill="#aaa39a" font-family="Arial, sans-serif" font-size="10" letter-spacing="2">GET IN TOUCH</text>
+  <path d="M1180 100l8 14h-16z" fill="none" stroke="#b87333" stroke-width="1.5"/>
+  <text x="1200" y="113" fill="#b9b1a7" font-family="Arial, sans-serif" font-size="10" letter-spacing="1.5">LOCATE US</text>
+  <rect x="1310" y="92" width="40" height="34" fill="none" stroke="#b87333" stroke-opacity=".45"/>
+  <path d="M1320 102h20m-20 7h20m-20 7h20" stroke="#b87333" stroke-width="1.4"/>
+
+  <rect x="29" y="136" width="1382" height="416" fill="url(#hero)"/>
+  <ellipse cx="1080" cy="335" rx="360" ry="290" fill="url(#glow)"/>
+  <path d="M880 136h531v416H880z" fill="#14100c" opacity=".35"/>
+  <path d="M970 136c55 75 55 342 0 416m74-416c42 95 42 324 0 416m74-416c26 103 26 313 0 416" fill="none" stroke="#b87333" stroke-opacity=".08"/>
+
+  <text x="136" y="221" fill="#d8a66b" font-family="Georgia, serif" font-size="12" letter-spacing="4">✦  AN ANCIENT MASTERY  ✦</text>
+  <text x="132" y="295" fill="#f8f4ed" font-family="Georgia, serif" font-size="51" letter-spacing="-1">The Art of</text>
+  <text x="132" y="355" fill="#c68a4d" font-family="Georgia, serif" font-size="51" font-style="italic" letter-spacing="-1">Arabian Mandhi</text>
+  <text x="136" y="396" fill="#aaa39a" font-family="Arial, sans-serif" font-size="14">Slow-cooked over traditional charcoal pits.</text>
+  <text x="136" y="418" fill="#aaa39a" font-family="Arial, sans-serif" font-size="14">Rich spices, patient craft and copper platters.</text>
+  <rect x="136" y="448" width="182" height="45" fill="#b87333"/>
+  <text x="163" y="476" fill="#100d0a" font-family="Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5">EXPLORE MENU</text>
+  <path d="M287 464l10 7-10 7" fill="none" stroke="#100d0a" stroke-width="1.5"/>
+  <text x="136" y="524" fill="#746d64" font-family="Arial, sans-serif" font-size="9" letter-spacing="1.3">PANDALAM, PATHANAMTHITTA  ·  AUTHENTIC ELITE DINING</text>
+
+  <g filter="url(#shadow)">
+    <circle cx="1090" cy="340" r="164" fill="#2b1c12" stroke="#bd8044" stroke-width="2"/>
+    <circle cx="1090" cy="340" r="148" fill="#e0bc7b" stroke="#402a18" stroke-width="5"/>
+    <circle cx="1090" cy="340" r="132" fill="url(#rice)"/>
+    <path d="M995 340c45-52 147-62 196-5 31 36 8 92-39 105-49 13-153-8-165-54-5-18-1-34 8-46z" fill="#f5e2b7"/>
+    <path d="M1044 306c20-24 55-29 73-9 12 14 3 37-16 42-26 7-62-7-57-25z" fill="#a44a2b"/>
+    <path d="M1127 362c22-25 57-27 72-6 10 15 1 36-18 41-27 7-63-14-54-35z" fill="#914026"/>
+    <path d="M1010 363c19-18 45-17 55 0 7 13-2 28-17 31-20 3-45-14-38-31z" fill="#b85d32"/>
+    <g fill="#4d6b37">
+      <ellipse cx="1021" cy="286" rx="7" ry="3" transform="rotate(-30 1021 286)"/>
+      <ellipse cx="1160" cy="300" rx="8" ry="3" transform="rotate(38 1160 300)"/>
+      <ellipse cx="1084" cy="403" rx="8" ry="3" transform="rotate(-8 1084 403)"/>
+      <ellipse cx="1174" cy="380" rx="7" ry="3" transform="rotate(-35 1174 380)"/>
+    </g>
+    <g fill="#8d6135">
+      <circle cx="1062" cy="274" r="2.5"/><circle cx="1135" cy="280" r="2.5"/>
+      <circle cx="1004" cy="329" r="2.5"/><circle cx="1154" cy="414" r="2.5"/>
+      <circle cx="1053" cy="429" r="2.5"/><circle cx="1200" cy="337" r="2.5"/>
+    </g>
+  </g>
+  <text x="1090" y="536" text-anchor="middle" fill="#c29059" font-family="Arial, sans-serif" font-size="9" letter-spacing="2">SLOW-SMOKED  ·  BEAUTIFULLY SERVED</text>
+
+  <rect x="29" y="552" width="1382" height="35" fill="#b87333"/>
+  <text x="720" y="574" text-anchor="middle" fill="#17110b" font-family="Arial, sans-serif" font-size="10" letter-spacing="1.3">✦  UNLIMITED RICE  ·  FULL (4 PAX)  |  HALF (2 PAX)  |  THREE-QUARTER (3 PAX)  |  QUARTER (1 PERSON)  ✦</text>
+
+  <text x="100" y="630" fill="#c68a4d" font-family="Arial, sans-serif" font-size="10" letter-spacing="3">FROM THE KITCHEN</text>
+  <text x="100" y="660" fill="#f5f1e9" font-family="Georgia, serif" font-size="26">Explore the menu</text>
+  <text x="1340" y="652" text-anchor="end" fill="#80786f" font-family="Arial, sans-serif" font-size="10" letter-spacing="1.5">CRAFTED FRESH, SERVED WARM</text>
+
+  <g font-family="Arial, sans-serif" font-size="9" letter-spacing=".6">
+    <rect x="100" y="680" width="156" height="34" fill="#b87333"/>
+    <text x="178" y="701" text-anchor="middle" fill="#17110b">YEMENI MANDHI</text>
+    <rect x="264" y="680" width="150" height="34" fill="#151515" stroke="#38302a"/>
+    <text x="339" y="701" text-anchor="middle" fill="#b0a89e">GRILLED MANDHI</text>
+    <rect x="422" y="680" width="135" height="34" fill="#151515" stroke="#38302a"/>
+    <text x="489" y="701" text-anchor="middle" fill="#b0a89e">GRILLED PIECES</text>
+    <rect x="565" y="680" width="135" height="34" fill="#151515" stroke="#38302a"/>
+    <text x="632" y="701" text-anchor="middle" fill="#b0a89e">MANDHI PIECES</text>
+    <rect x="708" y="680" width="130" height="34" fill="#151515" stroke="#38302a"/>
+    <text x="773" y="701" text-anchor="middle" fill="#b0a89e">FRESH JUICES</text>
+  </g>
+
+  <g>
+    <rect x="100" y="734" width="390" height="105" fill="#151515" stroke="#29231e"/>
+    <rect x="100" y="734" width="108" height="105" fill="#34241a"/>
+    <circle cx="154" cy="785" r="30" fill="#b87333" fill-opacity=".38"/>
+    <circle cx="154" cy="785" r="20" fill="#ead39f" fill-opacity=".85"/>
+    <circle cx="154" cy="785" r="11" fill="#974a2b"/>
+    <text x="230" y="770" fill="#f2ece2" font-family="Georgia, serif" font-size="16">Signature Mandhi</text>
+    <text x="230" y="793" fill="#8e867c" font-family="Arial, sans-serif" font-size="10">Slow-cooked · house spices</text>
+    <text x="230" y="817" fill="#d39b60" font-family="Arial, sans-serif" font-size="11">PORTIONS &amp; PRICES</text>
+
+    <rect x="510" y="734" width="390" height="105" fill="#151515" stroke="#29231e"/>
+    <rect x="510" y="734" width="108" height="105" fill="#34241a"/>
+    <circle cx="564" cy="785" r="30" fill="#b87333" fill-opacity=".38"/>
+    <circle cx="564" cy="785" r="20" fill="#ead39f" fill-opacity=".85"/>
+    <path d="M552 785c8-13 23-10 24 0 1 9-18 16-24 0z" fill="#974a2b"/>
+    <text x="640" y="770" fill="#f2ece2" font-family="Georgia, serif" font-size="16">Charcoal Grill</text>
+    <text x="640" y="793" fill="#8e867c" font-family="Arial, sans-serif" font-size="10">Fire-kissed · freshly prepared</text>
+    <text x="640" y="817" fill="#d39b60" font-family="Arial, sans-serif" font-size="11">PORTIONS &amp; PRICES</text>
+
+    <rect x="920" y="734" width="390" height="105" fill="#151515" stroke="#29231e"/>
+    <rect x="920" y="734" width="108" height="105" fill="#34241a"/>
+    <circle cx="974" cy="785" r="30" fill="#b87333" fill-opacity=".38"/>
+    <circle cx="974" cy="785" r="20" fill="#e9d39f" fill-opacity=".85"/>
+    <path d="M961 779q13-13 27 0l-3 15h-20z" fill="#658045"/>
+    <text x="1050" y="770" fill="#f2ece2" font-family="Georgia, serif" font-size="16">Fresh Juices</text>
+    <text x="1050" y="793" fill="#8e867c" font-family="Arial, sans-serif" font-size="10">A bright finish to the meal</text>
+    <text x="1050" y="817" fill="#d39b60" font-family="Arial, sans-serif" font-size="11">EXPLORE THE MENU</text>
+  </g>
+
+  <text x="720" y="858" text-anchor="middle" fill="#746d64" font-family="Arial, sans-serif" font-size="9" letter-spacing="1.5">AL QAAF RESTAURANT  ·  PANDALAM, KERALA</text>
+</svg>
