@@ -135,6 +135,10 @@ document
   });
 
 // ── MODAL DATA ──
+// NOTE: This "quick full menu" slide-out still uses a static snapshot, same
+// as before. It was not part of the requested menu-card redesign, so it is
+// left untouched. If you'd like this wired to the live backend/portions
+// too, that's a separate follow-up.
 const ALL = {
   "Yemeni Mandhi Dishes": [
     {
@@ -313,71 +317,42 @@ document.addEventListener("keydown", (e) => {
 })();
 
 // ── LIVE MENU FROM BACKEND API (Node.js + Express + Supabase) ──
+//
+// index.html already ships 5 static tab buttons (#tabsContainer), each
+// calling switchTabPanel('CATEGORY KEY', this). This section only has to
+// fill #menuWrap with the matching .cat-content panels — it must NOT
+// generate its own tab bar, or you'd get two tab rows.
 const API_BASE_URL = "http://localhost:5000/api";
 const MENU_ENDPOINT = `${API_BASE_URL}/menu`;
 const DEFAULT_FALLBACK_IMAGE =
   "https://i.postimg.cc/tTf92z4s/Gemini-Generated-Image-3m9wp93m9wp93m9w.png";
 
-// Category presentation metadata — keyed by category name (or "UNCATEGORIZED").
-// Falls back to an auto-generated style for any category not listed here.
-const CATEGORY_STYLES = {
-  "YEMENI MANDHI": {
-    label: "✦ Heritage Collection",
-    title: "Yemeni Mandhi Dishes",
-    tab: "Yemeni Mandhi",
-  },
-  "GRILLED MANDHI": {
-    label: "✦ Grilled Fusion",
-    title: "Grilled Mandhi",
-    tab: "Grilled Mandhi",
-  },
-  "GRILLED PIECES": {
-    label: "✦ Pit-Charred Elements",
-    title: "Grilled Charred Pieces",
-    tab: "Grilled Pieces",
-  },
-  "MANDHI PIECES": {
-    label: "✦ Pure Proteins",
-    title: "Mandhi Meat Side Pieces",
-    tab: "Mandhi Pieces",
-  },
-  "FRESH JUICES": {
-    label: "✦ Fresh Juices",
-    title: "Fresh Juices",
-    tab: "Fresh Juices",
-  },
-  UNCATEGORIZED: { label: "✦ Our Menu", title: "Menu", tab: "Menu" },
-};
-
-// Quick helper to generate professional styling titles for categories not explicitly listed above
-function getCategoryStyle(catKey) {
-  if (CATEGORY_STYLES[catKey]) return CATEGORY_STYLES[catKey];
-
-  const cleanTitle = String(catKey)
-    .toLowerCase()
-    .split(" ")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
-  return {
-    label: `✦ Modern Additions`,
-    title: `${cleanTitle} Selection`,
-    tab: cleanTitle,
-  };
-}
+// Matches the exact category keys used by the static tab buttons in
+// index.html, so panels line up with tabs in the expected order. Any
+// category returned by the backend that isn't in this list still renders
+// (appended at the end), but there is no tab button to reach it unless
+// one is added to index.html — see the console warning below.
+const KNOWN_CATEGORY_ORDER = [
+  "YEMENI MANDHI",
+  "GRILLED MANDHI",
+  "GRILLED PIECES",
+  "MANDHI PIECES",
+  "FRESH JUICES",
+];
 
 let parsedMenuData = {};
 let dynamicCategoryOrder = [];
+let menuData = [];
 
-// Formats a numeric price into a display string, e.g. 299 -> "₹299"
-function formatPrice(price) {
-  if (price === null || price === undefined || price === "") return "";
-  const num = Number(price);
-  if (Number.isNaN(num)) return String(price);
-  return `₹${num}`;
+// A price (menu item OR portion) is optional. Treat null, undefined, and ""
+// as "no price" — never render "₹0", "₹null", or "₹undefined".
+function hasPrice(price) {
+  return price !== null && price !== undefined && price !== "";
 }
 
-// Escapes text before it is dropped into innerHTML, so item names/descriptions
-// coming from the database can never break markup or inject scripts.
+// Escapes text before it is dropped into innerHTML, so item names/
+// descriptions/portion names coming from the database can never break
+// markup or inject scripts.
 function escapeHtml(str) {
   if (str === null || str === undefined) return "";
   return String(str)
@@ -388,27 +363,108 @@ function escapeHtml(str) {
     .replace(/'/g, "&#39;");
 }
 
-// Builds the price badge markup for one menu card, showing whichever of
-// qtr/half/full are actually populated for that item.
-function buildPriceBadges(item) {
-  const rows = [];
-  if (item.qtr)
-    rows.push(
-      `<span class="menu-card-badge">Qtr: ${escapeHtml(item.qtr)}</span>`,
-    );
-  if (item.half)
-    rows.push(
-      `<span class="menu-card-badge">Half: ${escapeHtml(item.half)}</span>`,
-    );
-  if (item.full)
-    rows.push(
-      `<span class="menu-card-badge">${item.qtr || item.half ? "Full: " : ""}${escapeHtml(item.full)}</span>`,
-    );
-  return rows.join("");
+// Puts known categories first (in the same order as the static tabs),
+// then any unrecognised categories after them.
+function orderCategories(keys) {
+  const known = KNOWN_CATEGORY_ORDER.filter((k) => keys.includes(k));
+  const unknown = keys.filter((k) => !KNOWN_CATEGORY_ORDER.includes(k));
+  return [...known, ...unknown];
 }
 
-// Builds the full tabs + category-panel markup and injects it into #menuWrap,
-// then wires up scroll-reveal observation on the now-active grid.
+function warnAboutUnmappedCategories(keys) {
+  keys.forEach((key) => {
+    if (KNOWN_CATEGORY_ORDER.includes(key)) return;
+    const hasTab = Array.from(document.querySelectorAll(".tab")).some((btn) =>
+      (btn.getAttribute("onclick") || "").includes(`'${key}'`),
+    );
+    if (!hasTab) {
+      console.warn(
+        `Menu category "${key}" has no matching tab button in index.html — add one manually, or it will be unreachable from the tab bar.`,
+      );
+    }
+  });
+}
+
+// Fetches the portions for a single menu item. Never throws — a failed
+// portions fetch degrades to "no portions" for that item rather than
+// breaking the whole menu.
+async function fetchPortionsForItem(itemId) {
+  try {
+    const response = await fetch(`${MENU_ENDPOINT}/${itemId}/portions`);
+    const result = await response.json();
+
+    if (!result || !result.success || !Array.isArray(result.data)) {
+      return [];
+    }
+
+    return result.data
+      .slice()
+      .sort((a, b) => (a.display_order ?? 0) - (b.display_order ?? 0));
+  } catch (err) {
+    console.error(`Could not load portions for menu item ${itemId}:`, err);
+    return [];
+  }
+}
+
+// Builds the price section for one card: a general-price row (only if the
+// item has one), followed by a portions table (only if the item has any
+// portions). Either, both, or neither may be present — an item with no
+// price and no portions renders nothing here at all.
+function buildPriceSectionHtml(item) {
+  let html = "";
+
+  if (hasPrice(item.price)) {
+    html += `
+      <div class="price-table">
+        <div class="price-row">
+          <span class="lbl">Price</span>
+          <span class="val">₹${item.price}</span>
+        </div>
+      </div>`;
+  }
+
+  if (item.portions && item.portions.length) {
+    const rows = item.portions
+      .map(
+        (portion) => `
+        <div class="price-row">
+          <span class="lbl">${escapeHtml(portion.portion_name)}</span>
+          ${hasPrice(portion.price) ? `<span class="val">₹${portion.price}</span>` : ""}
+        </div>`,
+      )
+      .join("");
+
+    html += `<div class="price-table">${rows}</div>`;
+  }
+
+  return html;
+}
+
+function buildCardHtml(item) {
+  return `
+    <div class="menu-card">
+      <div class="card-img-wrap">
+        <img
+          class="card-img"
+          src="${escapeHtml(item.image)}"
+          alt="${escapeHtml(item.name)}"
+          loading="lazy"
+          onerror="this.onerror=null;this.src='${DEFAULT_FALLBACK_IMAGE}';"
+        >
+        ${item.tag ? `<div class="card-badge">${escapeHtml(item.tag)}</div>` : ""}
+      </div>
+      <div class="card-body">
+        <div>
+          <h3>${escapeHtml(item.name)}</h3>
+          ${item.description ? `<p class="card-desc">${escapeHtml(item.description)}</p>` : ""}
+        </div>
+        ${buildPriceSectionHtml(item)}
+      </div>
+    </div>`;
+}
+
+// Injects the .cat-content panels into #menuWrap. The tab bar itself is
+// static markup in index.html and is left alone.
 function renderDynamicWebLayout() {
   const wrap = document.getElementById("menuWrap");
   if (!wrap) return;
@@ -418,53 +474,47 @@ function renderDynamicWebLayout() {
     return;
   }
 
-  let tabsHtml = '<div class="menu-tabs">';
   let panelsHtml = "";
 
-  dynamicCategoryOrder.forEach((catKey, i) => {
-    const style = getCategoryStyle(catKey);
-    const isActive = i === 0;
+  dynamicCategoryOrder.forEach((catKey) => {
     const panelId = `cat-${catKey.replace(/\s+/g, "-")}`;
-
-    tabsHtml += `<button type="button" class="tab${isActive ? " active" : ""}" onclick="switchTabPanel('${catKey.replace(/'/g, "\\'")}', this)">${escapeHtml(style.tab)}</button>`;
-
-    let cardsHtml = "";
-    (parsedMenuData[catKey] || []).forEach((item) => {
-      cardsHtml += `
-        <div class="menu-card">
-          <div class="menu-card-img">
-            <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.src='${DEFAULT_FALLBACK_IMAGE}'">
-          </div>
-          <div class="menu-card-body">
-            <h3 class="menu-card-name">${escapeHtml(item.name)}</h3>
-            ${item.description ? `<p class="menu-card-desc">${escapeHtml(item.description)}</p>` : ""}
-            ${item.tag ? `<div class="menu-card-tag">${escapeHtml(item.tag)}</div>` : ""}
-            <div class="menu-card-prices">${buildPriceBadges(item)}</div>
-          </div>
-        </div>`;
-    });
+    const items = parsedMenuData[catKey] || [];
+    const cardsHtml = items.map((item) => buildCardHtml(item)).join("");
 
     panelsHtml += `
-      <div class="cat-content${isActive ? " active" : ""}" id="${panelId}">
-        <div class="cat-content-label">${escapeHtml(style.label)}</div>
-        <h2 class="cat-content-title">${escapeHtml(style.title)}</h2>
+      <div class="cat-content" id="${panelId}">
         <div class="menu-grid">${cardsHtml}</div>
       </div>`;
   });
 
-  tabsHtml += "</div>";
+  wrap.innerHTML = panelsHtml;
 
-  wrap.innerHTML = tabsHtml + panelsHtml;
-
-  setTimeout(() => runGridObservations(), 40);
+  activateInitialCategory();
 }
 
-// Groups the raw API items into parsedMenuData / dynamicCategoryOrder and
-// triggers the render pipeline. Takes already-fetched data — no network call
-// happens in here, so this can be reused without ever double-fetching.
+// Makes sure the category that's actually rendered active matches the tab
+// marked active — picks the first category (in known-tab order) that has
+// at least one item, so a category with zero available items never leaves
+// the page on a blank panel under a highlighted tab.
+function activateInitialCategory() {
+  if (!dynamicCategoryOrder.length) return;
+
+  const preferredKey =
+    dynamicCategoryOrder.find((key) => (parsedMenuData[key] || []).length) ||
+    dynamicCategoryOrder[0];
+
+  const tabBtn = Array.from(document.querySelectorAll(".tab")).find((btn) =>
+    (btn.getAttribute("onclick") || "").includes(`'${preferredKey}'`),
+  );
+
+  switchTabPanel(preferredKey, tabBtn || null);
+}
+
+// Groups the raw API items (each already carrying its fetched .portions
+// array) into parsedMenuData / dynamicCategoryOrder and triggers render.
 function processAndRenderMenu(items) {
   parsedMenuData = {};
-  dynamicCategoryOrder = [];
+  const rawCategoryOrder = [];
 
   const sorted = items
     .filter((item) => item.is_available !== false)
@@ -478,7 +528,7 @@ function processAndRenderMenu(items) {
 
     if (!parsedMenuData[cat]) {
       parsedMenuData[cat] = [];
-      dynamicCategoryOrder.push(cat);
+      rawCategoryOrder.push(cat);
     }
 
     const tags = [];
@@ -488,34 +538,43 @@ function processAndRenderMenu(items) {
     parsedMenuData[cat].push({
       name: item.name || "",
       description: item.description || "",
-      qtr: "",
-      half: "",
-      full: formatPrice(item.price),
+      price: item.price,
       tag: tags.join(" · "),
       image:
         item.image_url && item.image_url.trim()
           ? item.image_url.trim()
           : DEFAULT_FALLBACK_IMAGE,
+      portions: item.portions || [],
     });
   });
+
+  dynamicCategoryOrder = orderCategories(rawCategoryOrder);
+  warnAboutUnmappedCategories(dynamicCategoryOrder);
 
   renderDynamicWebLayout();
 }
 
-// Single entry point: fetches the menu exactly once, then hands the raw
-// items to processAndRenderMenu for grouping/rendering.
-let menuData = [];
+// Single entry point: fetches the menu, fetches each item's own portions
+// (never mixing one item's portions into another's card), then renders.
 async function loadMenu() {
   try {
-    const response = await fetch("http://localhost:5000/api/menu");
+    const response = await fetch(MENU_ENDPOINT);
     const result = await response.json();
-    const items = result.data;
 
-    if (!result || !result.success || !Array.isArray(items)) {
+    if (!result || !result.success || !Array.isArray(result.data)) {
       throw new Error("Unexpected response shape from menu API");
     }
 
-    menuData = items;
+    const items = result.data;
+
+    const itemsWithPortions = await Promise.all(
+      items.map(async (item) => ({
+        ...item,
+        portions: await fetchPortionsForItem(item.id),
+      })),
+    );
+
+    menuData = itemsWithPortions;
     processAndRenderMenu(menuData);
   } catch (err) {
     console.error("Menu load error:", err);

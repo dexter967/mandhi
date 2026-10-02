@@ -1,68 +1,895 @@
-body {
-  background: #111;
+/* =========================================
+   RESTAURANT ADMIN — CLEAN DARK AESTHETIC
+   ========================================= */
 
-  font-family: Arial;
+:root {
+  --bg: #101010;
+  --surface: #181818;
+  --surface-2: #202020;
+  --surface-3: #262626;
 
-  color: white;
+  --accent: #d89b3f;
+  --accent-dark: #b77b2d;
+  --accent-soft: rgba(216, 155, 63, 0.12);
 
-  display: flex;
+  --text: #f5f5f5;
+  --muted: #a5a5a5;
+  --border: #303030;
 
-  justify-content: center;
+  --danger: #b94a48;
+  --success: #72b87a;
 
-  padding: 50px;
+  --radius: 14px;
 }
+
+/* =========================================
+   RESET
+   ========================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  background: var(--bg);
+  color: var(--text);
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  padding: 40px 24px 70px;
+}
+
+/* =========================================
+   MAIN CONTAINER
+   ========================================= */
 
 .container {
-  width: 500px;
+  width: min(1100px, 100%);
+  margin: 0 auto;
 }
 
+/* =========================================
+   ADMIN HEADER
+   ========================================= */
+
+.admin-header {
+  margin-bottom: 30px;
+  padding: 26px 30px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+}
+
+.admin-header h1 {
+  margin: 0;
+
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.admin-header p {
+  margin: 7px 0 0;
+
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* =========================================
+   COMMON CARD
+   ========================================= */
+
 .card {
-  background: #222;
+  width: 100%;
 
-  padding: 25px;
+  background: var(--surface);
 
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  padding: 28px;
+
+  margin-bottom: 28px;
+
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+}
+
+.card h2 {
+  margin: 0 0 22px;
+
+  font-size: 22px;
+  font-weight: 650;
+}
+
+.card p {
+  color: var(--muted);
+}
+
+/* =========================================
+   ADD MENU SECTION
+   ========================================= */
+
+.add-menu-card {
+  border-top: 3px solid var(--accent);
+}
+
+/* =========================================
+   FORM GRID
+   ========================================= */
+
+.form-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* =========================================
+   LABELS
+   ========================================= */
+
+.form-group label,
+label {
+  color: #dddddd;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.optional {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+/* =========================================
+   INPUTS
+   ========================================= */
+
+input,
+textarea,
+select {
+  width: 100%;
+
+  padding: 13px 14px;
+
+  background: var(--surface-2);
+  color: var(--text);
+
+  border: 1px solid var(--border);
+  border-radius: 9px;
+
+  outline: none;
+
+  font-family: inherit;
+  font-size: 15px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #777;
+}
+
+textarea {
+  min-height: 105px;
+
+  resize: vertical;
+}
+
+select {
+  cursor: pointer;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  background: #242424;
+
+  border-color: var(--accent);
+
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* =========================================
+   FORM ACTIONS
+   ========================================= */
+
+.form-actions {
+  margin-top: 24px;
+
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+button {
+  border: none;
+
+  padding: 11px 17px;
+
+  border-radius: 8px;
+
+  background: var(--accent);
+  color: #151515;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease,
+    opacity 0.2s ease;
+}
+
+button:hover {
+  background: #e4aa52;
+
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Main add button */
+
+.primary-btn {
+  min-width: 150px;
+
+  padding: 13px 20px;
+
+  font-size: 15px;
+}
+
+/* =========================================
+   MESSAGE
+   ========================================= */
+
+#message {
+  margin-top: 18px;
+
+  min-height: 20px;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* =========================================
+   MENU SECTION
+   ========================================= */
+
+.menu-section {
+  padding: 28px;
+}
+
+.section-header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 22px;
+
+  padding-bottom: 18px;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.section-header h2 {
+  margin-bottom: 6px;
+}
+
+.section-header p {
+  margin: 0;
+
+  font-size: 14px;
+}
+
+/* =========================================
+   LOADING
+   ========================================= */
+
+.loading-message {
+  padding: 35px;
+
+  text-align: center;
+
+  color: var(--muted);
+
+  background: var(--surface-2);
+
+  border-radius: 10px;
+
+  border: 1px dashed var(--border);
+}
+
+/* =========================================
+   MENU ADMIN CARD
+   ========================================= */
+
+.menu-admin-card {
+  display: grid;
+
+  grid-template-columns: 180px minmax(0, 1fr);
+
+  gap: 22px;
+
+  padding: 20px;
+
+  margin-bottom: 18px;
+
+  background: var(--surface-2);
+
+  border: 1px solid var(--border);
   border-radius: 12px;
 
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.menu-admin-card:hover {
+  border-color: #444;
+
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   MENU IMAGE
+   ========================================= */
+
+.menu-admin-card > img {
+  width: 180px;
+  height: 180px;
+
+  object-fit: cover;
+
+  border-radius: 10px;
+
+  background: #111;
+
+  border: 1px solid var(--border);
+}
+
+/* =========================================
+   MENU INFORMATION
+   ========================================= */
+
+.menu-admin-info {
+  min-width: 0;
+}
+
+.menu-view {
+  display: block;
+}
+
+.menu-view h3 {
+  margin: 0 0 7px;
+
+  font-size: 20px;
+}
+
+.menu-view p {
+  margin: 7px 0;
+
+  line-height: 1.5;
+}
+
+.menu-view strong {
+  display: inline-block;
+
+  margin: 5px 0;
+
+  color: var(--accent);
+
+  font-size: 17px;
+}
+
+/* =========================================
+   CATEGORY
+   ========================================= */
+
+.menu-item-category {
+  display: inline-block;
+
+  padding: 5px 9px;
+
+  margin-top: 8px !important;
+
+  color: var(--accent) !important;
+
+  background: var(--accent-soft);
+
+  border-radius: 6px;
+
+  font-size: 12px !important;
+  font-weight: 600;
+}
+
+/* =========================================
+   MENU ACTION BUTTONS
+   ========================================= */
+
+.menu-admin-actions {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-top: 15px;
+}
+
+.menu-admin-actions button {
+  padding: 9px 14px;
+}
+
+/* =========================================
+   DELETE BUTTON
+   ========================================= */
+
+.menu-admin-actions button:last-child,
+.portion-delete-btn {
+  background: var(--danger);
+
+  color: white;
+}
+
+.menu-admin-actions button:last-child:hover,
+.portion-delete-btn:hover {
+  background: #c85b58;
+}
+
+/* =========================================
+   EDIT MENU FORM
+   ========================================= */
+
+.menu-edit-form {
   display: flex;
 
   flex-direction: column;
 
-  gap: 15px;
+  gap: 12px;
+
+  padding: 18px;
+
+  background: #1b1b1b;
+
+  border: 1px solid var(--border);
+
+  border-radius: 10px;
+
+  margin-bottom: 15px;
 }
 
-input,
-textarea {
-  padding: 12px;
+.menu-edit-form label {
+  display: flex;
 
-  font-size: 16px;
+  align-items: center;
 
-  border: none;
-
-  border-radius: 8px;
+  gap: 9px;
 }
 
-button {
-  padding: 15px;
+.menu-edit-form input[type="checkbox"] {
+  width: auto;
 
-  background: #d89b3f;
-
-  border: none;
-
-  color: white;
-
-  font-size: 18px;
-
-  cursor: pointer;
-
-  border-radius: 8px;
+  accent-color: var(--accent);
 }
 
-button:hover {
-  opacity: 0.9;
+.menu-edit-actions {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-top: 5px;
 }
 
-#message {
+/* =========================================
+   PORTIONS
+   ========================================= */
+
+.portions-block {
   margin-top: 20px;
 
-  font-size: 18px;
+  padding-top: 18px;
+
+  border-top: 1px solid var(--border);
+}
+
+.portions-heading {
+  margin: 0 0 12px;
+
+  color: #e8e8e8;
+
+  font-size: 15px;
+
+  font-weight: 650;
+}
+
+.portions-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-bottom: 12px;
+}
+
+/* =========================================
+   PORTION ITEM
+   ========================================= */
+
+.portion-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 10px 12px;
+
+  background: #1b1b1b;
+
+  border: 1px solid var(--border);
+
+  border-radius: 8px;
+}
+
+.portion-item-name {
+  flex: 1;
+
+  min-width: 0;
+
+  color: #e5e5e5;
+
+  font-size: 14px;
+}
+
+.portion-item::after {
+  content: "";
+}
+
+/* =========================================
+   PORTION BUTTONS
+   ========================================= */
+
+.portion-edit-btn,
+.portion-delete-btn {
+  padding: 7px 11px;
+
+  font-size: 12px;
+}
+
+.portion-edit-btn {
+  background: #333;
+
+  color: white;
+}
+
+.portion-edit-btn:hover {
+  background: #444;
+}
+
+/* =========================================
+   ADD PORTION
+   ========================================= */
+
+.add-portion-btn {
+  background: transparent;
+
+  color: var(--accent);
+
+  border: 1px solid var(--accent);
+}
+
+.add-portion-btn:hover {
+  background: var(--accent-soft);
+}
+
+/* =========================================
+   PORTION FORMS
+   ========================================= */
+
+.portion-add-form,
+.portion-edit-form {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin: 10px 0;
+
+  padding: 12px;
+
+  background: #1b1b1b;
+
+  border: 1px solid var(--border);
+
+  border-radius: 9px;
+
+  flex-wrap: wrap;
+}
+
+.portion-add-form input,
+.portion-edit-form input {
+  flex: 1;
+
+  min-width: 150px;
+}
+
+.portion-add-form button,
+.portion-edit-form button {
+  white-space: nowrap;
+}
+
+/* =========================================
+   PORTION STATUS
+   ========================================= */
+
+.portions-empty,
+.portions-error,
+.portions-loading {
+  margin: 5px 0;
+
+  color: var(--muted);
+
+  font-size: 13px;
+}
+
+/* =========================================
+   SCROLLBAR
+   ========================================= */
+
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+/* =========================================
+   RESPONSIVE — TABLET
+   ========================================= */
+
+@media (max-width: 800px) {
+  body {
+    padding: 25px 15px 50px;
+  }
+
+  .admin-header {
+    padding: 22px;
+  }
+
+  .admin-header h1 {
+    font-size: 27px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width {
+    grid-column: auto;
+  }
+
+  .menu-admin-card {
+    grid-template-columns: 130px minmax(0, 1fr);
+
+    gap: 16px;
+  }
+
+  .menu-admin-card > img {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — MOBILE
+   ========================================= */
+
+@media (max-width: 560px) {
+  body {
+    padding: 15px 10px 40px;
+  }
+
+  .admin-header {
+    padding: 20px;
+  }
+
+  .admin-header h1 {
+    font-size: 24px;
+  }
+
+  .card {
+    padding: 17px;
+  }
+
+  .menu-admin-card {
+    display: flex;
+
+    flex-direction: column;
+  }
+
+  .menu-admin-card > img {
+    width: 100%;
+    height: 210px;
+  }
+
+  .form-actions {
+    justify-content: stretch;
+  }
+
+  .primary-btn {
+    width: 100%;
+  }
+
+  .portion-item {
+    flex-wrap: wrap;
+  }
+
+  .portion-item-name {
+    flex-basis: 100%;
+  }
+
+  .portion-edit-btn,
+  .portion-delete-btn {
+    flex: 1;
+  }
+
+  .portion-add-form,
+  .portion-edit-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .portion-add-form input,
+  .portion-edit-form input,
+  .portion-add-form button,
+  .portion-edit-form button {
+    width: 100%;
+  }
+}
+/* =========================================
+   CATEGORY MANAGEMENT
+   ========================================= */
+
+.category-section {
+  border-top: 3px solid var(--accent);
+}
+
+.category-add-form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.category-add-form input {
+  flex: 1;
+}
+
+.category-add-form button {
+  white-space: nowrap;
+}
+
+#categoryList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.category-admin-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  padding: 13px 15px;
+
+  background: var(--surface-2);
+
+  border: 1px solid var(--border);
+  border-radius: 9px;
+}
+
+.category-admin-name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.category-delete-btn {
+  background: var(--danger);
+  color: white;
+}
+
+.category-delete-btn:hover {
+  background: #c85b58;
+}
+
+#categoryMessage {
+  margin-bottom: 15px;
+}
+
+@media (max-width: 560px) {
+  .category-add-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .category-add-form button {
+    width: 100%;
+  }
+
+  .category-admin-item {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .category-delete-btn {
+    width: 100%;
+  }
 }

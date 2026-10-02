@@ -4,6 +4,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 import menuRoutes from "./routes/menuRoutes.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
 
 const app = express();
 
@@ -19,5 +20,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/menu", menuRoutes);
+app.use("/api/categories", categoryRoutes);
 
 export default app;

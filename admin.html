@@ -10,76 +10,156 @@
   </head>
 
   <body>
-    <div class="container">
-      <h1>Restaurant CMS</h1>
+    <div class="admin-container">
+      <!-- =============================== -->
+      <!-- PAGE HEADER -->
+      <!-- =============================== -->
 
-      <div class="card">
+      <header class="admin-header">
+        <div>
+          <h1>Restaurant Admin</h1>
+          <p>Manage menu items, categories and portions</p>
+        </div>
+      </header>
+
+      <!-- =============================== -->
+      <!-- ADD MENU ITEM -->
+      <!-- =============================== -->
+
+      <section class="card add-menu-card">
         <h2>Add Menu Item</h2>
 
-        <input id="name" placeholder="Food Name" />
+        <div class="form-grid">
+          <!-- Food Name -->
+          <div class="form-group">
+            <label for="name">Food Name</label>
 
-        <textarea id="description" placeholder="Description"></textarea>
+            <input id="name" type="text" placeholder="e.g. Chicken Mandi" />
+          </div>
 
-        <input id="price" type="number" placeholder="Price" />
+          <!-- Description -->
+          <div class="form-group full-width">
+            <label for="description">Description</label>
 
-        <input id="image" placeholder="Image URL" />
+            <textarea
+              id="description"
+              placeholder="Short description of the food"
+            ></textarea>
+          </div>
 
-        <button onclick="addItem()">Add Item</button>
-      </div>
+          <!-- General Price -->
+          <div class="form-group">
+            <label for="price">
+              General Price
+              <span class="optional">(optional)</span>
+            </label>
 
-      <div class="card" id="editCard" style="display: none;">
+            <input
+              id="price"
+              type="number"
+              min="0"
+              step="0.01"
+              placeholder="Leave empty if not needed"
+            />
+          </div>
 
-    <h2>Edit Menu Item</h2>
+          <!-- Category -->
+          <div class="form-group">
+            <label for="category">Category</label>
 
-    <input type="hidden" id="editId">
+            <select id="category">
+              <option value="Yemeni Mandhi">Yemeni Mandhi</option>
 
-    <input id="editName" placeholder="Food Name">
+              <option value="Grilled Mandhi">Grilled Mandhi</option>
 
-    <textarea id="editDescription" placeholder="Description"></textarea>
+              <option value="Grilled Pieces">Grilled Pieces</option>
 
-    <input id="editPrice" type="number" placeholder="Price">
+              <option value="Mandhi Pieces">Mandhi Pieces</option>
 
-    <input id="editImage" placeholder="Image URL">
+              <option value="Fresh Juices">Fresh Juices</option>
+            </select>
+          </div>
 
-    <div>
-        <label>
-            <input type="checkbox" id="editAvailable">
-            Available
-        </label>
+          <!-- Image -->
+          <div class="form-group full-width">
+            <label for="image">Image URL</label>
+
+            <input id="image" type="text" placeholder="Paste image URL" />
+          </div>
+        </div>
+
+        <!-- Add Button -->
+
+        <div class="form-actions">
+          <button type="button" class="primary-btn" onclick="addItem()">
+            + Add Item
+          </button>
+        </div>
+
+        <!-- Success/Error Message -->
+
+        <div id="message" class="message"></div>
+      </section>
+
+      <!-- =============================== -->
+      <!-- CATEGORY MANAGEMENT -->
+      <!-- =============================== -->
+
+      <section class="card category-section">
+        <div class="section-header">
+          <div>
+            <h2>Manage Categories</h2>
+            <p>Add or remove menu categories</p>
+          </div>
+        </div>
+
+        <!-- Add Category -->
+
+        <div class="category-add-form">
+          <input
+            id="newCategoryName"
+            type="text"
+            placeholder="Enter new category name"
+          />
+
+          <button type="button" class="primary-btn" onclick="addCategory()">
+            + Add Category
+          </button>
+        </div>
+
+        <div id="categoryMessage" class="message"></div>
+
+        <!-- Existing Categories -->
+
+        <div id="categoryList">
+          <div class="loading-message">Loading categories...</div>
+        </div>
+      </section>
+      <!-- =============================== -->
+      <!-- EXISTING MENU -->
+      <!-- =============================== -->
+
+      <section class="card menu-section">
+        <div class="section-header">
+          <div>
+            <h2>Existing Menu Items</h2>
+
+            <p>Edit dishes, manage portions and delete items</p>
+          </div>
+        </div>
+
+        <!-- JS inserts all menu cards here -->
+
+        <div id="menuList">
+          <div class="loading-message">Loading menu...</div>
+        </div>
+      </section>
     </div>
 
-    <div>
-        <label>
-            <input type="checkbox" id="editBestseller">
-            Bestseller
-        </label>
-    </div>
+    <!-- =============================== -->
+    <!-- JAVASCRIPT -->
+    <!-- =============================== -->
 
-    <div>
-        <label>
-            <input type="checkbox" id="editFeatured">
-            Featured
-        </label>
-    </div>
-
-    <button onclick="saveEdit()">Save Changes</button>
-
-    <button onclick="cancelEdit()">Cancel</button>
-
-</div>
-     <div id="message"></div>
-
-<hr>
-
-<div class="card">
-    <h2>Existing Menu Items</h2>
-
-    <div id="menuList">
-        Loading menu...
-    </div>
-</div>
-
-<script src="admin.js"></script>
-
-</body>
+    <script src="admin.js"></script>
+  </body>
 </html>
