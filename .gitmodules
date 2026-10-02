@@ -1,0 +1,3 @@
+[submodule "mandhi"]
+	path = mandhi
+	url = https://github.com/dexter967/mandhi.git
