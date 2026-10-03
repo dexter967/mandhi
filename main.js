@@ -34,10 +34,8 @@ function closeBrandOverlay() {
   document.body.style.overflow = "";
 }
 
-// ── HERO LOCK / UNLOCK ──
-document.body.style.overflow = "hidden";
+// ── HERO NAVIGATION ──
 function unlockAndScrollToMenu() {
-  document.body.style.overflow = "";
   const t = document.getElementById("menu-anchor");
   if (t) t.scrollIntoView({ behavior: "smooth", block: "start" });
 }
@@ -67,29 +65,41 @@ function runGridObservations() {
 }
 
 // ── TAB SWITCHING ──
-function switchTabPanel(categoryKey, clickAnchor) {
+function switchTabPanel(categoryKey, clickAnchor, shouldScroll = false) {
+  const targetId = categoryPanelIds.get(categoryKey);
+  const target = targetId ? document.getElementById(targetId) : null;
+
+  if (!target) return;
+
   document
     .querySelectorAll(".cat-content")
     .forEach((p) => p.classList.remove("active"));
   document
     .querySelectorAll(".tab")
-    .forEach((b) => b.classList.remove("active"));
-  const target = document.getElementById(
-    `cat-${categoryKey.replace(/\s+/g, "-")}`,
-  );
-  if (target) target.classList.add("active");
+    .forEach((button) => {
+      button.classList.remove("active");
+      button.setAttribute("aria-selected", "false");
+    });
+  target.classList.add("active");
+
   if (clickAnchor) {
     clickAnchor.classList.add("active");
+    clickAnchor.setAttribute("aria-selected", "true");
   } else {
     document.querySelectorAll(".tab").forEach((btn) => {
-      if (
-        btn.getAttribute("onclick") &&
-        btn.getAttribute("onclick").includes(`'${categoryKey}'`)
-      )
+      if (btn.dataset.category === categoryKey) {
         btn.classList.add("active");
+        btn.setAttribute("aria-selected", "true");
+      }
     });
   }
-  setTimeout(() => runGridObservations(), 40);
+
+  setTimeout(() => {
+    runGridObservations();
+    if (shouldScroll) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, 40);
 }
 
 // ── FEEDBACK FORM — fetch submit + clear ──
@@ -134,130 +144,55 @@ document
     }
   });
 
-// ── MODAL DATA ──
-// NOTE: This "quick full menu" slide-out still uses a static snapshot, same
-// as before. It was not part of the requested menu-card redesign, so it is
-// left untouched. If you'd like this wired to the live backend/portions
-// too, that's a separate follow-up.
-const ALL = {
-  "Yemeni Mandhi Dishes": [
-    {
-      n: "Chicken Yemeni Mandhi",
-      p: { Quarter: "₹210", Half: "₹400", Full: "₹750" },
-    },
-    {
-      n: "Chicken Spicy Mandhi",
-      p: { Quarter: "₹260", Half: "₹480", Full: "₹850" },
-    },
-    {
-      n: "Beef Ran Mandhi",
-      p: { Quarter: "₹300", Half: "₹520", Full: "₹970" },
-    },
-    {
-      n: "Mutton Yemeni Mandhi",
-      p: { Quarter: "₹430", Half: "₹870", Full: "₹1750" },
-    },
-    { n: "Veg Mandhi", p: { Quarter: "₹120", Half: "₹220", Full: "₹380" } },
-    {
-      n: "Mandhi Rice Only",
-      p: { Quarter: "₹140", Half: "₹240", Full: "₹400" },
-    },
-    { n: "Chicken Madhooth (Prebook 1 Hr)", p: { Full: "₹1010" } },
-  ],
-  "Grilled Mandhi": [
-    { n: "Alfaham Mandhi", p: { Quarter: "₹250", Half: "₹440", Full: "₹840" } },
-    { n: "Shezwan Mandhi", p: { Quarter: "₹270", Half: "₹490", Full: "₹850" } },
-    {
-      n: "Cheese Alfaham Mandhi",
-      p: { Quarter: "₹310", Half: "₹540", Full: "₹960" },
-    },
-    {
-      n: "BBQ Alfaham Mandhi",
-      p: { Quarter: "₹260", Half: "₹490", Full: "₹870" },
-    },
-    {
-      n: "Honey Chilli Mandhi",
-      p: { Quarter: "₹270", Half: "₹510", Full: "₹870" },
-    },
-    {
-      n: "Kanthari Mandhi",
-      p: { Quarter: "₹250", Half: "₹480", Full: "₹870" },
-    },
-    {
-      n: "Peri Peri Mandhi",
-      p: { Quarter: "₹270", Half: "₹510", Full: "₹870" },
-    },
-    { n: "Pepper Mandhi", p: { Quarter: "₹250", Half: "₹480", Full: "₹870" } },
-    {
-      n: "Arabic Shawaya Mandhi",
-      p: { Quarter: "₹270", Half: "₹500", Full: "₹850" },
-    },
-    {
-      n: "Masala Shawaya Mandhi",
-      p: { Quarter: "₹300", Half: "₹530", Full: "₹900" },
-    },
-  ],
-  "Charcoal Grilled Pieces": [
-    {
-      n: "Alfaham Chicken",
-      p: { Quarter: "₹180", Half: "₹310", Full: "₹590" },
-    },
-    {
-      n: "Shezwan Alfaham",
-      p: { Quarter: "₹210", Half: "₹360", Full: "₹630" },
-    },
-    { n: "Cheese Alfaham", p: { Quarter: "₹220", Half: "₹390", Full: "₹650" } },
-    { n: "BBQ Chicken", p: { Quarter: "₹200", Half: "₹350", Full: "₹620" } },
-    {
-      n: "Peri Peri Alfaham",
-      p: { Quarter: "₹200", Half: "₹350", Full: "₹630" },
-    },
-    {
-      n: "Honey Chilli Chicken",
-      p: { Quarter: "₹210", Half: "₹360", Full: "₹630" },
-    },
-    {
-      n: "Kanthari Chicken",
-      p: { Quarter: "₹200", Half: "₹350", Full: "₹620" },
-    },
-    { n: "Pepper Alfaham", p: { Quarter: "₹200", Half: "₹350", Full: "₹610" } },
-    { n: "Arabic Shawaya", p: { Quarter: "₹170", Half: "₹320", Full: "₹600" } },
-    { n: "Masala Shawaya", p: { Quarter: "₹210", Half: "₹350", Full: "₹630" } },
-  ],
-  "Mandhi Meat Side Pieces (No Rice)": [
-    {
-      n: "Chicken Mandhi Pieces",
-      p: { Quarter: "₹150", Half: "₹290", Full: "₹550" },
-    },
-    {
-      n: "Beef Mandhi Pieces",
-      p: { Quarter: "₹130", Half: "₹260", Full: "₹500" },
-    },
-    { n: "Mutton Mandhi Pieces", p: { Half: "₹650", Full: "₹1350" } },
-    { n: "Extra Mayonnaise", p: { "Per Serving": "₹20" } },
-  ],
-  "Fresh Juices": [
-    { n: "Mint Lime Juice", p: { "Per Glass": "₹50" } },
-    { n: "Fresh Lime Juice", p: { "Per Glass": "₹40" } },
-    { n: "Pressed Watermelon Juice", p: { "Per Glass": "₹60" } },
-    { n: "Ginger Lime Infusion", p: { "Per Glass": "₹60" } },
-    { n: "Crushed Pineapple Juice", p: { "Per Glass": "₹60" } },
-  ],
-};
-
 function openModal() {
-  let h = "";
-  for (const [cat, items] of Object.entries(ALL)) {
-    h += `<div class="modal-cat"><div class="modal-cat-title">${cat}</div>`;
-    items.forEach((it) => {
-      const b = Object.entries(it.p)
-        .map(([k, v]) => `<span class="modal-badge">${k}: ${v}</span>`)
-        .join("");
-      h += `<div class="modal-item"><div class="modal-item-name">${it.n}</div><div class="modal-badges">${b}</div></div>`;
-    });
-    h += "</div>";
+  const availableItems = menuData.filter((item) => item.is_available !== false);
+  const groups = new Map();
+
+  availableItems.forEach((item) => {
+    const category = String(
+      item.category_name || item.category_id || "Uncategorized",
+    );
+    if (!groups.has(category)) groups.set(category, []);
+    groups.get(category).push(item);
+  });
+
+  const modalBody = document.getElementById("modalBody");
+
+  if (!availableItems.length) {
+    modalBody.innerHTML = `<p class="modal-empty">No available dishes right now.</p>`;
+  } else {
+    modalBody.innerHTML = Array.from(groups, ([category, items]) => `
+      <div class="modal-cat">
+        <div class="modal-cat-title">${escapeHtml(category)}</div>
+        ${items
+          .map((item) => {
+            const prices = [];
+            if (hasPrice(item.price)) {
+              prices.push(
+                `<span class="modal-badge">Price: ₹${escapeHtml(item.price)}</span>`,
+              );
+            }
+            (item.portions || []).forEach((portion) => {
+              const price = hasPrice(portion.price)
+                ? `: ₹${escapeHtml(portion.price)}`
+                : "";
+              prices.push(
+                `<span class="modal-badge">${escapeHtml(portion.portion_name)}${price}</span>`,
+              );
+            });
+
+            return `
+              <div class="modal-item">
+                <div class="modal-item-name">${escapeHtml(item.name)}</div>
+                ${item.description ? `<p>${escapeHtml(item.description)}</p>` : ""}
+                <div class="modal-badges">${prices.join("")}</div>
+              </div>`;
+          })
+          .join("")}
+      </div>
+    `).join("");
   }
-  document.getElementById("modalBody").innerHTML = h;
+
   document.getElementById("overlay").classList.add("open");
   document.getElementById("modalPanel").classList.add("open");
   document.body.style.overflow = "hidden";
@@ -318,20 +253,15 @@ document.addEventListener("keydown", (e) => {
 
 // ── LIVE MENU FROM BACKEND API (Node.js + Express + Supabase) ──
 //
-// index.html already ships 5 static tab buttons (#tabsContainer), each
-// calling switchTabPanel('CATEGORY KEY', this). This section only has to
-// fill #menuWrap with the matching .cat-content panels — it must NOT
-// generate its own tab bar, or you'd get two tab rows.
-const API_BASE_URL = "http://localhost:5000/api";
+// Menu tabs and their matching panels are both generated from available
+// dishes returned by the API, so newly added admin categories appear here.
+const API_BASE_URL = (
+  window.MANDHI_API_BASE_URL || "http://localhost:5000/api"
+).replace(/\/+$/, "");
 const MENU_ENDPOINT = `${API_BASE_URL}/menu`;
 const DEFAULT_FALLBACK_IMAGE =
   "https://i.postimg.cc/tTf92z4s/Gemini-Generated-Image-3m9wp93m9wp93m9w.png";
 
-// Matches the exact category keys used by the static tab buttons in
-// index.html, so panels line up with tabs in the expected order. Any
-// category returned by the backend that isn't in this list still renders
-// (appended at the end), but there is no tab button to reach it unless
-// one is added to index.html — see the console warning below.
 const KNOWN_CATEGORY_ORDER = [
   "YEMENI MANDHI",
   "GRILLED MANDHI",
@@ -342,6 +272,7 @@ const KNOWN_CATEGORY_ORDER = [
 
 let parsedMenuData = {};
 let dynamicCategoryOrder = [];
+let categoryPanelIds = new Map();
 let menuData = [];
 
 // A price (menu item OR portion) is optional. Treat null, undefined, and ""
@@ -369,20 +300,6 @@ function orderCategories(keys) {
   const known = KNOWN_CATEGORY_ORDER.filter((k) => keys.includes(k));
   const unknown = keys.filter((k) => !KNOWN_CATEGORY_ORDER.includes(k));
   return [...known, ...unknown];
-}
-
-function warnAboutUnmappedCategories(keys) {
-  keys.forEach((key) => {
-    if (KNOWN_CATEGORY_ORDER.includes(key)) return;
-    const hasTab = Array.from(document.querySelectorAll(".tab")).some((btn) =>
-      (btn.getAttribute("onclick") || "").includes(`'${key}'`),
-    );
-    if (!hasTab) {
-      console.warn(
-        `Menu category "${key}" has no matching tab button in index.html — add one manually, or it will be unreachable from the tab bar.`,
-      );
-    }
-  });
 }
 
 // Fetches the portions for a single menu item. Never throws — a failed
@@ -463,28 +380,55 @@ function buildCardHtml(item) {
     </div>`;
 }
 
-// Injects the .cat-content panels into #menuWrap. The tab bar itself is
-// static markup in index.html and is left alone.
+// Build matching menu tabs and category panels from the live menu data.
 function renderDynamicWebLayout() {
   const wrap = document.getElementById("menuWrap");
+  const tabs = document.getElementById("tabsContainer");
   if (!wrap) return;
 
   if (!dynamicCategoryOrder.length) {
+    if (tabs) tabs.replaceChildren();
+    categoryPanelIds = new Map();
     wrap.innerHTML = `<div style="text-align:center;padding:60px;color:var(--text-muted);font-family:var(--font-thematic);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;">✦ No menu items available right now. ✦</div>`;
     return;
+  }
+
+  categoryPanelIds = new Map(
+    dynamicCategoryOrder.map((category, index) => [
+      category,
+      `menu-category-${index}`,
+    ]),
+  );
+
+  if (tabs) {
+    tabs.replaceChildren(
+      ...dynamicCategoryOrder.map((category) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "tab";
+        button.dataset.category = category;
+        button.setAttribute("role", "tab");
+        button.setAttribute("aria-selected", "false");
+        button.textContent = category;
+        button.addEventListener("click", () => {
+          switchTabPanel(category, button, true);
+        });
+        return button;
+      }),
+    );
   }
 
   let panelsHtml = "";
 
   dynamicCategoryOrder.forEach((catKey) => {
-    const panelId = `cat-${catKey.replace(/\s+/g, "-")}`;
+    const panelId = categoryPanelIds.get(catKey);
     const items = parsedMenuData[catKey] || [];
     const cardsHtml = items.map((item) => buildCardHtml(item)).join("");
 
     panelsHtml += `
-      <div class="cat-content" id="${panelId}">
+      <section class="cat-content" id="${panelId}" aria-label="${escapeHtml(catKey)}">
         <div class="menu-grid">${cardsHtml}</div>
-      </div>`;
+      </section>`;
   });
 
   wrap.innerHTML = panelsHtml;
@@ -504,7 +448,7 @@ function activateInitialCategory() {
     dynamicCategoryOrder[0];
 
   const tabBtn = Array.from(document.querySelectorAll(".tab")).find((btn) =>
-    (btn.getAttribute("onclick") || "").includes(`'${preferredKey}'`),
+    btn.dataset.category === preferredKey,
   );
 
   switchTabPanel(preferredKey, tabBtn || null);
@@ -549,7 +493,6 @@ function processAndRenderMenu(items) {
   });
 
   dynamicCategoryOrder = orderCategories(rawCategoryOrder);
-  warnAboutUnmappedCategories(dynamicCategoryOrder);
 
   renderDynamicWebLayout();
 }
@@ -561,11 +504,11 @@ async function loadMenu() {
     const response = await fetch(MENU_ENDPOINT);
     const result = await response.json();
 
-    if (!result || !result.success || !Array.isArray(result.data)) {
-      throw new Error("Unexpected response shape from menu API");
+    if (!response.ok || !result || !result.success || !Array.isArray(result.data)) {
+      throw new Error(result.message || "Unexpected response from menu API");
     }
 
-    const items = result.data;
+    const items = result.data.filter((item) => item.is_available !== false);
 
     const itemsWithPortions = await Promise.all(
       items.map(async (item) => ({
@@ -579,7 +522,7 @@ async function loadMenu() {
   } catch (err) {
     console.error("Menu load error:", err);
     document.getElementById("menuWrap").innerHTML =
-      `<div style="text-align:center;padding:60px;color:var(--text-muted);font-family:var(--font-thematic);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;">✦ Could not connect to menu. Please refresh. ✦</div>`;
+      `<div style="text-align:center;padding:60px;color:var(--text-muted);font-family:var(--font-thematic);font-size:11px;letter-spacing:0.12em;">Could not load the menu from ${escapeHtml(MENU_ENDPOINT)}. ${escapeHtml(err.message || "Check the API connection and refresh.")}</div>`;
   }
 }
 

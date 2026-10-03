@@ -102,7 +102,7 @@
             href="#menu-anchor"
             onclick="
               closeBrandOverlay();
-              switchTabPanel('YEMENI MANDHI', null);
+              switchTabPanel('YEMENI MANDHI', null, true);
             "
             >Yemeni Mandhi</a
           >
@@ -110,7 +110,7 @@
             href="#menu-anchor"
             onclick="
               closeBrandOverlay();
-              switchTabPanel('GRILLED MANDHI', null);
+              switchTabPanel('GRILLED MANDHI', null, true);
             "
             >Grilled Mandhi</a
           >
@@ -118,7 +118,7 @@
             href="#menu-anchor"
             onclick="
               closeBrandOverlay();
-              switchTabPanel('GRILLED PIECES', null);
+              switchTabPanel('GRILLED PIECES', null, true);
             "
             >Grilled Pieces</a
           >
@@ -126,7 +126,7 @@
             href="#menu-anchor"
             onclick="
               closeBrandOverlay();
-              switchTabPanel('MANDHI PIECES', null);
+              switchTabPanel('MANDHI PIECES', null, true);
             "
             >Mandhi Proteins</a
           >
@@ -134,7 +134,7 @@
             href="#menu-anchor"
             onclick="
               closeBrandOverlay();
-              switchTabPanel('FRESH JUICES', null);
+              switchTabPanel('FRESH JUICES', null, true);
             "
             >Fresh Juices</a
           >
@@ -199,25 +199,7 @@
 
     <!-- ── MENU TABS ── -->
     <div class="tabs-wrap" id="menu-anchor">
-      <div class="tabs" id="tabsContainer">
-        <button
-          class="tab active"
-          onclick="switchTabPanel('YEMENI MANDHI', this)"
-        >
-          Yemeni Mandhi
-        </button>
-        <button class="tab" onclick="switchTabPanel('GRILLED MANDHI', this)">
-          Grilled Mandhi
-        </button>
-        <button class="tab" onclick="switchTabPanel('GRILLED PIECES', this)">
-          Grilled Pieces
-        </button>
-        <button class="tab" onclick="switchTabPanel('MANDHI PIECES', this)">
-          Mandhi Pieces
-        </button>
-        <button class="tab" onclick="switchTabPanel('FRESH JUICES', this)">
-          Fresh Juices
-        </button>
+      <div class="tabs" id="tabsContainer" role="tablist" aria-label="Menu categories">
       </div>
     </div>
 

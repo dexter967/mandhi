@@ -1,182 +1,12 @@
-const API_URL = "http://localhost:5000/api/menu";
-const CATEGORY_API_URL = "http://localhost:5000/api/categories";
+const API_BASE_URL = (
+  window.MANDHI_API_BASE_URL || "http://localhost:5000/api"
+).replace(/\/+$/, "");
+const API_URL = `${API_BASE_URL}/menu`;
+const CATEGORY_API_URL = `${API_BASE_URL}/categories`;
 
 // =========================================
 // CATEGORY MANAGEMENT
 // =========================================
-
-let categoriesCache = [];
-
-// Load categories from backend
-async function loadCategories() {
-  const categoryList = document.getElementById("categoryList");
-
-  if (!categoryList) return;
-
-  categoryList.innerHTML = `
-    <div class="loading-message">
-      Loading categories...
-    </div>
-  `;
-
-  try {
-    const response = await fetch(CATEGORY_API_URL);
-    const result = await response.json();
-
-    if (!response.ok || !result.success) {
-      throw new Error(result.message || "Failed to load categories");
-    }
-
-    categoriesCache = result.data || [];
-
-    renderCategories();
-  } catch (error) {
-    console.error("Load categories error:", error);
-
-    categoryList.innerHTML = `
-      <div class="loading-message">
-        ❌ Could not load categories
-      </div>
-    `;
-  }
-}
-
-// =========================================
-// DISPLAY CATEGORIES
-// =========================================
-
-function renderCategories() {
-  const categoryList = document.getElementById("categoryList");
-
-  if (!categoryList) return;
-
-  if (categoriesCache.length === 0) {
-    categoryList.innerHTML = `
-      <div class="loading-message">
-        No categories found.
-      </div>
-    `;
-
-    return;
-  }
-
-  categoryList.innerHTML = categoriesCache
-    .map((category) => {
-      return `
-        <div class="category-admin-item">
-
-          <span class="category-admin-name">
-            ${escapeHtml(category.name)}
-          </span>
-
-          <button
-            type="button"
-            class="category-delete-btn"
-            onclick="deleteCategory(${category.id}, '${escapeHtml(category.name)}')"
-          >
-            Delete
-          </button>
-
-        </div>
-      `;
-    })
-    .join("");
-}
-
-// =========================================
-// ADD CATEGORY
-// =========================================
-
-async function addCategory() {
-  const input = document.getElementById("newCategoryName");
-  const message = document.getElementById("categoryMessage");
-
-  if (!input) return;
-
-  const name = input.value.trim();
-
-  if (!name) {
-    message.textContent = "❌ Please enter a category name";
-    message.style.color = "#b94a48";
-    return;
-  }
-
-  try {
-    const response = await fetch(CATEGORY_API_URL, {
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json",
-      },
-
-      body: JSON.stringify({
-        name: name,
-      }),
-    });
-
-    const result = await response.json();
-
-    if (!response.ok || !result.success) {
-      throw new Error(result.message || "Failed to add category");
-    }
-
-    message.textContent = "✅ Category added successfully";
-    message.style.color = "#72b87a";
-
-    input.value = "";
-
-    await loadCategories();
-  } catch (error) {
-    console.error("Add category error:", error);
-
-    message.textContent = "❌ " + (error.message || "Could not add category");
-
-    message.style.color = "#b94a48";
-  }
-}
-
-// =========================================
-// DELETE CATEGORY
-// =========================================
-
-async function deleteCategory(id, categoryName) {
-  const confirmed = confirm(
-    `Are you sure you want to delete "${categoryName}"?`,
-  );
-
-  if (!confirmed) {
-    return;
-  }
-
-  try {
-    const response = await fetch(`${CATEGORY_API_URL}/${id}`, {
-      method: "DELETE",
-    });
-
-    const result = await response.json();
-
-    if (!response.ok || !result.success) {
-      throw new Error(result.message || "Failed to delete category");
-    }
-
-    const message = document.getElementById("categoryMessage");
-
-    message.textContent = "✅ Category deleted successfully";
-
-    message.style.color = "#72b87a";
-
-    await loadCategories();
-  } catch (error) {
-    console.error("Delete category error:", error);
-
-    const message = document.getElementById("categoryMessage");
-
-    message.textContent =
-      "❌ " + (error.message || "Could not delete category");
-
-    message.style.color = "#b94a48";
-  }
-}
 
 // ===============================
 // STATE / CACHE
@@ -206,11 +36,49 @@ function hasPrice(price) {
   return price !== null && price !== undefined && price !== "";
 }
 
+function renderCategories() {
+  const categoryList = document.getElementById("categoryList");
+
+  if (!categoryList) return;
+
+  if (MENU_CATEGORIES.length === 0) {
+    categoryList.innerHTML = `<div class="loading-message">No categories found.</div>`;
+    return;
+  }
+
+  categoryList.innerHTML = MENU_CATEGORIES.map(
+    (category) => `
+      <div class="category-admin-item">
+        <span class="category-admin-name">${escapeHtml(category.name)}</span>
+        <button
+          type="button"
+          class="category-delete-btn"
+          data-category-id="${escapeHtml(category.id)}"
+          data-category-name="${escapeHtml(category.name)}"
+        >
+          Delete
+        </button>
+      </div>
+    `,
+  ).join("");
+
+  categoryList.querySelectorAll(".category-delete-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      deleteCategory(button.dataset.categoryId, button.dataset.categoryName);
+    });
+  });
+}
+
 // ===============================
 // LOAD CATEGORIES
 // ===============================
 
 async function loadCategories() {
+  const categoryList = document.getElementById("categoryList");
+  if (categoryList) {
+    categoryList.innerHTML = `<div class="loading-message">Loading categories...</div>`;
+  }
+
   try {
     const response = await fetch(CATEGORY_API_URL);
     const result = await response.json();
@@ -221,16 +89,21 @@ async function loadCategories() {
 
     MENU_CATEGORIES = result.data || [];
 
+    renderCategories();
     populateAddCategoryDropdown();
 
     return MENU_CATEGORIES;
   } catch (error) {
     console.error("Category loading error:", error);
 
+    if (categoryList) {
+      categoryList.innerHTML = `<div class="loading-message">Could not load categories from ${escapeHtml(CATEGORY_API_URL)}. ${escapeHtml(error.message || "Check that the API is running and reachable.")}</div>`;
+    }
+
     const categorySelect = document.getElementById("category");
 
     if (categorySelect) {
-      categorySelect.innerHTML = `<option value="">Could not load categories</option>`;
+      categorySelect.innerHTML = `<option value="">Could not load categories — check API connection</option>`;
     }
 
     return [];
@@ -247,6 +120,65 @@ function getCategoryName(category) {
   }
 
   return category.name || "";
+}
+
+async function addCategory() {
+  const input = document.getElementById("newCategoryName");
+  const message = document.getElementById("categoryMessage");
+  const name = input.value.trim();
+
+  if (!name) {
+    message.textContent = "Please enter a category name.";
+    message.style.color = "#b94a48";
+    return;
+  }
+
+  try {
+    const response = await fetch(CATEGORY_API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name }),
+    });
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || "Failed to add category");
+    }
+
+    input.value = "";
+    message.textContent = "Category added successfully.";
+    message.style.color = "#72b87a";
+    await refreshCategories();
+  } catch (error) {
+    console.error("Add category error:", error);
+    message.textContent = error.message || "Could not add category.";
+    message.style.color = "#b94a48";
+  }
+}
+
+async function deleteCategory(id, categoryName) {
+  if (!confirm(`Are you sure you want to delete "${categoryName}"?`)) return;
+
+  const message = document.getElementById("categoryMessage");
+
+  try {
+    const response = await fetch(`${CATEGORY_API_URL}/${encodeURIComponent(id)}`, {
+      method: "DELETE",
+    });
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || "Failed to delete category");
+    }
+
+    message.textContent = "Category deleted successfully.";
+    message.style.color = "#72b87a";
+    await refreshCategories();
+  } catch (error) {
+    console.error("Delete category error:", error);
+    message.textContent = error.message || "Could not delete category.";
+    message.style.color = "#b94a48";
+  }
 }
 
 // ===============================
@@ -406,22 +338,23 @@ async function addItem() {
 // ===============================
 
 async function loadMenuItems() {
+  const menuList = document.getElementById("menuList");
+  menuList.innerHTML = `<div class="loading-message">Loading menu items...</div>`;
+
   try {
     const response = await fetch(API_URL);
-
     const result = await response.json();
 
     if (!response.ok || !result.success) {
       throw new Error(result.message || "Failed to load menu");
     }
 
-    const menuList = document.getElementById("menuList");
-
+    Object.keys(menuItemsCache).forEach((id) => delete menuItemsCache[id]);
+    Object.keys(portionsCache).forEach((id) => delete portionsCache[id]);
     menuList.innerHTML = "";
 
-    if (!result.data || result.data.length === 0) {
+    if (!Array.isArray(result.data) || result.data.length === 0) {
       menuList.innerHTML = "<p>No menu items found.</p>";
-
       return;
     }
 
@@ -443,8 +376,12 @@ async function loadMenuItems() {
   } catch (error) {
     console.error("Menu loading error:", error);
 
-    document.getElementById("menuList").innerHTML =
-      `<p>Could not load menu items.</p>`;
+    menuList.innerHTML = `
+      <p class="loading-message">
+        Could not load menu items from ${escapeHtml(API_URL)}.
+        ${escapeHtml(error.message || "Check that the API is running and reachable.")}
+      </p>
+    `;
   }
 }
 

@@ -38,9 +38,22 @@ export async function updateMenuItem(id, updates) {
 // ===============================
 
 export async function deleteMenuItem(id) {
-  const { error } = await supabase.from("menu_items").delete().eq("id", id);
+  const { error: portionsError } = await supabase
+    .from("menu_portions")
+    .delete()
+    .eq("menu_item_id", id);
+
+  if (portionsError) throw portionsError;
+
+  const { data, error } = await supabase
+    .from("menu_items")
+    .delete()
+    .eq("id", id)
+    .select("id")
+    .maybeSingle();
 
   if (error) throw error;
+  if (!data) throw new Error(`Menu item ${id} was not found`);
 
   return true;
 }

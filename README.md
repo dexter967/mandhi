@@ -51,9 +51,11 @@ companion admin panel backed by an Express API and Supabase.</p>
 - **Navigation:** the fixed header links to the full menu, restaurant story,
   feedback form and Google Maps directions. The brand panel also includes
   address and telephone links.
-- **Menu browsing:** category tabs cover Yemeni Mandhi, Grilled Mandhi,
-  Grilled Pieces, Mandhi Pieces and Fresh Juices. The menu is loaded from the
-  API and rendered into dish cards.
+- **Menu browsing:** category tabs are generated from categories that have
+  available menu items. Selecting a category smoothly scrolls to its dishes.
+- **Live full-menu panel:** the header menu button uses the same current API
+  data as the menu cards, including portion prices; unavailable dishes and
+  the former hard-coded menu snapshot are not shown.
 - **Dish details:** cards can show a description, image, optional base price
   and multiple portion prices. A fallback image is used if a dish image fails
   to load.
@@ -172,10 +174,21 @@ VS Code Live Server extension), then open:
 - Storefront: `http://127.0.0.1:5500/index1.html`
 - Admin: `http://127.0.0.1:5500/admin.html`
 
-The storefront and admin JavaScript currently point to
-`http://localhost:5000/api`. Keep the API running locally while using them.
+By default, both pages use `http://localhost:5000/api`. Keep the API running
+locally while using them. For a separately hosted API, set
+`window.MANDHI_API_BASE_URL` to its HTTPS `/api` URL in both HTML pages before
+their `main.js` or `admin.js` script tags, for example:
+
+```html
+<script>
+  window.MANDHI_API_BASE_URL = "https://your-api.example.com/api";
+</script>
+```
+
 Opening the HTML with a `file://` URL or visiting the hosted Pages site does
-not make the local API available to other visitors.
+not make your local API available to visitors. The backend must be hosted
+separately and its real URL configured before the public admin or live menu
+can connect.
 
 ## Supabase data requirements
 
@@ -186,7 +199,7 @@ database migrations.
 | Table | Fields used by the application |
 | --- | --- |
 | `categories` | `id`, `name`, `display_order` |
-| `menu_items` | `id`, `name`, `description`, `category_name`, `price`, `image_url`, `display_order` |
+| `menu_items` | `id`, `name`, `description`, `category_name`, `price`, `image_url`, `display_order`, `is_available`, `is_bestseller`, `is_featured` |
 | `menu_portions` | `id`, `menu_item_id`, `portion_name`, `price`, `display_order` |
 
 Use a primary key for each `id` and a foreign-key relationship from
@@ -231,7 +244,8 @@ mutations return a success flag, message and (when applicable) data.
 - **Backend layers:** Express routes dispatch to controllers, which call
   Supabase-backed services.
 - **Static hosting:** the Pages workflow deploys static files. It does not
-  host the Express API or provision a database.
+  host the Express API or provision a database. Menu changes are propagated
+  through Supabase and appear on the storefront after it fetches the API.
 
 ## Before public production use
 
