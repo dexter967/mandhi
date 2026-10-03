@@ -145,16 +145,23 @@ Copy-Item .env.example .env
 ```
 
 Edit `server/.env` and provide your own Supabase project URL and **server-only**
-service-role key:
+service-role key, plus an admin access token:
 
 ```dotenv
 SUPABASE_URL=https://your-project-ref.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+ADMIN_API_TOKEN=your-long-random-admin-token
+CORS_ORIGINS=http://localhost:5500,http://127.0.0.1:5500
 PORT=5000
 ```
 
 Do not commit `.env`, publish the service-role key, or put it in browser
 JavaScript. The API uses this privileged key to perform database operations.
+Keep `ADMIN_API_TOKEN` private too. Generate a random token locally with:
+
+```powershell
+node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
+```
 
 Start the API from the `server/` directory:
 
@@ -174,21 +181,11 @@ VS Code Live Server extension), then open:
 - Storefront: `http://127.0.0.1:5500/index1.html`
 - Admin: `http://127.0.0.1:5500/admin.html`
 
-By default, both pages use `http://localhost:5000/api`. Keep the API running
-locally while using them. For a separately hosted API, set
-`window.MANDHI_API_BASE_URL` to its HTTPS `/api` URL in both HTML pages before
-their `main.js` or `admin.js` script tags, for example:
-
-```html
-<script>
-  window.MANDHI_API_BASE_URL = "https://your-api.example.com/api";
-</script>
-```
-
-Opening the HTML with a `file://` URL or visiting the hosted Pages site does
-not make your local API available to visitors. The backend must be hosted
-separately and its real URL configured before the public admin or live menu
-can connect.
+On local hostnames, both pages use `http://localhost:5000/api`. On GitHub
+Pages, the API URL is generated at deploy time from the
+`MANDHI_API_BASE_URL` GitHub Actions variable. If it is unset, the pages report
+that the API is not configured instead of trying to connect to a visitor's
+localhost.
 
 ## Supabase data requirements
 
@@ -213,6 +210,9 @@ names.
 All endpoints are mounted at `http://localhost:5000/api`. Successful reads
 return JSON in the form `{ "success": true, "count": 0, "data": [] }`;
 mutations return a success flag, message and (when applicable) data.
+Send `Authorization: Bearer <ADMIN_API_TOKEN>` with every `POST`, `PUT` and
+`DELETE` request. `POST /admin/verify` checks a token before the admin page
+stores it for the current tab session.
 
 | Method | Endpoint | Purpose |
 | --- | --- | --- |
@@ -228,6 +228,7 @@ mutations return a success flag, message and (when applicable) data.
 | `POST` | `/categories` | Create a category |
 | `PUT` | `/categories/:id` | Update a category |
 | `DELETE` | `/categories/:id` | Delete a category |
+| `POST` | `/admin/verify` | Verify the admin access token |
 
 ## Design and implementation
 
@@ -249,24 +250,12 @@ mutations return a success flag, message and (when applicable) data.
 
 ## Before public production use
 
-The current source is a local development setup, not a complete public admin
-deployment:
-
-1. **Host the API separately.** GitHub Pages only serves static assets.
-2. **Configure the public API URL.** Replace the `localhost` API constants in
-   `main.js` and `admin.js` with the HTTPS URL of the deployed API.
-3. **Add admin authentication and authorization.** The current menu and
-   category write endpoints have no authentication; anyone able to reach the
-   API can attempt changes.
-4. **Restrict CORS and secure the API.** The Express app currently allows
-   requests from any origin. Configure allowed origins, input validation,
-   rate limits and appropriate production logging.
-5. **Review database access and feedback configuration.** Keep privileged
-   Supabase credentials on the server and configure the Web3Forms access key
-   intentionally.
-6. **Use a root entry page.** The published storefront is currently named
-   `index1.html`; the Pages root therefore does not open the storefront
-   automatically.
+The API restricts browser origins and requires a private admin token for
+every create, update and delete operation. Keep the token and Supabase
+service-role key on the server; do not put them in frontend files. The admin
+page keeps the token only in that browser tab's session. For a hardened
+production deployment, also review rate limiting, input validation and
+operational logging.
 
 ## Development notes
 
@@ -279,11 +268,35 @@ deployment:
 
 ## Deployment
 
+### Deploy the API to Render
+
+The repository includes a Render Blueprint in `render.yaml`.
+
+1. In Render, create a Blueprint and select this GitHub repository. Review
+   the `mandhi-api` web service defined in the Blueprint.
+2. Enter `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` and `ADMIN_API_TOKEN` in
+   Render when prompted. Generate the admin token locally with the command
+   above; never commit it. The Blueprint restricts browser origins to GitHub
+   Pages and the documented local development addresses.
+3. Deploy the Blueprint and wait for the `/` health check to pass. Copy the
+   service's HTTPS `onrender.com` URL.
+4. In GitHub, open **Settings → Secrets and variables → Actions → Variables**
+   and create `MANDHI_API_BASE_URL` with the full API base URL, for example
+   `https://mandhi-api.onrender.com/api` (use the actual URL Render assigns).
+5. Run the **Deploy static content to Pages** workflow, or push a commit to
+   `main`, so Pages regenerates `api-config.js` with the deployed API URL.
+6. Open the admin page, enter the `ADMIN_API_TOKEN` configured in Render, and
+   select **Connect Admin**. The token stays in that browser tab's session.
+
+Public menu and category reads do not require the token. All menu, portion and
+category writes do. Until the API URL variable is configured, Pages shows an
+API-not-configured message instead of requesting the visitor's localhost.
+
 Pushing to `main` triggers the GitHub Pages deployment workflow. After a
 successful run, open the storefront directly at
 [`https://dexter967.github.io/mandhi/index1.html`](https://dexter967.github.io/mandhi/index1.html).
-The separate API and Supabase database still need their own hosting and
-configuration.
+The Render API and Supabase database must also be deployed and configured as
+described above.
 
 ---
 

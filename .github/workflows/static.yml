@@ -33,6 +33,11 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Configure API endpoint
+        env:
+          MANDHI_API_BASE_URL: ${{ vars.MANDHI_API_BASE_URL }}
+        run: |
+          node -e "const fs = require('node:fs'); const url = (process.env.MANDHI_API_BASE_URL || '').trim().replace(/\/+$/, ''); fs.writeFileSync('api-config.js', 'window.MANDHI_API_BASE_URL = ' + (url ? JSON.stringify(url) : 'null') + ';\\n');"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -256,9 +256,14 @@ document.addEventListener("keydown", (e) => {
 // Menu tabs and their matching panels are both generated from available
 // dishes returned by the API, so newly added admin categories appear here.
 const API_BASE_URL = (
-  window.MANDHI_API_BASE_URL || "http://localhost:5000/api"
+  window.MANDHI_API_BASE_URL ||
+  (["localhost", "127.0.0.1"].includes(window.location.hostname)
+    ? "http://localhost:5000/api"
+    : "")
 ).replace(/\/+$/, "");
 const MENU_ENDPOINT = `${API_BASE_URL}/menu`;
+const API_CONFIGURATION_MESSAGE =
+  "The menu API is not configured. Deploy the Render service and set the MANDHI_API_BASE_URL GitHub Actions variable to its HTTPS /api URL.";
 const DEFAULT_FALLBACK_IMAGE =
   "https://i.postimg.cc/tTf92z4s/Gemini-Generated-Image-3m9wp93m9wp93m9w.png";
 
@@ -501,6 +506,8 @@ function processAndRenderMenu(items) {
 // (never mixing one item's portions into another's card), then renders.
 async function loadMenu() {
   try {
+    if (!API_BASE_URL) throw new Error(API_CONFIGURATION_MESSAGE);
+
     const response = await fetch(MENU_ENDPOINT);
     const result = await response.json();
 

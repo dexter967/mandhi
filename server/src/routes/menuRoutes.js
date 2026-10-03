@@ -10,6 +10,7 @@ import {
   editPortion,
   removePortion,
 } from "../controllers/menuController.js";
+import requireAdminToken from "../middleware/requireAdminToken.js";
 
 const router = express.Router();
 
@@ -19,11 +20,11 @@ const router = express.Router();
 
 router.get("/", getMenu);
 
-router.post("/", addMenuItem);
+router.post("/", requireAdminToken, addMenuItem);
 
-router.put("/:id", editMenuItem);
+router.put("/:id", requireAdminToken, editMenuItem);
 
-router.delete("/:id", removeMenuItem);
+router.delete("/:id", requireAdminToken, removeMenuItem);
 
 // ===============================
 // PORTION ROUTES
@@ -31,10 +32,10 @@ router.delete("/:id", removeMenuItem);
 
 router.get("/:id/portions", getPortions);
 
-router.post("/:id/portions", addPortion);
+router.post("/:id/portions", requireAdminToken, addPortion);
 
-router.put("/portions/:portionId", editPortion);
-router.delete("/portions/:portionId", removePortion);
+router.put("/portions/:portionId", requireAdminToken, editPortion);
+router.delete("/portions/:portionId", requireAdminToken, removePortion);
 
 // ===============================
 // EXPORT

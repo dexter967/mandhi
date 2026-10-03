@@ -22,6 +22,46 @@
         </div>
       </header>
 
+      <section class="card admin-access-card">
+        <div class="section-header">
+          <div>
+            <h2>Admin Access</h2>
+            <p>Enter your private access token to make menu changes.</p>
+          </div>
+        </div>
+        <div class="category-add-form">
+          <input
+            id="adminToken"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Admin access token"
+            aria-label="Admin access token"
+          />
+          <button
+            id="connectAdminButton"
+            type="button"
+            class="primary-btn"
+            onclick="connectAdmin()"
+          >
+            Connect Admin
+          </button>
+          <button
+            id="disconnectAdminButton"
+            type="button"
+            onclick="disconnectAdmin()"
+            hidden
+          >
+            Disconnect
+          </button>
+        </div>
+        <div
+          id="adminAccessMessage"
+          class="message"
+          role="status"
+          aria-live="polite"
+        ></div>
+      </section>
+
       <!-- =============================== -->
       <!-- ADD MENU ITEM -->
       <!-- =============================== -->
@@ -160,6 +200,7 @@
     <!-- JAVASCRIPT -->
     <!-- =============================== -->
 
+    <script src="api-config.js"></script>
     <script src="admin.js"></script>
   </body>
 </html>

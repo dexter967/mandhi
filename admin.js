@@ -1,8 +1,89 @@
 const API_BASE_URL = (
-  window.MANDHI_API_BASE_URL || "http://localhost:5000/api"
+  window.MANDHI_API_BASE_URL ||
+  (["localhost", "127.0.0.1"].includes(window.location.hostname)
+    ? "http://localhost:5000/api"
+    : "")
 ).replace(/\/+$/, "");
 const API_URL = `${API_BASE_URL}/menu`;
 const CATEGORY_API_URL = `${API_BASE_URL}/categories`;
+const ADMIN_VERIFY_URL = `${API_BASE_URL}/admin/verify`;
+const ADMIN_TOKEN_KEY = "mandhiAdminToken";
+const API_CONFIGURATION_MESSAGE =
+  "The backend API is not configured for this website. Deploy the Render service and set the MANDHI_API_BASE_URL GitHub Actions variable to its HTTPS /api URL.";
+
+async function apiFetch(url, options = {}) {
+  if (!API_BASE_URL) throw new Error(API_CONFIGURATION_MESSAGE);
+
+  const method = (options.method || "GET").toUpperCase();
+  const headers = new Headers(options.headers || {});
+
+  if (!["GET", "HEAD", "OPTIONS"].includes(method)) {
+    const token = sessionStorage.getItem(ADMIN_TOKEN_KEY);
+    if (!token) throw new Error("Connect Admin Access before making changes.");
+    headers.set("Authorization", `Bearer ${token}`);
+  }
+
+  const response = await fetch(url, { ...options, headers });
+
+  if (response.status === 401) {
+    sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+    document.getElementById("disconnectAdminButton").hidden = true;
+    showAdminAccessMessage("Admin access expired. Connect again to make changes.", true);
+  }
+
+  return response;
+}
+
+function showAdminAccessMessage(text, isError = false) {
+  const message = document.getElementById("adminAccessMessage");
+  message.textContent = text;
+  message.style.color = isError ? "#b94a48" : "#72b87a";
+}
+
+async function verifyAdminToken(token) {
+  if (!API_BASE_URL) throw new Error(API_CONFIGURATION_MESSAGE);
+
+  const response = await fetch(ADMIN_VERIFY_URL, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const result = await response.json();
+
+  if (!response.ok || !result.success) {
+    throw new Error(result.message || "Admin access verification failed.");
+  }
+
+  return true;
+}
+
+async function connectAdmin() {
+  const input = document.getElementById("adminToken");
+  const token = input.value.trim();
+
+  if (!token) {
+    showAdminAccessMessage("Enter the admin access token.", true);
+    return;
+  }
+
+  try {
+    await verifyAdminToken(token);
+    sessionStorage.setItem(ADMIN_TOKEN_KEY, token);
+    input.value = "";
+    document.getElementById("disconnectAdminButton").hidden = false;
+    showAdminAccessMessage("Admin access connected for this browser tab.");
+    await Promise.all([refreshCategories(), loadMenuItems()]);
+  } catch (error) {
+    console.error("Admin access verification error:", error);
+    sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+    showAdminAccessMessage(error.message || "Could not verify admin access.", true);
+  }
+}
+
+function disconnectAdmin() {
+  sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+  document.getElementById("disconnectAdminButton").hidden = true;
+  showAdminAccessMessage("Admin access disconnected.");
+}
 
 // =========================================
 // CATEGORY MANAGEMENT
@@ -80,7 +161,9 @@ async function loadCategories() {
   }
 
   try {
-    const response = await fetch(CATEGORY_API_URL);
+    if (!API_BASE_URL) throw new Error(API_CONFIGURATION_MESSAGE);
+
+    const response = await apiFetch(CATEGORY_API_URL);
     const result = await response.json();
 
     if (!response.ok || !result.success) {
@@ -134,7 +217,7 @@ async function addCategory() {
   }
 
   try {
-    const response = await fetch(CATEGORY_API_URL, {
+    const response = await apiFetch(CATEGORY_API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name }),
@@ -162,7 +245,7 @@ async function deleteCategory(id, categoryName) {
   const message = document.getElementById("categoryMessage");
 
   try {
-    const response = await fetch(`${CATEGORY_API_URL}/${encodeURIComponent(id)}`, {
+    const response = await apiFetch(`${CATEGORY_API_URL}/${encodeURIComponent(id)}`, {
       method: "DELETE",
     });
     const result = await response.json();
@@ -287,7 +370,7 @@ async function addItem() {
   };
 
   try {
-    const response = await fetch(API_URL, {
+    const response = await apiFetch(API_URL, {
       method: "POST",
 
       headers: {
@@ -342,7 +425,7 @@ async function loadMenuItems() {
   menuList.innerHTML = `<div class="loading-message">Loading menu items...</div>`;
 
   try {
-    const response = await fetch(API_URL);
+    const response = await apiFetch(API_URL);
     const result = await response.json();
 
     if (!response.ok || !result.success) {
@@ -696,7 +779,7 @@ async function saveItemEdit(id) {
   }
 
   try {
-    const response = await fetch(`${API_URL}/${id}`, {
+    const response = await apiFetch(`${API_URL}/${id}`, {
       method: "PUT",
 
       headers: {
@@ -746,7 +829,7 @@ async function deleteItem(id) {
   }
 
   try {
-    const response = await fetch(`${API_URL}/${id}`, {
+    const response = await apiFetch(`${API_URL}/${id}`, {
       method: "DELETE",
     });
 
@@ -787,7 +870,7 @@ async function loadPortions(menuItemId) {
         </p>`;
 
   try {
-    const response = await fetch(`${API_URL}/${menuItemId}/portions`);
+    const response = await apiFetch(`${API_URL}/${menuItemId}/portions`);
 
     const result = await response.json();
 
@@ -1007,7 +1090,7 @@ async function savePortion(menuItemId) {
   };
 
   try {
-    const response = await fetch(`${API_URL}/${menuItemId}/portions`, {
+    const response = await apiFetch(`${API_URL}/${menuItemId}/portions`, {
       method: "POST",
 
       headers: {
@@ -1101,7 +1184,7 @@ async function updatePortion(portionId, menuItemId) {
   };
 
   try {
-    const response = await fetch(`${API_URL}/portions/${portionId}`, {
+    const response = await apiFetch(`${API_URL}/portions/${portionId}`, {
       method: "PUT",
 
       headers: {
@@ -1137,7 +1220,7 @@ async function deletePortion(portionId, menuItemId) {
   }
 
   try {
-    const response = await fetch(`${API_URL}/portions/${portionId}`, {
+    const response = await apiFetch(`${API_URL}/portions/${portionId}`, {
       method: "DELETE",
     });
 
@@ -1185,6 +1268,20 @@ async function refreshCategories() {
 // ===============================
 
 document.addEventListener("DOMContentLoaded", async () => {
+  const savedToken = sessionStorage.getItem(ADMIN_TOKEN_KEY);
+  if (savedToken) {
+    document.getElementById("disconnectAdminButton").hidden = false;
+    try {
+      await verifyAdminToken(savedToken);
+      showAdminAccessMessage("Admin access connected for this browser tab.");
+    } catch (error) {
+      console.error("Saved admin access verification error:", error);
+      sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+      document.getElementById("disconnectAdminButton").hidden = true;
+      showAdminAccessMessage(error.message || "Admin access expired.", true);
+    }
+  }
+
   await loadCategories();
 
   await loadMenuItems();
