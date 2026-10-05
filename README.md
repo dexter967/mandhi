@@ -277,8 +277,7 @@ Keep the two kinds of configuration separate:
 - **Backend secrets** (`SUPABASE_SERVICE_ROLE_KEY` and `ADMIN_API_TOKEN`) go in
   the Render service's environment. For local backend development only, put
   them in the ignored `server/.env` file. A local `.env` file is not uploaded
-  to Render, and `.env.example` is a public template that must contain only
-  placeholders.
+  to Render, and `.env.example` is public; never put either secret in it.
 - **Public API address** (`MANDHI_API_BASE_URL`) goes in GitHub Actions
   **Variables**. It is an address, not a secret. GitHub Pages needs it to know
   which Render API to contact.
