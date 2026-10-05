@@ -533,4 +533,8 @@ async function loadMenu() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", loadMenu);
+document.addEventListener("DOMContentLoaded", () => {
+  const blogGrid = document.querySelector(".blog-grid");
+  if (blogGrid) observer.observe(blogGrid);
+  loadMenu();
+});
