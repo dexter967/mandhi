@@ -186,7 +186,11 @@ async function loadCategories() {
     const categorySelect = document.getElementById("category");
 
     if (categorySelect) {
-      categorySelect.innerHTML = `<option value="">Could not load categories — check API connection</option>`;
+      const message = API_BASE_URL
+        ? "Could not load categories — check API connection"
+        : "API not configured — set MANDHI_API_BASE_URL in GitHub Actions Variables and redeploy Pages";
+      categorySelect.innerHTML = `<option value="">${escapeHtml(message)}</option>`;
+      categorySelect.title = error.message || message;
     }
 
     return [];

@@ -272,21 +272,35 @@ operational logging.
 
 The repository includes a Render Blueprint in `render.yaml`.
 
+Keep the two kinds of configuration separate:
+
+- **Backend secrets** (`SUPABASE_SERVICE_ROLE_KEY` and `ADMIN_API_TOKEN`) go in
+  the Render service's environment. For local backend development only, put
+  them in the ignored `server/.env` file. A local `.env` file is not uploaded
+  to Render, and `.env.example` is a public template that must contain only
+  placeholders.
+- **Public API address** (`MANDHI_API_BASE_URL`) goes in GitHub Actions
+  **Variables**. It is an address, not a secret. GitHub Pages needs it to know
+  which Render API to contact.
+
 1. In Render, create a Blueprint and select this GitHub repository. Review
    the `mandhi-api` web service defined in the Blueprint.
-2. Enter `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` and `ADMIN_API_TOKEN` in
-   Render when prompted. Generate the admin token locally with the command
-   above; never commit it. The Blueprint restricts browser origins to GitHub
-   Pages and the documented local development addresses.
-3. Deploy the Blueprint and wait for the `/` health check to pass. Copy the
-   service's HTTPS `onrender.com` URL.
+2. In the Render Dashboard, open the `mandhi-api` service and select
+   **Environment**. Set `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` and
+   `ADMIN_API_TOKEN` there. Generate the admin token locally with the command
+   above; never commit it or put it in frontend files. The Blueprint supplies
+   the allowed browser origins.
+3. Save the environment changes and deploy the service. Wait for the `/` health
+   check to pass, then copy the service's HTTPS `onrender.com` URL.
 4. In GitHub, open **Settings → Secrets and variables → Actions → Variables**
-   and create `MANDHI_API_BASE_URL` with the full API base URL, for example
-   `https://mandhi-api.onrender.com/api` (use the actual URL Render assigns).
-5. Run the **Deploy static content to Pages** workflow, or push a commit to
-   `main`, so Pages regenerates `api-config.js` with the deployed API URL.
-6. Open the admin page, enter the `ADMIN_API_TOKEN` configured in Render, and
-   select **Connect Admin**. The token stays in that browser tab's session.
+   and create `MANDHI_API_BASE_URL` with the Render URL followed by `/api`,
+   for example `https://mandhi-api.onrender.com/api` (use the actual URL
+   Render assigns).
+5. Run the **Deploy static content to Pages** workflow from the Actions tab.
+   This regenerates `api-config.js` with the deployed API URL.
+6. Open the admin page, enter the same `ADMIN_API_TOKEN` you configured in
+   Render, and select **Connect Admin**. The token stays in that browser tab's
+   session.
 
 Public menu and category reads do not require the token. All menu, portion and
 category writes do. Until the API URL variable is configured, Pages shows an
