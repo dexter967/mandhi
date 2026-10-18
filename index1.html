@@ -3,11 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Al Qaaf Restaurant — Authentic Elite Dining</title>
+    <meta
+      name="description"
+      content="TABAN Yemeni Mandi, Pandalam — slow-cooked mandi, grilled favourites and fresh juices."
+    />
+    <title>TABAN Yemeni Mandi — Pandalam</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="cursor-ring" id="cRing" style="display: none"></div>
+    <div class="brand-loader" id="brandLoader" aria-label="Loading TABAN Yemeni Mandi">
+      <div class="brand-loader-mark" aria-hidden="true">
+        <span class="brand-loader-plate"></span>
+        <span class="brand-loader-letter">T</span>
+      </div>
+      <div class="brand-loader-name">TABAN</div>
+      <div class="brand-loader-subtitle">Yemeni Mandi · Pandalam</div>
+    </div>
 
     <!-- ── HEADER ── -->
     <header>
@@ -19,7 +31,7 @@
             />
           </svg>
         </div>
-        <span class="logo-text">Al Qaaf</span>
+        <span class="logo-text">TABAN</span>
       </button>
       <nav>
         <a href="#">Home</a>
@@ -29,7 +41,7 @@
       </nav>
       <div class="nav-right-actions">
         <a
-          href="https://maps.google.com/?q=Al+Qaaf+Restaurant+Medical+Mission+Hospital+Road+Pandalam+Pathanamthitta+Kerala"
+          href="https://www.google.com/maps/place/TABAN+YEMENI+MANDI+-PANDALAM/@9.2297836,76.6723223,16z/data=!4m15!1m8!3m7!1s0x3b06170e32ac5f1f:0x5e678337b495a4d4!2sTABAN+YEMENI+MANDI+-PANDALAM!8m2!3d9.2297836!4d76.6774721!10e9!16s%2Fg%2F11mldkrrt7!3m5!1s0x3b06170e32ac5f1f:0x5e678337b495a4d4!8m2!3d9.2297836!4d76.6774721!16s%2Fg%2F11mldkrrt7"
           target="_blank"
           class="nav-map-link"
         >
@@ -65,15 +77,22 @@
       <div class="hub-section" style="margin-top: 40px">
         <div class="hub-title">The Destination</div>
         <div class="hub-address">
-          <strong>Al Qaaf Restaurant</strong>
-          Medical Mission Hospital Road,<br />Pandalam, Pathanamthitta,<br />Kerala
-          — 689501
+          <strong>TABAN Yemeni Mandi</strong>
+          Pandalam, Pathanamthitta,<br />Kerala — 689501
         </div>
-        <a href="tel:+919447778328" class="hub-contact-link"
-          >M: +91 944 777 8328</a
+        <a
+          href="https://www.google.com/maps/place/TABAN+YEMENI+MANDI+-PANDALAM/@9.2297836,76.6723223,16z/data=!4m15!1m8!3m7!1s0x3b06170e32ac5f1f:0x5e678337b495a4d4!2sTABAN+YEMENI+MANDI+-PANDALAM!8m2!3d9.2297836!4d76.6774721!10e9!16s%2Fg%2F11mldkrrt7!3m5!1s0x3b06170e32ac5f1f:0x5e678337b495a4d4!8m2!3d9.2297836!4d76.6774721!16s%2Fg%2F11mldkrrt7"
+          target="_blank"
+          rel="noopener"
+          class="hub-contact-link"
+          >Open in Google Maps ↗</a
         >
-        <a href="tel:+914734251104" class="hub-contact-link"
-          >P: +91 4734 251104</a
+        <a
+          href="https://www.swiggy.com/search?query=TABAN%20YEMENI%20MANDI%20PANDALAM"
+          target="_blank"
+          rel="noopener"
+          class="hub-contact-link"
+          >Find us on Swiggy ↗</a
         >
       </div>
       <div class="hub-section">
@@ -102,41 +121,41 @@
             href="#menu-anchor"
             onclick="
               closeBrandOverlay();
-              switchTabPanel('YEMENI MANDHI', null, true);
+              switchTabPanel('YEMENI MANDI', null, true);
             "
-            >Yemeni Mandhi</a
+            >Yemeni Mandi</a
           >
           <a
             href="#menu-anchor"
             onclick="
               closeBrandOverlay();
-              switchTabPanel('GRILLED MANDHI', null, true);
+              switchTabPanel('AL FAHAM MANDI', null, true);
             "
-            >Grilled Mandhi</a
+            >Al Faham Mandi</a
           >
           <a
             href="#menu-anchor"
             onclick="
               closeBrandOverlay();
-              switchTabPanel('GRILLED PIECES', null, true);
+              switchTabPanel('PIECE ONLY', null, true);
             "
-            >Grilled Pieces</a
+            >Piece Only</a
           >
           <a
             href="#menu-anchor"
             onclick="
               closeBrandOverlay();
-              switchTabPanel('MANDHI PIECES', null, true);
+              switchTabPanel('SHAWAYA', null, true);
             "
-            >Mandhi Proteins</a
+            >Shawaya</a
           >
           <a
             href="#menu-anchor"
             onclick="
               closeBrandOverlay();
-              switchTabPanel('FRESH JUICES', null, true);
+              switchTabPanel('FRESH JUICE', null, true);
             "
-            >Fresh Juices</a
+            >Fresh Juice</a
           >
         </div>
       </div>
@@ -147,12 +166,11 @@
       <div class="hero-parallax-bg" id="parallaxBg"></div>
       <div class="hero-particles" id="particles"></div>
       <div class="hero-content">
-        <div class="hero-badge">✦ An Ancient Mastery ✦</div>
-        <h1 class="hero-title">The Art of<br /><span>Arabian Mandhi</span></h1>
+        <div class="hero-badge">✦ TABAN YEMENI MANDI · PANDALAM ✦</div>
+        <h1 class="hero-title">The Art of<br /><span>Yemeni Mandi</span></h1>
         <p class="hero-sub">
-          Slow-cooked over traditional charcoal pits. Restrained on raw
-          textures, rich spices, and presented beautifully on fine copper
-          platters.
+          Slow-cooked with fragrant rice, warm spices and the generous spirit of
+          Yemeni mandi — served fresh from Taban in the heart of Pandalam.
         </p>
 
         <div class="hero-ctas">
@@ -175,8 +193,8 @@
 
         <div class="hero-fine-print">
           <span class="hero-fine-print-tagline"
-            >Authentic Elite Dining &nbsp;·&nbsp; Pandalam, Pathanamthitta
-            &nbsp;·&nbsp; Masterfully Crafted Inside the Pits</span
+            >Authentic Yemeni Mandi &nbsp;·&nbsp; Pandalam, Pathanamthitta
+            &nbsp;·&nbsp; Crafted for sharing</span
           >
           <div class="hero-fine-print-divider"></div>
           <span class="hero-fine-print-gst"
@@ -400,10 +418,10 @@
 
     <!-- ── FOOTER ── -->
     <footer>
-      <div class="footer-logo">AL QAAF</div>
+      <div class="footer-logo">TABAN</div>
       <div class="footer-divider"></div>
       <p class="footer-copy">
-        © 2026 Al Qaaf Restaurant. Process Integrity Preserved.
+        © 2026 TABAN Yemeni Mandi · Pandalam, Kerala.
       </p>
     </footer>
 

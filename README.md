@@ -1,8 +1,8 @@
 <div align="center">
 
-<h1>Al Qaaf Restaurant</h1>
+<h1>TABAN Yemeni Mandi</h1>
 
-<p><strong>An editorial-style home for Arabian mandhi in Pandalam.</strong></p>
+<p><strong>An editorial-style home for Yemeni mandi in Pandalam.</strong></p>
 
 <p>Discover the menu, explore the restaurant story, and manage dishes from a
 companion admin panel backed by an Express API and Supabase.</p>
@@ -20,7 +20,7 @@ companion admin panel backed by an Express API and Supabase.</p>
 ## Website preview
 
 <p align="center">
-  <img src="docs/website-preview.svg" alt="Illustrated preview of the Al Qaaf Restaurant website, with its dark copper-accented navigation, Arabian Mandhi hero, menu categories, and dish cards" width="100%" />
+  <img src="docs/website-preview.svg" alt="Illustrated preview of the TABAN Yemeni Mandi website, with its dark copper-accented navigation, Yemeni mandi hero, menu categories, and dish cards" width="100%" />
 </p>
 
 <p align="center"><em>A hand-drawn README illustration of the website's layout and visual direction; it is not a browser screenshot.</em></p>
@@ -47,7 +47,7 @@ companion admin panel backed by an Express API and Supabase.</p>
 ### Guest-facing website
 
 - **Restaurant introduction:** a cinematic hero, editorial typography and
-  copper-toned details introduce Al Qaaf and its slow-cooked mandhi.
+  copper-toned details introduce TABAN and its slow-cooked Yemeni mandi.
 - **Navigation:** the fixed header links to the full menu, restaurant story,
   feedback form and Google Maps directions. The brand panel also includes
   address and telephone links.
@@ -315,6 +315,6 @@ described above.
 
 <div align="center">
 
-<p>Made for the Al Qaaf Restaurant experience in Pandalam, Kerala.</p>
+<p>Made for the TABAN Yemeni Mandi experience in Pandalam, Kerala.</p>
 
 </div>

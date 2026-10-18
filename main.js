@@ -265,15 +265,40 @@ const MENU_ENDPOINT = `${API_BASE_URL}/menu`;
 const API_CONFIGURATION_MESSAGE =
   "The menu API is not configured. Deploy the Render service and set the MANDHI_API_BASE_URL GitHub Actions variable to its HTTPS /api URL.";
 const DEFAULT_FALLBACK_IMAGE =
-  "https://i.postimg.cc/tTf92z4s/Gemini-Generated-Image-3m9wp93m9wp93m9w.png";
+  "https://i.postimg.cc/28LnNjvk/Whats-App-Image-2026-05-20-at-12-30-39.jpg";
 
 const KNOWN_CATEGORY_ORDER = [
-  "YEMENI MANDHI",
-  "GRILLED MANDHI",
-  "GRILLED PIECES",
-  "MANDHI PIECES",
-  "FRESH JUICES",
+  "YEMENI MANDI",
+  "AL FAHAM MANDI",
+  "AL FAHAM",
+  "SHAWAYA",
+  "PIECE ONLY",
+  "OTHERS",
+  "FRESH JUICE",
+  "LIME JUICE",
+  "MOJITO",
 ];
+
+const CATEGORY_IMAGE_FALLBACKS = {
+  "YEMENI MANDI":
+    "https://i.postimg.cc/28LnNjvk/Whats-App-Image-2026-05-20-at-12-30-39.jpg",
+  "AL FAHAM MANDI":
+    "https://i.postimg.cc/hPmQ3yWh/Whats-App-Image-2026-05-20-at-12-31-57.jpg",
+  "AL FAHAM":
+    "https://i.postimg.cc/1RfWCqmJ/Whats-App-Image-2026-05-20-at-12-32-53.jpg",
+  SHAWAYA:
+    "https://i.postimg.cc/28LnNjvk/Whats-App-Image-2026-05-20-at-12-30-39.jpg",
+  "PIECE ONLY":
+    "https://i.postimg.cc/hPmQ3yWh/Whats-App-Image-2026-05-20-at-12-31-57.jpg",
+  OTHERS:
+    "https://i.postimg.cc/1RfWCqmJ/Whats-App-Image-2026-05-20-at-12-32-53.jpg",
+  "FRESH JUICE":
+    "https://i.postimg.cc/28LnNjvk/Whats-App-Image-2026-05-20-at-12-30-39.jpg",
+  "LIME JUICE":
+    "https://i.postimg.cc/hPmQ3yWh/Whats-App-Image-2026-05-20-at-12-31-57.jpg",
+  MOJITO:
+    "https://i.postimg.cc/1RfWCqmJ/Whats-App-Image-2026-05-20-at-12-32-53.jpg",
+};
 
 let parsedMenuData = {};
 let dynamicCategoryOrder = [];
@@ -492,7 +517,7 @@ function processAndRenderMenu(items) {
       image:
         item.image_url && item.image_url.trim()
           ? item.image_url.trim()
-          : DEFAULT_FALLBACK_IMAGE,
+          : CATEGORY_IMAGE_FALLBACKS[cat] || DEFAULT_FALLBACK_IMAGE,
       portions: item.portions || [],
     });
   });
@@ -534,6 +559,9 @@ async function loadMenu() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  window.setTimeout(() => {
+    document.getElementById("brandLoader")?.classList.add("is-hidden");
+  }, 1100);
   const blogGrid = document.querySelector(".blog-grid");
   if (blogGrid) observer.observe(blogGrid);
   loadMenu();
