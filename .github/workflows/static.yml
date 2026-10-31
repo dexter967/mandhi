@@ -37,7 +37,7 @@ jobs:
         env:
           MANDHI_API_BASE_URL: ${{ vars.MANDHI_API_BASE_URL }}
         run: |
-          node -e "const fs = require('node:fs'); const url = (process.env.MANDHI_API_BASE_URL || '').trim().replace(/\/+$/, ''); fs.writeFileSync('api-config.js', 'window.MANDHI_API_BASE_URL = ' + (url ? JSON.stringify(url) : 'null') + ';\\n');"
+          node -e "const fs = require('node:fs'); const url = (process.env.MANDHI_API_BASE_URL || 'https://mandhi-api.onrender.com/api').trim().replace(/\/+$/, ''); fs.writeFileSync('api-config.js', 'window.MANDHI_API_BASE_URL = ' + JSON.stringify(url) + ';\\n');"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

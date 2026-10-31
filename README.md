@@ -183,9 +183,9 @@ VS Code Live Server extension), then open:
 
 On local hostnames, both pages use `http://localhost:5000/api`. On GitHub
 Pages, the API URL is generated at deploy time from the
-`MANDHI_API_BASE_URL` GitHub Actions variable. If it is unset, the pages report
-that the API is not configured instead of trying to connect to a visitor's
-localhost.
+`MANDHI_API_BASE_URL` GitHub Actions variable. If that variable is unset, the
+Pages workflow uses the default Render service URL from `render.yaml`; set the
+variable when the Render service URL differs.
 
 ## Supabase data requirements
 
@@ -291,19 +291,19 @@ Keep the two kinds of configuration separate:
    the allowed browser origins.
 3. Save the environment changes and deploy the service. Wait for the `/` health
    check to pass, then copy the service's HTTPS `onrender.com` URL.
-4. In GitHub, open **Settings → Secrets and variables → Actions → Variables**
-   and create `MANDHI_API_BASE_URL` with the Render URL followed by `/api`,
-   for example `https://mandhi-api.onrender.com/api` (use the actual URL
-   Render assigns).
+4. If Render assigned a URL other than `https://mandhi-api.onrender.com`, open
+   **Settings → Secrets and variables → Actions → Variables** in GitHub and
+   create `MANDHI_API_BASE_URL` with the Render URL followed by `/api`.
 5. Run the **Deploy static content to Pages** workflow from the Actions tab.
-   This regenerates `api-config.js` with the deployed API URL.
+   This regenerates `api-config.js` with the deployed API URL. The workflow
+   uses `https://mandhi-api.onrender.com/api` when the variable is absent.
 6. Open the admin page, enter the same `ADMIN_API_TOKEN` you configured in
    Render, and select **Connect Admin**. The token stays in that browser tab's
    session.
 
 Public menu and category reads do not require the token. All menu, portion and
-category writes do. Until the API URL variable is configured, Pages shows an
-API-not-configured message instead of requesting the visitor's localhost.
+category writes do. The Pages workflow always writes a deployed API URL, using
+the Actions variable when present and the default Render URL otherwise.
 
 Pushing to `main` triggers the GitHub Pages deployment workflow. After a
 successful run, open the storefront directly at
